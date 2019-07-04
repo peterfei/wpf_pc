@@ -138,6 +138,7 @@
     <Compile Include="lib\WxPayApi.cs" />
     <Compile Include="MyReactPage.cs" />
     <Compile Include="ReactUnityManager.cs" />
+    <Compile Include="WxPay\WxPay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameHost.cs" />
