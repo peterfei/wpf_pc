@@ -26,23 +26,7 @@ namespace wpf_new.WxPay
                 return "WxPay";
             }
         }
-        [ReactMethod]
-        public void GetFirstMacAddress(IPromise promise)
-        {
-            string macAddresses = string.Empty;
-
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.OperationalStatus == OperationalStatus.Up)
-                {
-                    macAddresses += nic.GetPhysicalAddress().ToString();
-
-                    break;
-                }
-            }
-            promise.Resolve(macAddresses);
-            // return macAddresses;
-        }
+        
 
         [ReactMethod]
         //生成直接微信支付url，支付url有效期为10分钟,模式二
