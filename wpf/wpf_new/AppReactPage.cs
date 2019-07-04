@@ -20,6 +20,7 @@ namespace wpf_new
         {
             new MainReactPackage(),
             new MyReactPage(),
+            new DeviceInfoPackage(),
         };
 
         public override bool UseDeveloperSupport

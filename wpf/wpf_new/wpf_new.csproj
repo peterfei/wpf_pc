@@ -120,6 +120,8 @@
     <Compile Include="business\Refund.cs" />
     <Compile Include="business\RefundQuery.cs" />
     <Compile Include="business\ResultNotify.cs" />
+    <Compile Include="DeviceInfoModel\DeviceInfoG.cs" />
+    <Compile Include="DeviceInfoPackage.cs" />
     <Compile Include="FloatWin.xaml.cs">
       <DependentUpon>FloatWin.xaml</DependentUpon>
     </Compile>
