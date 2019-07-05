@@ -10,6 +10,7 @@ using wpf_new.DeviceInfoModel;
 
 namespace wpf_new
 {
+    //
     public class DeviceInfoPackage : IReactPackage
     {
         public static ReactContext context;
