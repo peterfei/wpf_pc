@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "commit": "git-cz",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
+    "commit": "node node_modules/cz-customizable/standalone.js"
   },
   "dependencies": {
     "react": "16.6.3",
@@ -18,7 +17,6 @@
     "commitizen": "^3.1.1",
     "commitlint-config-cz": "^0.12.0",
     "cz-conventional-changelog": "^2.1.0",
-    "cz-customizable": "^6.2.0",
     "husky": "^3.0.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
@@ -27,10 +25,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    }
   }
 }

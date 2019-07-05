@@ -52,8 +52,3 @@ module.exports = {
   subjectLimit: 100
 
 };
-
-作者：四元小哥
-链接：https://juejin.im/post/5d05ef596fb9a07ef63fdbe7
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
