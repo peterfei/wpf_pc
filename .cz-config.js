@@ -15,10 +15,9 @@ module.exports = {
   ],
 
   scopes: [
-    {name: '用户模块'},
-    {name: '订单模块'},
-    {name: '社区模块'},
-    {name: '商品模块'}
+    {name: '原生模块'},
+    {name: 'JS模块'},
+    {name: '样式'}
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'
