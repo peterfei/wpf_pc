@@ -10,101 +10,36 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,
   TouchableHighlight
 } from 'react-native';
+import { createStackNavigator} from 'react-navigation';
 
-import UnityView from "./UnityView";
+import PersonScreen from "./component/Person/PersonScreen";
+import MallsScreen from "./component/Malls/MallsScreen";
+import MainScreen from './component/Main/MainScreen';
 
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
-
-  state = {
-    modalVisible: "flex",
-    width:600,
-    height:600
-  };
-  setModalVisible() {
-    if(this.state.width==600){
-      this.setState({
-        width:200,
-        height:200,
-        modalVisible:'none'
-      })
-    }else{
-      this.setState({
-        width:600,
-        height:600,
-        modalVisible:'flex'
-      })
+const RootStack = createStackNavigator( //跟路由
+  {//定义模块
+    Main: {screen: MainScreen},
+    Person: {screen: PersonScreen,},
+    Malls: {screen: MallsScreen,},
+  },
+  {
+    initialRouteName: 'Main',     //设置初始路由为Home
+    mode:'modal',
+    navigationOptions:{
+      header:null,
+      headerStyle:{
+        //background:'red'
+      },
+      headerBackTitle:null,
+      headerTintColor:'#333333',
+      showIcon:true,
+      animationEnabled:false,
+      gesturesEnabled:false
     }
-    
-    
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <View>
-          <UnityView   
-            height={this.state.height}
-            width={this.state.width}
-            display={this.state.modalVisible}
-            opacity={0.1}
-            zIndex={-9999999}
-            >
-            
-          </UnityView>
-            <View style={{zIndex:99999,marginTop:-60}} >
-              <Text >Welcome to React Native!</Text>
-            </View>
-          
-          </View>
-          <View style={{
-                  flex: 1,
-                  // marginLeft:500,
-                  // top:500,
-                  alignItems:"center",
-                  // flexDirection:"center",
-                  justifyContent: 'center',
-                  }}>
-
-              <Text style={styles.welcome}>Welcome to React Native!</Text>
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible();
-                }}
-              >
-                <Text style={styles.instructions}>Touchable</Text>
-                </TouchableHighlight>
-            
-          </View>
-        {/* </Modal> */}
-        
-      </View>
-    );
+);
+export default class App extends Component {
+  render() {                            //将Navigation作为根路径导出
+    return <RootStack />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
