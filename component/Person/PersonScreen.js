@@ -2,7 +2,7 @@ import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
   TouchableHighlight } from "react-native";
 
-import { PersonBodyLeft, PersonBodyRight, PersonTop, color} from "./index";
+import { PersonBodyLeft, PersonBodyRight, PersonTop} from "./index";
 
 //个人中心
 export default class PersonScreen extends Component {
@@ -16,7 +16,7 @@ export default class PersonScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <PersonTop/>
+        <PersonTop navigation={this.props.navigation}/>
         {/* Body */}
         <View style={styles.body}>
           <PersonBodyLeft/>

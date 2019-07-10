@@ -74,8 +74,8 @@ class PersonBodyRight extends Component {
                   style={[styles.textInput1,font.font20NoBold]}
                   onChangeText={(phoneNumber) => this.setState({phoneNumber})}
                 />
-                <Text style={[font.font20Blue,styles.textButtonLeft]}
-                  onPress={()=>this.change(this.refs.phoneNumber,1)}>绑定</Text>
+                <Text style={[font.font20Blue,styles.textButton]}
+                  onPress={()=>this.change(this.refs.phoneNumber)}>绑定</Text>
               </View>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>登陆邮箱：</Text>
@@ -87,10 +87,9 @@ class PersonBodyRight extends Component {
                   style={[styles.textInput1,font.font20NoBold]}
                   onChangeText={(emil) => this.setState({emil})}
                 />
-                <Text style={[font.font20Blue,styles.textButtonRight]}
+                <Text style={[font.font20Blue,styles.textButton]}
                 onPress={()=>{
                   this.change(this.refs.emil);
-                  this.save(1);
                 }
                 }>绑定</Text>
               </View>
@@ -108,25 +107,15 @@ class PersonBodyRight extends Component {
                   style={[styles.textInput1,{color:'white'}]}
                   onChangeText={(passWord) => this.setState({passWord})}
                 />
-                <Text style={[font.font20Blue,styles.textButtonLeft]}
-                onPress={()=>this.change(this.refs.passWord,3)}>修改</Text>
+                <Text style={[font.font20Blue,styles.textButton]}
+                onPress={()=>this.change(this.refs.passWord)}>修改</Text>
               </View>
             </View> 
 
           </View>
     )
   }
-  save(key){
-    alert(key)
-    // let date = this.state.saveArray;
-    // let result = date.push(key)
-     this.setState({
-      saveArray:key
-  })
-  }
   change(e){
-    // let index = this.state.saveArray;
-    // alert("index"+index)
     if(this.state.editable==false){
       this.setState({ 
       editable:true
@@ -137,7 +126,8 @@ class PersonBodyRight extends Component {
           borderColor:"rgb(78,78,78)",
           borderRadius:3,
           padding:0,
-          width:150,}
+          width:170,
+          height:25,}
       })
     }else{
       this.setState({
@@ -147,7 +137,9 @@ class PersonBodyRight extends Component {
         style:{
           borderWidth:0,
           padding:0,
-          backgroundColor:"rgb(47,47,47)",}
+          backgroundColor:"rgb(47,47,47)",
+          width:170,
+          height:25,}
       })
     }
   }
@@ -211,26 +203,27 @@ const styles = StyleSheet.create({
   row:{
     flexDirection:'row',
     justifyContent: 'space-between',
-    marginTop:40
+    marginTop:40,
   },
   mainBodyContent:{
     flexDirection:'row',
+    flexWrap:'wrap',
+    alignItems:'flex-start',
   },
   mainBodyContentLeft:{
     marginRight:15,
   },
-  textButtonLeft:{
-    position:"absolute",
-    right:80,
-  },
-  textButtonRight:{
-    position:"absolute",
-    right:0,
+  textButton:{
+    marginLeft:10,
+    flexWrap:'wrap',
+    alignItems:'flex-start',
   },
   textInput1:{
     borderWidth:0,
     padding:0,
     backgroundColor:"rgb(47,47,47)",
+    width:170,
+    height:25,
   },
 });
 

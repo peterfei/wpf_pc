@@ -13,11 +13,12 @@ class PersonTop extends Component {
       <View style={color.topBackground}>
         <View style={styles.top}>
           <Text style={font.font30}>个人中心</Text>
+          <TouchableHighlight style={styles.buttonImage} onPress={() => this.props.navigation.goBack()}>
           <Image
-            style={styles.buttonImage}
-           // onPress={() => this.props.navigation.goBack()}
+          style={styles.Image}
             source={require('../../img/close.png')}
           />
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
     position:"absolute",
     top:70/2/2,
     right:70/2/2,
+    width:70/2,
+    height:70/2,
+  },
+  Image:{
     width:70/2,
     height:70/2,
   }
