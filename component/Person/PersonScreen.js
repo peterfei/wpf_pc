@@ -16,7 +16,7 @@ export default class PersonScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <PersonTop/>
+        <PersonTop navigation={this.props.navigation}/>
         {/* Body */}
         <View style={styles.body}>
           <PersonBodyLeft/>
