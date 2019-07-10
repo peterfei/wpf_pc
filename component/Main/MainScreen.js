@@ -8,13 +8,37 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight
+  TouchableHighlight,
+  DeviceEventEmitter
 } from 'react-native';
 
 import UnityView from "../../UnityView";
 
 
 export default class MainScreen extends Component {
+  listeners = {
+    update: DeviceEventEmitter.addListener(
+      "UnityWinEmitter",
+      ({ ...passedArgs }) => {
+        let _key = passedArgs.modalVisible;
+        //alert(_key)
+        if (_key != "") {
+          this.setState({
+            modalVisible: _key
+          });
+        }
+      }
+    ),
+    
+  };
+  componentWillUnmount() {
+    // cleaning up listeners
+    // I am using lodash
+    _.each(this.listeners, listener => {
+      listener.remove();
+    });
+    this.timer && clearInterval(this.timer);
+  }
   static navigationOptions = {
     title:'Main',
   }

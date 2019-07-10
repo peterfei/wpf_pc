@@ -1,6 +1,8 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight } from "react-native";
+  TouchableHighlight,
+  DeviceEventEmitter
+} from "react-native";
 
 import {color, screen } from "./index";
 import {font} from "../Public/index";
@@ -10,7 +12,8 @@ import {
   TabBarTop,
   createStackNavigator,
   TabBarBottom,
-  NavigationActions
+  NavigationActions,
+  
 } from "react-navigation";
 //个人中心顶部
 
@@ -20,9 +23,15 @@ class PersonTop extends Component {
       <View style={color.topBackground}>
         <View style={styles.top}>
           
-          <TouchableHighlight onPress={() => 
-            this.props.navigation.dispatch(NavigationActions.back())
+          <TouchableHighlight onPress={() => {
+            DeviceEventEmitter.emit("UnityWinEmitter", {
+              modalVisible: "flex"
+            });
+              this.props.navigation.dispatch(NavigationActions.back())
 
+              
+          }
+            
 
           }>
           <Text style={font.font30}>个人中心</Text>
