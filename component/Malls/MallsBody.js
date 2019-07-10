@@ -2,7 +2,6 @@ import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
   TouchableHighlight } from "react-native";
 
-  import { MallsTop, MallsBody} from "./index";
   //商城
 export default class MallsScreen extends Component {
   static navigationOptions = {

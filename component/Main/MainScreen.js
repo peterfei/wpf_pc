@@ -53,8 +53,7 @@ export default class MainScreen extends Component {
 
         {/* 1.1.主界面按钮 */}
         <View style={{
-                    display: (this.state.currentIndex==="Main") ? "flex" : "none",
-                    position: (this.state.currentIndex==="Main") ? "absolute" : "relative",
+                    position:"absolute",
                     right:50,
                     top:50,
                     }}>
@@ -67,7 +66,7 @@ export default class MainScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                   onPress={() => {
-                    this.props.navigation.navigate('Person');
+                    this.showMalls();
                   }}
                 >
                   <Text style={{fontWeight:'bold'}}>商城</Text>
@@ -82,9 +81,6 @@ export default class MainScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
   },
   component:{
     flex: 1,
