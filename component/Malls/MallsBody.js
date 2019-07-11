@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight } from "react-native";
+  TouchableHighlight ,ScrollView} from "react-native";
 
 import { color} from "./index";
 import {font} from "../Public";
@@ -30,7 +30,9 @@ class MallsBody extends Component {
           </TouchableHighlight>
 
           <View style={styles.commodity}>
+            <ScrollView style={{height:'100%',width:'100%'}}>
             {this.renderCommodity()}
+            </ScrollView>
           </View>
 
           <TouchableHighlight>
@@ -51,6 +53,8 @@ class MallsBody extends Component {
   }
 
   renderCommodity(){
+    // let itemArr =[];
+    // let 
     return(
       <View style={[styles.commodityInformation,color.borderBackground]}>
         <Text style={font.font25}>系统解剖全集</Text>
@@ -88,6 +92,7 @@ const styles = StyleSheet.create({
     height:80,
   },
   commodity:{
+    backgroundColor:'red',
     marginLeft:'3%',
     marginRight:'3%',
     justifyContent: 'space-between', 
