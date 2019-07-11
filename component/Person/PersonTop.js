@@ -22,26 +22,21 @@ class PersonTop extends Component {
     return (
       <View style={color.topBackground}>
         <View style={styles.top}>
-          
-          <TouchableHighlight onPress={() => {
-            DeviceEventEmitter.emit("UnityWinEmitter", {
-              modalVisible: "flex"
-            });
-              this.props.navigation.dispatch(NavigationActions.back())
-
-              
-          }
-            
-
-          }>
           <Text style={font.font30}>个人中心</Text>
-
-          </TouchableHighlight>
+          <TouchableHighlight style={styles.buttonImage}
+          onPress={() => { 
+            this.props.navigation.dispatch(NavigationActions.back())
+            setTimeout(()=>{
+              DeviceEventEmitter.emit("UnityWinEmitter", {
+                modalVisible: "flex"
+              });
+            },200)
+          }}>
           <Image
-            style={styles.buttonImage}
-            
+          style={styles.Image}
             source={require('../../img/close.png')}
           />
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -63,6 +58,10 @@ const styles = StyleSheet.create({
     position:"absolute",
     top:70/2/2,
     right:70/2/2,
+    width:70/2,
+    height:70/2,
+  },
+  Image:{
     width:70/2,
     height:70/2,
   }
