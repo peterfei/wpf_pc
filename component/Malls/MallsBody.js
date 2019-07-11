@@ -10,6 +10,29 @@ class MallsBody extends Component {
   state={
     currentIndex:'个人中心',
     isLabel:{},
+    data:[{
+      'title':'系统解剖全集',
+      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
+      'price':'$99.99  1/年',
+      'num':'1',
+      },{
+      'title':'局部解剖全集',
+      'intro':'真实数据局部切割逐层剥离，局解学习神器',
+      'price':'$99.99  1/年',
+      'num':'2',
+      },{
+      'title':'经络俞穴',
+      'intro':'针灸模式，真正直观，易学易用',
+      'price':'$99.99  1/年',
+      'num':'3',
+      },{
+      'title':'解剖全集',
+      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
+      'price':'$199.99  1/年',
+      'num':'4',
+      }
+      ],
+    //activePage=0,
   }
   render() {
     return (
@@ -22,30 +45,35 @@ class MallsBody extends Component {
         </View>
 
         <View style={styles.content}>
-          <TouchableHighlight>
+          <View  style={{width:"6%",height:200}}></View>
+          <TouchableHighlight onPress={() =>this.moveCommodityLeft()}>
             <Image
               style={styles.leftRightImg}
               source={require('../../img/leftImg.png')}
             />
           </TouchableHighlight>
 
-          <View style={styles.commodity}>
-            <ScrollView style={{height:'100%',width:'100%'}}>
+          <ScrollView horizontal={true} 
+            ref='ScrollView'
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
+            //onMomentumScrollEnd={this.onScrollAnimationEnd}
+            style={styles.commodity}>
             {this.renderCommodity()}
-            </ScrollView>
-          </View>
+          </ScrollView>
 
-          <TouchableHighlight>
+          <TouchableHighlight onPress={() =>this.moveCommodityRight()}>
             <Image
               style={styles.leftRightImg}
               source={require('../../img/rightImg.png')}
             />
           </TouchableHighlight>
+          <View  style={{width:"6%",height:200}}></View>
         </View>
 
-        <View style={styles.bottom}>
+        {/* <View style={styles.bottom}>
           <Text style={font.font30}>······</Text>
-        </View>
+        </View> */}
 
       </View>
       
@@ -53,18 +81,45 @@ class MallsBody extends Component {
   }
 
   renderCommodity(){
-    // let itemArr =[];
-    // let 
-    return(
-      <View style={[styles.commodityInformation,color.borderBackground]}>
-        <Text style={font.font25}>系统解剖全集</Text>
-        <Text style={font.font20NoBold}>全面升级，全面提供了携带知识库的肌肉系统</Text>
-        <Text style={font.font20NoBold}>$99.99&nbsp;&nbsp;1/年</Text>
-        <View onPress={() => {alert('没钱')}} style={styles.button}>
-          <Text style={{fontSize:16}}>立即购买</Text>
+    let itemArr =[];
+    let data=this.state.data
+    for(let i=0;i<data.length;i++){
+      itemArr.push(
+        <View key={i} style={{flex:1,margin:0,marginLeft:10,marginRight:10}}>
+          <View style={[styles.commodityInformation,color.borderBackground]}>
+            <Text style={font.font25}>{data[i].title}</Text>
+            <Text style={font.font20NoBold}>{data[i].intro}</Text>
+            <Text style={font.font20NoBoldRed}>{data[i].price}</Text>
+            <View onPress={() => {alert('没钱:'+data[i].num)}} style={styles.button}>
+              <Text style={{fontSize:16}}>立即购买</Text>
+            </View>
+          </View>
         </View>
-      </View>
-    )
+      )
+    }
+    return itemArr;
+  }
+  //页码
+  // renderIndicator(){
+  //   let indicator=[],style;
+  //   for(let i=0;i<data.length/3;i++){
+  //     style=(i===this.state.activePage)?{color:"red"}:{color:"white"}
+  //     indicator.push(
+  //       <Text key={i} style={[font.font30,style]}>&bull;</Text>
+  //     )
+  //   }
+  // }
+  // onScrollAnimationEnd(e){
+  //   let currentPage =Math.floor(e.nativeEvent.contentOffset.x/ 除以一页的width);
+  //   this.setState({
+  //     activePage=currentPage
+  //   }) 
+  // }
+  moveCommodityLeft(){
+      this.refs.ScrollView.scrollTo({x: 800, y: 0, animated: true})
+  }
+  moveCommodityRight(){
+      this.refs.ScrollView.scrollTo({x: 800, y: 0, animated: true})
   }
 
 }
@@ -92,14 +147,14 @@ const styles = StyleSheet.create({
     height:80,
   },
   commodity:{
-    backgroundColor:'red',
     marginLeft:'3%',
     marginRight:'3%',
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-    flexDirection:'row',
-    width:'67%',
-    height:'55%'
+    //justifyContent: 'space-between', 
+    //alignItems: 'center',
+    //flexDirection:'row',
+     width:'66%',
+     margin:0,
+     height:'60%',
   },
   bottom:{
     position:"absolute",
@@ -114,11 +169,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft:'5%',
     paddingRight:'5%',
-    width:'31%',
-    height:'100%',
+    width:300,
+    height:'96%',
     borderRadius:5,
     borderColor:'rgb(13,192,217)',
-    borderWidth:2
+    borderWidth:2,
+    margin:0,
   },
   button:{
     backgroundColor:'white',

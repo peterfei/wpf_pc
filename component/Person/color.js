@@ -10,4 +10,12 @@ export default {
     borderBottomWidth:1,
     borderColor:"rgb(78,78,78)"
   },
+
+  lightBorder:{ borderWidth:1,borderColor:"rgb(100,100,100)"},
+  lightBorderBottom:{
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderBottomWidth:1,
+    borderColor:"rgb(100,100,100)"
+  },
 };

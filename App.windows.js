@@ -15,15 +15,17 @@ import { createStackNavigator} from 'react-navigation';
 import PersonScreen from "./component/Person/PersonScreen";
 import MallsScreen from "./component/Malls/MallsScreen";
 import MainScreen from './component/Main/MainScreen';
+import PayScreen from './component/Pay/PayScreen';
 
 const RootStack = createStackNavigator( //跟路由
   {//定义模块
     Main: {screen: MainScreen},
     Person: {screen: PersonScreen,},
     Malls: {screen: MallsScreen,},
+    Pay: {screen: PayScreen},
   },
   {
-    initialRouteName: 'Main',     //设置初始路由为Home
+    initialRouteName: 'Pay',     //设置初始路由为Home
     mode:'modal',
     navigationOptions:{
       header:null,
