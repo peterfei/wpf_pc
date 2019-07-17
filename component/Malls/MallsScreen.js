@@ -13,7 +13,7 @@ export default class MallsScreen extends Component {
     return (
       <View style={styles.container}>
         <MallsTop navigation={this.props.navigation}/>
-        <MallsBody/>
+        <MallsBody navigation={this.props.navigation}/>
       </View>
     );
   }

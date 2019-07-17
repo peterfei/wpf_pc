@@ -8,6 +8,40 @@ import {font} from "../Public";
   //支付页面主体
 class PayBody extends Component {
   state={
+    dataAll:[{
+      'title':'系统解剖全集',
+      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
+      'content':'整体人、运动系统、内脏学、脉管系统、感觉其、神经系统、内分泌、肌肉起止点、肌肉动画、练习内容合集',
+      'price1':'$99.99/年',
+      'price2':'低至0.99/天',
+      'nowPrice':'$99.99',
+      'source':require('../../img/text.jpg')
+    },{
+      'title':'局部解剖全集',
+      'intro':'真实数据局部切割逐层剥离，局解学习神器',
+      'content':'整体人、运动系统、神经系统、内分泌、肌肉起止点、肌肉动画、练习内容合集',
+      'price1':'$99.99/年',
+      'price2':'低至0.99/天',
+      'nowPrice':'$55.99',
+      'source':require('../../img/text.jpg')
+    },{
+      'title':'经络俞穴',
+      'intro':'针灸模式，真正直观，易学易用',
+      'content':'整体人、运动系统、肌肉动画、练习内容合集',
+      'price1':'$99.99/年',
+      'price2':'低至0.99/天',
+      'nowPrice':'$45.99',
+      'source':require('../../img/text.jpg')
+    },{
+      'title':'解剖全集',
+      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
+      'content':'整体人肌肉动画、练习内容合集',
+      'price1':'$99.99/年',
+      'price2':'低至0.99/天',
+      'nowPrice':'$12.99',
+      'source':require('../../img/text.jpg')
+    },
+    ],
     data:{
       'title':'系统解剖全集',
       'intro':'全面升级，全面提供了携带知识库的肌肉系统',
@@ -15,9 +49,13 @@ class PayBody extends Component {
       'price1':'$99.99/年',
       'price2':'低至0.99/天',
       'nowPrice':'$99.99',
-      'num':'101011',
       'source':require('../../img/text.jpg')
-    }
+    },
+  }
+  componentWillMount(){
+    this.setState({
+      data:this.state.dataAll[num]
+    })
   }
   render(){
     return(
@@ -31,6 +69,11 @@ class PayBody extends Component {
           <View style={styles.information}>
             <Text style={font.font18}>某某某</Text>
             <Text style={font.font18}>普通用户</Text>
+          </View>
+          <View>
+            <TouchableHighlight  onPress={()=>{this.props.navigation.navigate('Person')}}>
+              <Text style={[font.font18,styles.changeID]}>切换账号</Text>
+            </TouchableHighlight>
           </View>
         </View>
 
@@ -104,7 +147,12 @@ const styles = StyleSheet.create({
   },
   payImg:{
     height:'70%',
-  }
+  },
+  changeID:{
+    textDecorationLine:'underline',
+    marginTop:8,
+    marginLeft:15,
+  },
 });
 
 module.exports = PayBody;

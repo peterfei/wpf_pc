@@ -14,22 +14,22 @@ class MallsBody extends Component {
       'title':'系统解剖全集',
       'intro':'全面升级，全面提供了携带知识库的肌肉系统',
       'price':'$99.99  1/年',
-      'num':'1',
+      'num':'0',
       },{
       'title':'局部解剖全集',
       'intro':'真实数据局部切割逐层剥离，局解学习神器',
       'price':'$99.99  1/年',
-      'num':'2',
+      'num':'1',
       },{
       'title':'经络俞穴',
       'intro':'针灸模式，真正直观，易学易用',
       'price':'$99.99  1/年',
-      'num':'3',
+      'num':'2',
       },{
       'title':'解剖全集',
       'intro':'全面升级，全面提供了携带知识库的肌肉系统',
       'price':'$199.99  1/年',
-      'num':'4',
+      'num':'3',
       }
       ],
     //activePage=0,
@@ -90,15 +90,20 @@ class MallsBody extends Component {
             <Text style={font.font25}>{data[i].title}</Text>
             <Text style={font.font20NoBold}>{data[i].intro}</Text>
             <Text style={font.font20NoBoldRed}>{data[i].price}</Text>
-            <View onPress={() => {alert('没钱:'+data[i].num)}} style={styles.button}>
+            <TouchableHighlight onPress={() => this.change(data[i].num)} style={styles.button}>
               <Text style={{fontSize:16}}>立即购买</Text>
-            </View>
+            </TouchableHighlight>
           </View>
         </View>
       )
     }
     return itemArr;
   }
+  change(num){
+    this.props.navigation.navigate('Pay',{num:num});
+  }
+  //this.props.navigation.navigate('Pay');
+
   //页码
   // renderIndicator(){
   //   let indicator=[],style;
@@ -116,7 +121,7 @@ class MallsBody extends Component {
   //   }) 
   // }
   moveCommodityLeft(){
-      this.refs.ScrollView.scrollTo({x: 800, y: 0, animated: true})
+      this.refs.ScrollView.scrollTo({x: -800, y: 0, animated: true})
   }
   moveCommodityRight(){
       this.refs.ScrollView.scrollTo({x: 800, y: 0, animated: true})

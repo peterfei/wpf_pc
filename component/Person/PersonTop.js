@@ -6,15 +6,7 @@ import { Platform, StyleSheet, Text, View,Image,
 
 import {color, screen } from "./index";
 import {font} from "../Public/index";
-import {
-  StackNavigator,
-  TabNavigator,
-  TabBarTop,
-  createStackNavigator,
-  TabBarBottom,
-  NavigationActions,
-  
-} from "react-navigation";
+import {NavigationActions} from "react-navigation";
 //个人中心顶部
 
 class PersonTop extends Component {

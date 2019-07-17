@@ -25,7 +25,7 @@ const RootStack = createStackNavigator( //跟路由
     Pay: {screen: PayScreen},
   },
   {
-    initialRouteName: 'Pay',     //设置初始路由为Home
+    initialRouteName: 'Main',     //设置初始路由为Home
     mode:'modal',
     navigationOptions:{
       header:null,

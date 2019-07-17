@@ -1,7 +1,8 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight } from "react-native";
+  TouchableHighlight ,DeviceEventEmitter} from "react-native";
 
+import {NavigationActions} from "react-navigation";
 import { color} from "./index";
 import {font} from "../Public";
 
