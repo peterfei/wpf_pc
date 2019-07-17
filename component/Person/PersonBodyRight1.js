@@ -9,7 +9,7 @@ import RadioModal from 'react-native-radio-master';
 
 //个人中心主体右侧
 
-class PersonBodyRight extends Component {
+class PersonBodyRight1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +69,7 @@ class PersonBodyRight extends Component {
                 <TextInput
                   defaultValue={this.state.phoneNumber}
                   keyboardType='numeric'
-                  editable={this.state.editable}
+                  editable={false}
                   ref='phoneNumber'
                   style={[styles.textInput1,font.font20NoBold]}
                   onChangeText={(phoneNumber) => this.setState({phoneNumber})}
@@ -82,7 +82,7 @@ class PersonBodyRight extends Component {
                 <TextInput
                   defaultValue={this.state.emil}
                   keyboardType='email-address'
-                  editable={this.state.editable}
+                  editable={false}
                   ref='emil'
                   style={[styles.textInput1,font.font20NoBold]}
                   onChangeText={(emil) => this.setState({emil})}
@@ -102,7 +102,7 @@ class PersonBodyRight extends Component {
                 <TextInput
                   defaultValue={this.state.passWord}
                   secureTextEntry={true}
-                  editable={this.state.editable}
+                  editable={false}
                   ref='passWord'
                   style={[styles.textInput1,{color:'white'}]}
                   onChangeText={(passWord) => this.setState({passWord})}
@@ -127,7 +127,8 @@ class PersonBodyRight extends Component {
           borderRadius:3,
           padding:0,
           width:170,
-          height:25,}
+          height:25,},
+        editable:true
       })
     }else{
       this.setState({
@@ -139,7 +140,8 @@ class PersonBodyRight extends Component {
           padding:0,
           backgroundColor:"rgb(47,47,47)",
           width:170,
-          height:25,}
+          height:25,},
+        editable:false
       })
     }
   }
@@ -227,4 +229,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = PersonBodyRight;
+module.exports = PersonBodyRight1;

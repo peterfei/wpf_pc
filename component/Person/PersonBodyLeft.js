@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight } from "react-native";
+  TouchableHighlight ,DeviceEventEmitter} from "react-native";
 
 import {color, screen } from "./index";
 import {font,getScreen} from "../Public/index";
@@ -9,7 +9,6 @@ import {font,getScreen} from "../Public/index";
 class PersonBodyLeft extends Component {
   state={
     currentIndex:'个人中心',
-    isLabel:{},
   }
   render() {
     return (
@@ -25,36 +24,40 @@ class PersonBodyLeft extends Component {
           </View>
         </View>
 
-          {this.renderLabel('个人中心')}
+          {this.renderLabel()}
 
-          {this.renderLabel('账户设置')}
-
-          {this.renderLabel('我的书签')}
 
       </View>
     );
   }
 
-  renderLabel(name){
-    return(
-      <TouchableHighlight
-        style={[styles.label,color.borderBottom,this.state.isLabel]}
-        onPress={() => {this.changeIndex(name);}}
+  renderLabel(){
+    let indicator=[],isLabel;
+    let title=['个人中心','账户设置','我的书签']
+    for(let i=0;i<title.length;i++){
+      if(title[i]==this.state.currentIndex){
+          isLabel={backgroundColor:"rgb(78,78,78)"}
+      }else{
+          isLabel={}
+      };
+      indicator.push(
+        <TouchableHighlight key={i}
+        onPress={() => this.change(i,title[i])}
         >
-            <Text style={font.font20}>{name}</Text>
-      </TouchableHighlight>
-    )
-  }
-  changeIndex(name){
-    if(name==this.state.currentIndex){
-      this.setState({
-        isLabel:{backgroundColor:"rgb(78,78,78)"}
-      })
-    }else{
-      this.setState({
-        isLabel:{}
-      })
+          <View style={[styles.label,color.borderBottom,isLabel]}>
+            <Text style={font.font20}>{title[i]}</Text>
+          </View>
+        </TouchableHighlight>
+      )
     }
+    return indicator;
+  }
+  change(i,title){
+    // alert(`i is ${i} and title is ${title}`)
+    this.setState({currentIndex:title});
+    DeviceEventEmitter.emit("PersonBodyRightNum", {
+      num: i
+    });
   }
 }
 

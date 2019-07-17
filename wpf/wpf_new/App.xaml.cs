@@ -74,6 +74,8 @@ namespace wpf_new
                     Title = "wpf_new",
                     Height = 768,
                     Width = 1024,
+                    MinHeight = 768,
+                    MinWidth = 1024,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen
                 };
 

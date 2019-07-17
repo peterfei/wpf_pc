@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,ScrollView} from "react-native";
+  TouchableHighlight ,ScrollView,Dimensions} from "react-native";
 
 import { color} from "./index";
 import {font} from "../Public";
@@ -33,7 +33,26 @@ class MallsBody extends Component {
       }
       ],
     //activePage=0,
+      width:1024,
+      height:768,
   }
+  componentWillMount(){
+    this.time = setInterval(
+      () => { 
+        this.setState({
+          width:Dimensions.get('window').width,
+          height:Dimensions.get('window').height
+        });
+      }
+    );
+  }
+  componentWillUnmount(){
+    this.time && clearTimeout(this.time);
+  }
+  // componentWillUnmount(){
+  //   this.time && setInterval(this.time);
+  // }
+
   render() {
     return (
       <View style={styles.container}>
@@ -72,7 +91,7 @@ class MallsBody extends Component {
         </View>
 
         {/* <View style={styles.bottom}>
-          <Text style={font.font30}>······</Text>
+          {this.renderIndicator()}
         </View> */}
 
       </View>
@@ -86,7 +105,7 @@ class MallsBody extends Component {
     for(let i=0;i<data.length;i++){
       itemArr.push(
         <View key={i} style={{flex:1,margin:0,marginLeft:10,marginRight:10}}>
-          <View style={[styles.commodityInformation,color.borderBackground]}>
+          <View style={[styles.commodityInformation,color.borderBackground,{width:this.state.width*0.2}]}>
             <Text style={font.font25}>{data[i].title}</Text>
             <Text style={font.font20NoBold}>{data[i].intro}</Text>
             <Text style={font.font20NoBoldRed}>{data[i].price}</Text>
@@ -174,7 +193,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft:'5%',
     paddingRight:'5%',
-    width:300,
     height:'96%',
     borderRadius:5,
     borderColor:'rgb(13,192,217)',

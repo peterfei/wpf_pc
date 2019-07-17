@@ -11,6 +11,7 @@ import {Platform, StyleSheet, Text, View,Image,
   TouchableHighlight,
   DeviceEventEmitter
 } from 'react-native';
+import _ from "lodash";
 
 import UnityView from "../../UnityView";
 
