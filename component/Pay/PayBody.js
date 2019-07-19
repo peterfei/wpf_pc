@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,ScrollView} from "react-native";
+  TouchableHighlight ,ScrollView,AsyncStorage} from "react-native";
 
 import { color} from "./index";
 import {font} from "../Public";
@@ -54,8 +54,13 @@ class PayBody extends Component {
   }
   componentWillMount(){
     this.setState({
-      data:this.state.dataAll[num]
+      data:this.state.dataAll[this.props.num]
     })
+  }
+  changeID(){
+    AsyncStorage.removeItem("userName");
+    AsyncStorage.removeItem("password");
+    this.props.navigation.navigate('Login');
   }
   render(){
     return(
@@ -71,7 +76,7 @@ class PayBody extends Component {
             <Text style={font.font18}>普通用户</Text>
           </View>
           <View>
-            <TouchableHighlight  onPress={()=>{this.props.navigation.navigate('Person')}}>
+            <TouchableHighlight  onPress={()=>this.changeID()}>
               <Text style={[font.font18,styles.changeID]}>切换账号</Text>
             </TouchableHighlight>
           </View>

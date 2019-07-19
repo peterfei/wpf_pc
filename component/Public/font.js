@@ -10,4 +10,7 @@ export default {
   font20Blue:{ fontSize:20, color:'rgb(13,192,217)', fontWeight:'bold' },
   font20NoBold:{ fontSize:20, color:'white' },
   font20NoBoldRed:{ fontSize:20, color:'rgb(255,99,71)' },
+  font20NoBoldGray:{ fontSize:20, color:'rgb(78,78,78)' },
+  font18NoBoldGray:{ fontSize:18, color:'rgb(78,78,78)' },
+  font18NoBoldRed:{ fontSize:18, color:'rgb(255,99,71)' },
 };

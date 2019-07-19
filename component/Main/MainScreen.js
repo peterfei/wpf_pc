@@ -9,7 +9,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,
   TouchableHighlight,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  AsyncStorage
 } from 'react-native';
 import _ from "lodash";
 
@@ -48,6 +49,8 @@ export default class MainScreen extends Component {
     width:600,
     height:600,
     currentIndex:"Main",
+    userName:'',
+    password:'',
   };
   showPerson(){
     this.setState({
@@ -63,6 +66,27 @@ export default class MainScreen extends Component {
     });
     this.props.navigation.navigate('Malls');
   };
+  componentDidMount(){
+    let _that = this;
+    AsyncStorage.getItem("userName",function (error, result) {
+      if (error) {
+          console.log('读取失败')
+      }else {
+        _that.setState({
+            userName:result
+          })
+      }
+    });
+    AsyncStorage.getItem("password",function (error, result) {
+      if (error) {
+          console.log('读取失败')
+      }else {
+        _that.setState({
+            password:result
+          })
+      }
+    })
+  }
 
   render() {
     return (
@@ -96,6 +120,8 @@ export default class MainScreen extends Component {
                 >
                   <Text style={{fontWeight:'bold'}}>商城</Text>
                 </TouchableHighlight>
+                <Text style={{fontWeight:'bold'}}>用户名：{this.state.userName}</Text>
+                <Text style={{fontWeight:'bold'}}>密&nbsp;&nbsp;码：{this.state.password}</Text>
         </View>
         
       </View>
