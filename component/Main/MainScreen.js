@@ -15,7 +15,7 @@ import {Platform, StyleSheet, Text, View,Image,
 import _ from "lodash";
 
 import UnityView from "../../UnityView";
-
+import  CryptoJS from  "crypto-js";
 
 export default class MainScreen extends Component {
   listeners = {
@@ -51,6 +51,8 @@ export default class MainScreen extends Component {
     currentIndex:"Main",
     userName:'',
     password:'',
+    AESuserName:'',
+    AESpassword:'',
   };
   showPerson(){
     this.setState({
@@ -67,13 +69,18 @@ export default class MainScreen extends Component {
     this.props.navigation.navigate('Malls');
   };
   componentDidMount(){
+     //读取
     let _that = this;
     AsyncStorage.getItem("userName",function (error, result) {
       if (error) {
           console.log('读取失败')
       }else {
+        //AES解密
+        let bytes  = CryptoJS.AES.decrypt(JSON.parse(result), 'X2S1B5GS1F6G2X5D');
+        let plaintext = bytes.toString(CryptoJS.enc.Utf8); 
         _that.setState({
-            userName:result
+            AESuserName:result,
+            userName:plaintext
           })
       }
     });
@@ -81,8 +88,12 @@ export default class MainScreen extends Component {
       if (error) {
           console.log('读取失败')
       }else {
+        //AES解密
+        let bytes  = CryptoJS.AES.decrypt(JSON.parse(result), 'X2S1B5GS1F6G2X5D');
+        let plaintext = bytes.toString(CryptoJS.enc.Utf8); 
         _that.setState({
-            password:result
+            AESpassword:result,
+            password:plaintext
           })
       }
     })
@@ -120,6 +131,8 @@ export default class MainScreen extends Component {
                 >
                   <Text style={{fontWeight:'bold'}}>商城</Text>
                 </TouchableHighlight>
+                <Text style={{fontWeight:'bold'}}>AES用户名：{this.state.AESuserName}</Text>
+                <Text style={{fontWeight:'bold'}}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
                 <Text style={{fontWeight:'bold'}}>用户名：{this.state.userName}</Text>
                 <Text style={{fontWeight:'bold'}}>密&nbsp;&nbsp;码：{this.state.password}</Text>
         </View>

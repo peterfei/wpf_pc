@@ -5,6 +5,7 @@ import { Platform, StyleSheet, Text, View,Image,
 import color from "../Person/color";
 import { font } from "../Public";
 import TestData from "../../LocalData/TestData.json"
+import  CryptoJS from  "crypto-js";
   //登陆页面
 export default class LoginScreen extends Component {
   static navigationOptions = {
@@ -101,17 +102,19 @@ export default class LoginScreen extends Component {
     );
   }
   login(){
+    let AESuserName = CryptoJS.AES.encrypt(this.state.userName,'X2S1B5GS1F6G2X5D').toString();
+    let AESpassword = CryptoJS.AES.encrypt(this.state.password,'X2S1B5GS1F6G2X5D').toString();
     if(this.state.userName != null && this.state.userName != "" && this.state.password != null && this.state.password != ""){
       for(let i=0;i<this.state.dataSource.data.length;i++){
         if(this.state.userName==this.state.dataSource.data[i].userName && this.state.password==this.state.dataSource.data[i].password){
-          AsyncStorage.setItem("userName", JSON.stringify(this.state.userName),
+          AsyncStorage.setItem("userName", JSON.stringify(AESuserName),
            function (error) {
             if (error) {
               console.log('存储失败')
             }else {
               console.log('存储完成')
             }});
-          AsyncStorage.setItem("password", JSON.stringify(this.state.password),
+          AsyncStorage.setItem("password", JSON.stringify(AESpassword),
           function (error) {
             if (error) {
               console.log('存储失败')
@@ -121,7 +124,8 @@ export default class LoginScreen extends Component {
           this.props.navigation.navigate('Main');
           this.setState({
             warn:''
-          })
+          });
+          return;
         }else{
           this.setState({
             warn:'账号或密码错误!'
