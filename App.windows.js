@@ -19,6 +19,7 @@ import PayScreen from './component/Pay/PayScreen';
 import LoginScreen from './component/Login/LoginScreen';
 import RegisterScreen from './component/Register/RegisterScreen';
 import FindScreen from './component/Find/FindScreen';
+import InitializeScreen from './component/Initialize/InitializeScreen';
 
 const RootStack = createStackNavigator( //跟路由
   {//定义模块
@@ -29,9 +30,10 @@ const RootStack = createStackNavigator( //跟路由
     Login: {screen: LoginScreen},
     Register: {screen: RegisterScreen},
     Find: {screen: FindScreen},
+    Initialize: {screen: InitializeScreen},
   },
   {
-    initialRouteName: 'Login',     //设置初始路由为Home
+    initialRouteName: 'Initialize',     //设置初始路由为Home
     mode:'modal',
     navigationOptions:{
       header:null,
