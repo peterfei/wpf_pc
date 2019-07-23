@@ -98,7 +98,6 @@ export default class MainScreen extends Component {
       }
     })
   }
-
   render() {
     return (
       <View style={styles.container}>
@@ -131,10 +130,12 @@ export default class MainScreen extends Component {
                 >
                   <Text style={{fontWeight:'bold'}}>商城</Text>
                 </TouchableHighlight>
-                <Text style={{fontWeight:'bold'}}>AES用户名：{this.state.AESuserName}</Text>
-                <Text style={{fontWeight:'bold'}}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
-                <Text style={{fontWeight:'bold'}}>用户名：{this.state.userName}</Text>
-                <Text style={{fontWeight:'bold'}}>密&nbsp;&nbsp;码：{this.state.password}</Text>
+                <View style={{width:200,margin:20}}>
+                <Text style={{fontWeight:'bold',margin:10}}>AES用户名：{this.state.AESuserName}</Text>
+                <Text style={{fontWeight:'bold',margin:10}}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
+                <Text style={{fontWeight:'bold',margin:10}}>用户名：{this.state.userName}</Text>
+                <Text style={{fontWeight:'bold',margin:10}}>密&nbsp;&nbsp;码：{this.state.password}</Text>
+                </View>
         </View>
         
       </View>

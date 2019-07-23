@@ -7,7 +7,7 @@ import { PayTop, PayBody} from "./index";
   //支付页面
 export default class PayScreen extends Component {
   static navigationOptions = {
-    title:'Pay',
+    title:'PayScreen',
   }
   render() {
     return (

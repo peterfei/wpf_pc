@@ -17,7 +17,8 @@ import MallsScreen from "./component/Malls/MallsScreen";
 import MainScreen from './component/Main/MainScreen';
 import PayScreen from './component/Pay/PayScreen';
 import LoginScreen from './component/Login/LoginScreen';
-import RegisterScreen from './component/Register/RegisterScreen'
+import RegisterScreen from './component/Register/RegisterScreen';
+import FindScreen from './component/Find/FindScreen';
 
 const RootStack = createStackNavigator( //跟路由
   {//定义模块
@@ -27,6 +28,7 @@ const RootStack = createStackNavigator( //跟路由
     Pay: {screen: PayScreen},
     Login: {screen: LoginScreen},
     Register: {screen: RegisterScreen},
+    Find: {screen: FindScreen},
   },
   {
     initialRouteName: 'Login',     //设置初始路由为Home

@@ -1,11 +1,12 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight,ImageBackground,TextInput,AsyncStorage} from "react-native";
+  TouchableHighlight,ImageBackground,TextInput,AsyncStorage,DeviceEventEmitter} from "react-native";
 
 import color from "../Person/color";
 import { font } from "../Public";
 import TestData from "../../LocalData/TestData.json"
 import  CryptoJS from  "crypto-js";
+import _ from "lodash";
   //登陆页面
 export default class LoginScreen extends Component {
   static navigationOptions = {
@@ -25,6 +26,35 @@ export default class LoginScreen extends Component {
     this.setState({
       dataSource:TestData
     })
+    // DeviceEventEmitter.addListener('keydown', function(e) {
+    //   console.log('keycode: '+e.which);
+    // });
+  }
+  listeners = {
+    update: DeviceEventEmitter.addListener(
+      "LoginWinEmitter",
+      ({ ...passedArgs}) => {
+        let back=passedArgs.back;
+        let login=passedArgs.login;
+        if(back){
+          this.refs.TextInput1.setNativeProps({
+            placeholder:'用户名/手机号'
+          });
+          this.refs.TextInput2.setNativeProps({
+            placeholder:'密码'
+          });
+        }
+      }
+    ),
+    
+  };
+  componentWillUnmount() {
+    // cleaning up listeners
+    // I am using lodash
+    _.each(this.listeners, listener => {
+      listener.remove();
+    });
+    this.timer && clearInterval(this.timer);
   }
   // loadDataFormNet(){
   //   fetch(this.props.api_url)
@@ -45,7 +75,7 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
         <ImageBackground
           style={styles.background}
-          source={require('../../img/background.jpg')}>
+          source={require('../../img/background.png')}>
             
             <View style={styles.body}>
 
@@ -59,6 +89,7 @@ export default class LoginScreen extends Component {
                   source={require('../../img/userName.png')}/>
                 <View style={styles.input}>
                   <TextInput
+                    ref='TextInput1'
                     style={[styles.textInput,font.font20NoBoldGray]}
                     maxLength={11}
                     placeholder='用户名/手机号' placeholderTextColor='rgb(78,78,78)'
@@ -72,6 +103,7 @@ export default class LoginScreen extends Component {
                   source={require('../../img/password.png')}/>
                 <View style={styles.input}>
                   <TextInput
+                    ref='TextInput2'
                     style={[styles.textInput,font.font20NoBoldGray]}
                     secureTextEntry={true} maxLength={16}
                     placeholder='密码' placeholderTextColor='rgb(78,78,78)'
@@ -88,10 +120,12 @@ export default class LoginScreen extends Component {
               </TouchableHighlight>
 
               <View style={styles.index}>
-                <TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => this.change1()}>
                   <Text style={font.font18NoBoldGray}>忘记密码</Text>
                 </TouchableHighlight>
-                <TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => this.change2()}>
                   <Text style={font.font18NoBoldRed}>立即注册</Text>
                 </TouchableHighlight>
               </View>
@@ -100,6 +134,24 @@ export default class LoginScreen extends Component {
         </ImageBackground>
       </View>
     );
+  }
+  change1(){
+    this.props.navigation.navigate('Find');
+    this.refs.TextInput1.setNativeProps({
+      placeholder:''
+    });
+    this.refs.TextInput2.setNativeProps({
+      placeholder:''
+    })
+  }
+  change2(){
+    this.props.navigation.navigate('Register');
+    this.refs.TextInput1.setNativeProps({
+      placeholder:''
+    });
+    this.refs.TextInput2.setNativeProps({
+      placeholder:''
+    })
   }
   login(){
     let AESuserName = CryptoJS.AES.encrypt(this.state.userName,'X2S1B5GS1F6G2X5D').toString();
@@ -123,7 +175,7 @@ export default class LoginScreen extends Component {
             }});
           this.props.navigation.navigate('Main');
           this.setState({
-            warn:''
+            warn:'',
           });
           return;
         }else{

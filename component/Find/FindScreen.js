@@ -5,10 +5,10 @@ import { Platform, StyleSheet, Text, View,Image,
 import color from "../Person/color";
 import { font } from "../Public";
 
-  //登陆页面
-export default class RegisterScreen extends Component {
+  //找回密码页面
+export default class FindScreen extends Component {
   static navigationOptions = {
-    title:'Register',
+    title:'Find',
   }
   state={
     userName:'',
@@ -52,28 +52,28 @@ export default class RegisterScreen extends Component {
               <TextInput
                 style={[styles.textInput,font.font20NoBoldGray]}
                 maxLength={16} secureTextEntry={true}
-                placeholder='密码' placeholderTextColor='rgb(78,78,78)'
+                placeholder='新密码' placeholderTextColor='rgb(78,78,78)'
                 onChangeText={(password) => this.setState({password})}
               />
             </View>
             <View style={[styles.input,color.borderBottom]}>
               <TextInput
                 style={[styles.textInput,font.font20NoBoldGray]}
-                maxLength={10}
-                placeholder='姓名' placeholderTextColor='rgb(78,78,78)'
-                onChangeText={(name) => this.setState({name})}
+                maxLength={16} secureTextEntry={true}
+                placeholder='确认新密码' placeholderTextColor='rgb(78,78,78)'
+                onChangeText={(password) => this.setState({password})}
               />
             </View>
 
             <TouchableHighlight style={{width:'100%'}}>
               <View style={styles.button}>
-                <Text style={font.font20}>注册</Text>
+                <Text style={font.font20}>找回</Text>
               </View>
             </TouchableHighlight>
 
             <TouchableHighlight
               onPress={()=>this.change()}>
-              <Text style={font.font18NoBoldGray}>已有账号？登陆</Text>
+              <Text style={font.font18NoBoldGray}>已有找回？登陆</Text>
             </TouchableHighlight>
           </View>
           </View>

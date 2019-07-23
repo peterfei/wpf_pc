@@ -1,6 +1,7 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,ScrollView,AsyncStorage} from "react-native";
+  TouchableHighlight ,ScrollView,AsyncStorage,DeviceEventEmitter} from "react-native";
+  import { StackActions, NavigationActions } from 'react-navigation';
 
 import { color} from "./index";
 import {font} from "../Public";
@@ -57,10 +58,14 @@ class PayBody extends Component {
       data:this.state.dataAll[this.props.num]
     })
   }
-  changeID(){
-    AsyncStorage.removeItem("userName");
-    AsyncStorage.removeItem("password");
-    this.props.navigation.navigate('Login');
+  changeID(){ 
+    // AsyncStorage.removeItem("userName");
+    // AsyncStorage.removeItem("password");
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: "Login" })]
+    });
+    this.props.navigation.dispatch(resetAction);  
   }
   render(){
     return(
