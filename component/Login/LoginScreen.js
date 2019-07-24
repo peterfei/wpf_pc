@@ -17,6 +17,7 @@ export default class LoginScreen extends Component {
     userName:'',
     password:'',
     dataSource:[],
+    weixinLogin:false,
   }
   // static defaultProps ={
   //   api_url:'sss'
@@ -77,63 +78,112 @@ export default class LoginScreen extends Component {
           style={styles.background}
           source={require('../../img/background.png')}>
             
-            <View style={styles.body}>
+            {this.Login()}
 
-              <Text style={[font.font15NoBoldRed,{marginBottom:15}]}>
-                {this.state.warn}
-              </Text>
-
-              <View style={styles.content}>
-                <Image
-                  style={styles.icon}
-                  source={require('../../img/userName.png')}/>
-                <View style={styles.input}>
-                  <TextInput
-                    ref='TextInput1'
-                    style={[styles.textInput,font.font20NoBoldGray]}
-                    maxLength={11}
-                    placeholder='用户名/手机号' placeholderTextColor='rgb(78,78,78)'
-                    onChangeText={(userName) => this.setState({userName})}
-                  />
-                </View>
-              </View>
-              <View style={styles.content}>
-                <Image
-                  style={styles.icon}
-                  source={require('../../img/password.png')}/>
-                <View style={styles.input}>
-                  <TextInput
-                    ref='TextInput2'
-                    style={[styles.textInput,font.font20NoBoldGray]}
-                    secureTextEntry={true} maxLength={16}
-                    placeholder='密码' placeholderTextColor='rgb(78,78,78)'
-                    onChangeText={(password) => this.setState({password})}
-                  />
-                </View>
-              </View>
-
-              <TouchableHighlight style={{width:'25%'}}
-                onPress={() => this.login()} >
-                <View style={styles.button}>
-                  <Text style={font.font20}>登陆</Text>
-                </View>
-              </TouchableHighlight>
-
-              <View style={styles.index}>
-                <TouchableHighlight
-                  onPress={() => this.change1()}>
-                  <Text style={font.font18NoBoldGray}>忘记密码</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  onPress={() => this.change2()}>
-                  <Text style={font.font18NoBoldRed}>立即注册</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-            
         </ImageBackground>
       </View>
     );
+  }
+  Login(){
+    if(this.state.weixinLogin){
+      return(
+        this.weixinLogin()
+      )
+    }else{
+      return(
+        this.userLogin()
+      )
+    }
+  }
+  userLogin(){
+    return(
+      <View style={styles.body}>
+
+        <Text style={[font.font15NoBoldRed,{marginBottom:15}]}>
+          {this.state.warn}
+        </Text>
+
+        <View style={styles.content}>
+          <Image
+            style={styles.icon}
+            source={require('../../img/userName.png')}/>
+          <View style={styles.input}>
+            <TextInput
+              ref='TextInput1'
+              style={[styles.textInput,font.font20NoBoldGray]}
+              maxLength={11}
+              placeholder='用户名/手机号' placeholderTextColor='rgb(78,78,78)'
+              onChangeText={(userName) => this.setState({userName})}
+            />
+          </View>
+        </View>
+        <View style={styles.content}>
+          <Image
+            style={styles.icon}
+            source={require('../../img/password.png')}/>
+          <View style={styles.input}>
+            <TextInput
+              ref='TextInput2'
+              style={[styles.textInput,font.font20NoBoldGray]}
+              secureTextEntry={true} maxLength={16}
+              placeholder='密码' placeholderTextColor='rgb(78,78,78)'
+              onChangeText={(password) => this.setState({password})}
+            />
+          </View>
+        </View>
+
+        <TouchableHighlight style={{width:'25%'}}
+          onPress={() => this.login()} >
+          <View style={styles.button}>
+            <Text style={font.font20}>登陆</Text>
+          </View>
+        </TouchableHighlight>
+
+        <View style={styles.index}>
+          <TouchableHighlight
+            onPress={() => this.change1()}>
+            <Text style={font.font18NoBoldGray}>忘记密码</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => this.change2()}>
+            <Text style={font.font18NoBoldRed}>立即注册</Text>
+          </TouchableHighlight>
+        </View>
+        <TouchableHighlight  style={{marginTop:15}}
+            onPress={() => this.change3()}
+        >
+          <View style={{flexDirection:'row'}}>
+            <Image
+              style={{width:20,height:20}}
+              source={require('../../img/weixin.png')}
+            />
+            <Text style={font.font18NoBoldGray}>微信登陆</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+  weixinLogin(){
+    return(
+      <View style={styles.body}>
+        <Image
+          resizeMode='contain'
+          style={{height:'40%'}}
+          source={require('../../img/weixin.png')}
+        />
+        <TouchableHighlight  style={{marginTop:15}}
+            onPress={() => this.change4()}
+        >
+          <View style={{flexDirection:'row'}}>
+            <Image
+              style={{width:20,height:20}}
+              source={require('../../img/userName.png')}
+            />
+            <Text style={font.font18NoBoldGray}>账户登陆</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    )
   }
   change1(){
     this.props.navigation.navigate('Find');
@@ -151,6 +201,16 @@ export default class LoginScreen extends Component {
     });
     this.refs.TextInput2.setNativeProps({
       placeholder:''
+    })
+  }
+  change3(){
+    this.setState({
+      weixinLogin:true
+    })
+  }
+  change4(){
+    this.setState({
+      weixinLogin:false
     })
   }
   login(){

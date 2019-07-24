@@ -19,7 +19,7 @@ export default class RegisterScreen extends Component {
         <ImageBackground
           style={styles.background}
           source={require('../../img/background.png')}>
-            <Text>加载页面2S……</Text>
+            <Text>加载页面2S后转跳……</Text>
         </ImageBackground>
       </View>
     );
