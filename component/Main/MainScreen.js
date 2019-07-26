@@ -16,7 +16,7 @@ import _ from "lodash";
 
 import UnityView from "../../UnityView";
 import  CryptoJS from  "crypto-js";
-
+import { storage } from "../Public/storage";
 export default class MainScreen extends Component {
   listeners = {
     update: DeviceEventEmitter.addListener(
@@ -68,34 +68,18 @@ export default class MainScreen extends Component {
     });
     this.props.navigation.navigate('Malls');
   };
-  componentDidMount(){
-     //读取
-    let _that = this;
-    AsyncStorage.getItem("userName",function (error, result) {
-      if (error) {
-          console.log('读取失败')
-      }else {
-        //AES解密
-        let bytes  = CryptoJS.AES.decrypt(JSON.parse(result), 'X2S1B5GS1F6G2X5D');
-        let plaintext = bytes.toString(CryptoJS.enc.Utf8); 
-        _that.setState({
-            AESuserName:result,
-            userName:plaintext
-          })
-      }
-    });
-    AsyncStorage.getItem("password",function (error, result) {
-      if (error) {
-          console.log('读取失败')
-      }else {
-        //AES解密
-        let bytes  = CryptoJS.AES.decrypt(JSON.parse(result), 'X2S1B5GS1F6G2X5D');
-        let plaintext = bytes.toString(CryptoJS.enc.Utf8); 
-        _that.setState({
-            AESpassword:result,
-            password:plaintext
-          })
-      }
+  async componentDidMount(){
+    let AESuserName =await storage.get("userName", "")
+    let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
+    let AESpassword =await storage.get("password", "")
+    let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
+    let token =await storage.get("token", "")
+    this.setState({
+      AESuserName:AESuserName,
+      userName:userName,
+      AESpassword:AESpassword,
+      password:password,
+      token:token
     })
   }
   render() {

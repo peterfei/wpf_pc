@@ -11,7 +11,7 @@ export default class RegisterScreen extends Component {
   componentDidMount(){
             setTimeout(()=>{
               this.props.navigation.navigate('Login');
-            },2000)
+            },1500)
   }
   render() {
     return (

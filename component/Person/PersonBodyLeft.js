@@ -9,19 +9,18 @@ import {font,getScreen} from "../Public/index";
 class PersonBodyLeft extends Component {
   state={
     currentIndex:'个人中心',
+    title:['个人中心','账户设置','我的书签'],
+    Image:[{"Image":require('../../img/tab1.png')},{"Image":require('../../img/tab2.png')},{"Image":require('../../img/tab3.png')}]
   }
   render() {
     return (
-      <View style={[color.leftBackground,styles.container]}>
+      <View style={[color.rightBackground,styles.container]}>
         <View style={[styles.personInformation,color.borderBottom]}>
           <Image
             style={styles.headPortrait}
             source={require('../../img/text.jpg')}
           />
-          <View style={styles.information}>
-            <Text style={font.font18}>某某某</Text>
-            <Text style={font.font18}>普通用户</Text>
-          </View>
+          <Text style={font.font20}>某某某</Text>
         </View>
 
           {this.renderLabel()}
@@ -33,10 +32,10 @@ class PersonBodyLeft extends Component {
 
   renderLabel(){
     let indicator=[],isLabel;
-    let title=['个人中心','账户设置','我的书签']
+    let title=this.state.title;
     for(let i=0;i<title.length;i++){
       if(title[i]==this.state.currentIndex){
-          isLabel={backgroundColor:"rgb(78,78,78)"}
+          isLabel={backgroundColor:"rgb(78,78,78)",borderRightWidth:1,borderColor:"rgb(110,110,110)"}
       }else{
           isLabel={}
       };
@@ -45,6 +44,9 @@ class PersonBodyLeft extends Component {
         onPress={() => this.change(i,title[i])}
         >
           <View style={[styles.label,color.borderBottom,isLabel]}>
+            <Image  style={{width:25,height:25,margin:10}}
+              source={this.state.Image[i].Image}
+            />
             <Text style={font.font20}>{title[i]}</Text>
           </View>
         </TouchableHighlight>
@@ -65,27 +67,25 @@ const styles = StyleSheet.create({
   container:{
     height:'100%',
     width:'17%',
+    borderRightWidth:1,
+    borderColor:"rgb(110,110,110)"
   },
   personInformation:{
-    flexDirection:'row',
-    paddingTop:30,
-    paddingBottom:30,
-    justifyContent: 'center',
-  },
-  information:{
+    height:170,
     justifyContent: 'space-around',
+    alignItems: 'center',
   },
   headPortrait:{
-    height:80,
-    width:80,
-    borderRadius:40,
-    marginRight:20
+    height:100,
+    width:100,
+    borderRadius:50,
   },
   label:{
     width:'100%',
     height:70,
     paddingLeft:30,
-    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'row',
   }
 });
 

@@ -15,10 +15,10 @@ class PersonBodyRight1 extends Component {
     this.state = {
       initId:'1',
       initItem:'女',
-
+      userName:'某某某',
       phoneNumber:'17391973517',
       emil:'2438325121@qq.com',
-      passWord:'123456789',
+      passWord:'*********',
       editable:false,
       saveArray:""
     };
@@ -27,9 +27,9 @@ class PersonBodyRight1 extends Component {
     return (
       <View style={[styles.container,color.rightBackground]}>
         <View style={[styles.top,color.borderBottom]}>
-          <Text style={font.font25}>|&nbsp;&nbsp;个人中心</Text>
+          <Text style={font.font20}>|&nbsp;&nbsp;个人中心</Text>
         </View>
-        <View style={[styles.main,color.border]}>
+        <View style={styles.main}>
           <View style={styles.mainTop}>
             <Image
               style={styles.headPortrait}
@@ -54,7 +54,17 @@ class PersonBodyRight1 extends Component {
             <View style={styles.row}>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>姓名：</Text>
-                <Text style={font.font20NoBold}>某某某</Text>
+                <TextInput
+                  defaultValue={this.state.userName}
+                  editable={false}
+                  ref='userName'
+                  style={[styles.textInput1,font.font18]}
+                  onChangeText={(userName) => this.setState({userName})}
+                />
+                <Text style={[font.font20Blue,styles.textButton]}
+                onPress={()=>{
+                  this.change(this.refs.userName);
+                }}>绑定</Text>
               </View>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>性别：</Text>
@@ -66,32 +76,11 @@ class PersonBodyRight1 extends Component {
             <View style={styles.row}>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>手机：</Text>
-                <TextInput
-                  defaultValue={this.state.phoneNumber}
-                  keyboardType='numeric'
-                  editable={false}
-                  ref='phoneNumber'
-                  style={[styles.textInput1,font.font20NoBold]}
-                  onChangeText={(phoneNumber) => this.setState({phoneNumber})}
-                />
-                <Text style={[font.font20Blue,styles.textButton]}
-                  onPress={()=>this.change(this.refs.phoneNumber)}>绑定</Text>
+                <Text style={[font.font18]}>{this.state.phoneNumber.slice(0,6)+'*****'}</Text>
               </View>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>登陆邮箱：</Text>
-                <TextInput
-                  defaultValue={this.state.emil}
-                  keyboardType='email-address'
-                  editable={false}
-                  ref='emil'
-                  style={[styles.textInput1,font.font20NoBold]}
-                  onChangeText={(emil) => this.setState({emil})}
-                />
-                <Text style={[font.font20Blue,styles.textButton]}
-                onPress={()=>{
-                  this.change(this.refs.emil);
-                }
-                }>绑定</Text>
+                <Text style={[font.font18]}>{this.state.emil.slice(0,3)+'******'+this.state.emil.slice(10)}</Text>
               </View>
             </View>
 
@@ -99,16 +88,7 @@ class PersonBodyRight1 extends Component {
             <View style={styles.row}>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
                 <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>密码：</Text>
-                <TextInput
-                  defaultValue={this.state.passWord}
-                  secureTextEntry={true}
-                  editable={false}
-                  ref='passWord'
-                  style={[styles.textInput1,{color:'white'}]}
-                  onChangeText={(passWord) => this.setState({passWord})}
-                />
-                <Text style={[font.font20Blue,styles.textButton]}
-                onPress={()=>this.change(this.refs.passWord)}>修改</Text>
+                <Text style={[font.font18]}>{this.state.passWord}</Text>
               </View>
             </View> 
 
@@ -123,10 +103,10 @@ class PersonBodyRight1 extends Component {
       e.setNativeProps({
         style:{
           borderWidth:1,
-          borderColor:"rgb(78,78,78)",
+          borderColor:"rgb(47,47,47)",
           borderRadius:3,
           padding:0,
-          width:170,
+          width:120,
           height:25,},
         editable:true
       })
@@ -138,8 +118,8 @@ class PersonBodyRight1 extends Component {
         style:{
           borderWidth:0,
           padding:0,
-          backgroundColor:"rgb(47,47,47)",
-          width:170,
+          backgroundColor:"rgba(47,47,47,0)",
+          width:120,
           height:25,},
         editable:false
       })
@@ -167,7 +147,7 @@ const styles = StyleSheet.create({
   container: {
     height:'100%',
     width:'83%',
-    justifyContent: 'center', 
+    paddingTop:100,
     alignItems: 'center',
   },
   top:{
@@ -188,7 +168,7 @@ const styles = StyleSheet.create({
   },
   mainTop:{
     flexDirection:'row',
-    marginBottom:10,
+    marginBottom:30,
   },
   headPortrait:{
     height:80,
@@ -200,7 +180,9 @@ const styles = StyleSheet.create({
     marginLeft:30,
   },
   mainBody:{
-    marginBottom:30
+    marginBottom:30,
+    borderTopWidth:1,
+    borderColor:"rgb(110,110,110)"
   },
   row:{
     flexDirection:'row',
@@ -216,15 +198,14 @@ const styles = StyleSheet.create({
     marginRight:15,
   },
   textButton:{
-    marginLeft:10,
     flexWrap:'wrap',
     alignItems:'flex-start',
   },
   textInput1:{
     borderWidth:0,
     padding:0,
-    backgroundColor:"rgb(47,47,47)",
-    width:170,
+    backgroundColor:"rgba(47,47,47,0)",
+    width:120,
     height:25,
   },
 });

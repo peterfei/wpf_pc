@@ -1,62 +1,68 @@
-import React,{ Component } from "react";
-import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,ScrollView,Dimensions} from "react-native";
+import React, { Component } from "react";
+import {
+  Platform, StyleSheet, Text, View, Image,
+  TouchableHighlight, ScrollView, Dimensions,AsyncStorage
+} from "react-native";
 
-import { color} from "./index";
-import {font} from "../Public";
+import { color } from "./index";
+import { font } from "../Public";
+import { storage } from "../Public/storage";
 
-  //商城主体
+//商城主体
 class MallsBody extends Component {
-  state={
-    currentIndex:'个人中心',
-    isLabel:{},
-    data:[{
-      'title':'系统解剖全集',
-      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
-      'price':'$99.99  1/年',
-      'num':'0',
-      },{
-      'title':'局部解剖全集',
-      'intro':'真实数据局部切割逐层剥离，局解学习神器',
-      'price':'$99.99  1/年',
-      'num':'1',
-      },{
-      'title':'经络俞穴',
-      'intro':'针灸模式，真正直观，易学易用',
-      'price':'$99.99  1/年',
-      'num':'2',
-      },{
-      'title':'解剖全集',
-      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
-      'price':'$199.99  1/年',
-      'num':'3',
-      }
-      ],
+  state = {
+    currentIndex: '个人中心',
+    isLabel: {},
+    data: [],
     //activePage=0,
-      width:1024,
-      height:768,
+    width: 1024,
+    height: 768,
+    token:'',
   }
-  componentWillMount(){
-    this.time = setInterval(
-      () => { 
-        let width=Dimensions.get('window').width;
-        let height=Dimensions.get('window').height;
-        if(width != null && width != '' && height != null && height != ''){
+  async comboList() {
+    //接口发送参数
+    //接口URL
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token="+this.state.token
+ 
+    await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        //alert(JSON.stringify(result.page.list))
+        this.setState({
+          data:result.page.list
+        })
+      })
+  }
+  async componentWillMount() {
+    let token =await storage.get("token", "")
+    this.setState({
+      token:token
+    })
+    this.time =await setInterval(
+      () => {
+        let width = Dimensions.get('window').width;
+        let height = Dimensions.get('window').height;
+        if (width != null && width != '' && height != null && height != '') {
           this.setState({
-            width:width,
-            height:height,
+            width: width,
+            height: height,
           });
-        }else{
+        } else {
           this.setState({
-            width:1024,
-            height:768,
+            width: 1024,
+            height: 768,
           });
         }
-        
+
       }
     );
+    await this.comboList()
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.time && clearTimeout(this.time);
   }
   // componentWillUnmount(){
@@ -70,19 +76,19 @@ class MallsBody extends Component {
           style={styles.imgBackGround}
           source={require('../../img/text.jpg')}
         />
-        <View style={[styles.container,color.rightBackground]}>
+        <View style={[styles.container, color.rightBackground]}>
         </View>
 
         <View style={styles.content}>
-          <View  style={{width:"6%",height:200}}></View>
-          <TouchableHighlight onPress={() =>this.moveCommodityLeft()}>
+          <View style={{ width: "6%", height: 200 }}></View>
+          <TouchableHighlight onPress={() => this.moveCommodityLeft()}>
             <Image
               style={styles.leftRightImg}
               source={require('../../img/leftImg.png')}
             />
           </TouchableHighlight>
 
-          <ScrollView horizontal={true} 
+          <ScrollView horizontal={true}
             ref='ScrollView'
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={true}
@@ -91,13 +97,13 @@ class MallsBody extends Component {
             {this.renderCommodity()}
           </ScrollView>
 
-          <TouchableHighlight onPress={() =>this.moveCommodityRight()}>
+          <TouchableHighlight onPress={() => this.moveCommodityRight()}>
             <Image
               style={styles.leftRightImg}
               source={require('../../img/rightImg.png')}
             />
           </TouchableHighlight>
-          <View  style={{width:"6%",height:200}}></View>
+          <View style={{ width: "6%", height: 200 }}></View>
         </View>
 
         {/* <View style={styles.bottom}>
@@ -105,22 +111,22 @@ class MallsBody extends Component {
         </View> */}
 
       </View>
-      
+
     );
   }
 
-  renderCommodity(){
-    let itemArr =[];
-    let data=this.state.data
-    for(let i=0;i<data.length;i++){
+  renderCommodity() {
+    let itemArr = [];
+    let data = this.state.data
+    for (let i = 0; i < data.length; i++) {
       itemArr.push(
-        <View key={i} style={{flex:1,margin:0,marginLeft:10,marginRight:10}}>
-          <View style={[styles.commodityInformation,color.borderBackground,{width:this.state.width*0.2}]}>
-            <Text style={font.font25}>{data[i].title}</Text>
-            <Text style={font.font20NoBold}>{data[i].intro}</Text>
-            <Text style={font.font20NoBoldRed}>{data[i].price}</Text>
-            <TouchableHighlight onPress={() => this.change(data[i].num)} style={styles.button}>
-              <Text style={{fontSize:16}}>立即购买</Text>
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.2 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableHighlight onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={{ fontSize: 16 }}>立即购买</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -128,8 +134,8 @@ class MallsBody extends Component {
     }
     return itemArr;
   }
-  change(num){
-    this.props.navigation.navigate('Pay',{num:num});
+  change(comboId) {
+    this.props.navigation.navigate('Pay', { comboId: comboId });
   }
   //this.props.navigation.navigate('Pay');
 
@@ -149,72 +155,72 @@ class MallsBody extends Component {
   //     activePage=currentPage
   //   }) 
   // }
-  moveCommodityLeft(){
-      this.refs.ScrollView.scrollTo({x: -800, y: 0, animated: true})
+  moveCommodityLeft() {
+    this.refs.ScrollView.scrollTo({ x: -800, y: 0, animated: true })
   }
-  moveCommodityRight(){
-      this.refs.ScrollView.scrollTo({x: 800, y: 0, animated: true})
+  moveCommodityRight() {
+    this.refs.ScrollView.scrollTo({ x: 800, y: 0, animated: true })
   }
 
 }
 
 const styles = StyleSheet.create({
-  container:{
-    height:'100%',
-    width:'100%',
+  container: {
+    height: '100%',
+    width: '100%',
   },
-  imgBackGround:{
-    height:'37%',
-    width:'100%',
+  imgBackGround: {
+    height: '37%',
+    width: '100%',
   },
-  content:{
-    position:"absolute",
-    top:'-3%',
-    height:'100%',
-    width:'100%',
-    justifyContent: 'center', 
+  content: {
+    position: "absolute",
+    top: '-3%',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection:'row',
+    flexDirection: 'row',
   },
-  leftRightImg:{
-    width:80,
-    height:80,
+  leftRightImg: {
+    width: 80,
+    height: 80,
   },
-  commodity:{
-    marginLeft:'3%',
-    marginRight:'3%',
+  commodity: {
+    marginLeft: '3%',
+    marginRight: '3%',
     //justifyContent: 'space-between', 
     //alignItems: 'center',
     //flexDirection:'row',
-     width:'66%',
-     margin:0,
-     height:'60%',
+    width: '66%',
+    margin: 0,
+    height: '60%',
   },
-  bottom:{
-    position:"absolute",
-    bottom:'15%',
-    width:'100%',
-    justifyContent: 'center', 
+  bottom: {
+    position: "absolute",
+    bottom: '15%',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection:'row',
+    flexDirection: 'row',
   },
-  commodityInformation:{
-    justifyContent: 'space-around', 
+  commodityInformation: {
+    justifyContent: 'space-around',
     alignItems: 'center',
-    paddingLeft:'5%',
-    paddingRight:'5%',
-    height:'96%',
-    borderRadius:5,
-    borderColor:'rgb(13,192,217)',
-    borderWidth:2,
-    margin:0,
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    height: '96%',
+    borderRadius: 5,
+    borderColor: 'rgb(13,192,217)',
+    borderWidth: 2,
+    margin: 0,
   },
-  button:{
-    backgroundColor:'white',
-    borderRadius:3,
-    width:'70%',
-    height:40,
-    justifyContent: 'center', 
+  button: {
+    backgroundColor: 'white',
+    borderRadius: 3,
+    width: '70%',
+    height: 40,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

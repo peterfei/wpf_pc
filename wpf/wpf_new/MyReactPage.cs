@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wpf_new.DeviceInfoModel;
 
 namespace wpf_new
 {
@@ -16,10 +17,10 @@ namespace wpf_new
         {
             context = reactContext;
            // MyDialogModel mdm = new MyDialogModel(reactContext);
-
+            // DeviceInfoG info = new DeviceInfoG(reactContext);
             return new List<INativeModule>
         {
-              
+            //   info
         };
         }
 
@@ -27,7 +28,8 @@ namespace wpf_new
         {
 
             return new List<IViewManager> {
-                    new ReactUnityManager()
+                    new ReactUnityManager(),
+                    // new DeviceInfoG()
             };
 
         }

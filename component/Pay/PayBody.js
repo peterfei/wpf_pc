@@ -1,75 +1,118 @@
-import React,{ Component } from "react";
-import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,ScrollView,AsyncStorage,DeviceEventEmitter} from "react-native";
-  import { StackActions, NavigationActions } from 'react-navigation';
+import React, { Component } from "react";
+import {
+  Platform, StyleSheet, Text, View, Image,
+  TouchableHighlight, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput
+} from "react-native";
+import { StackActions, NavigationActions } from 'react-navigation';
 
-import { color} from "./index";
-import {font} from "../Public";
+import { color } from "./index";
+import { font } from "../Public";
+import { storage } from "../Public/storage";
 
-  //支付页面主体
+
+var that = null;
+//支付页面主体
 class PayBody extends Component {
-  state={
-    dataAll:[{
-      'title':'系统解剖全集',
-      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
-      'content':'整体人、运动系统、内脏学、脉管系统、感觉其、神经系统、内分泌、肌肉起止点、肌肉动画、练习内容合集',
-      'price1':'$99.99/年',
-      'price2':'低至0.99/天',
-      'nowPrice':'$99.99',
-      'source':require('../../img/text.jpg')
-    },{
-      'title':'局部解剖全集',
-      'intro':'真实数据局部切割逐层剥离，局解学习神器',
-      'content':'整体人、运动系统、神经系统、内分泌、肌肉起止点、肌肉动画、练习内容合集',
-      'price1':'$99.99/年',
-      'price2':'低至0.99/天',
-      'nowPrice':'$55.99',
-      'source':require('../../img/text.jpg')
-    },{
-      'title':'经络俞穴',
-      'intro':'针灸模式，真正直观，易学易用',
-      'content':'整体人、运动系统、肌肉动画、练习内容合集',
-      'price1':'$99.99/年',
-      'price2':'低至0.99/天',
-      'nowPrice':'$45.99',
-      'source':require('../../img/text.jpg')
-    },{
-      'title':'解剖全集',
-      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
-      'content':'整体人肌肉动画、练习内容合集',
-      'price1':'$99.99/年',
-      'price2':'低至0.99/天',
-      'nowPrice':'$12.99',
-      'source':require('../../img/text.jpg')
-    },
-    ],
-    data:{
-      'title':'系统解剖全集',
-      'intro':'全面升级，全面提供了携带知识库的肌肉系统',
-      'content':'整体人、运动系统、内脏学、脉管系统、感觉其、神经系统、内分泌、肌肉起止点、肌肉动画、练习内容合集',
-      'price1':'$99.99/年',
-      'price2':'低至0.99/天',
-      'nowPrice':'$99.99',
-      'source':require('../../img/text.jpg')
-    },
+  // state = {
+  //   data: {},
+  //   ordNo: '',
+  //   ImgUrl: "",
+  //   token: '',
+  //   xxx: ''
+  // }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {},
+      ordNo: '',
+      ImgUrl: "",
+      token: '',
+      xxx: ''
+    }
+    that = this;
   }
-  componentWillMount(){
+
+  async componentWillMount() {
+    // await this.comboDetail()
+    // await this.insertOrder()
+    // await this.getNativeQRCode()
+  }
+
+  componentDidMount() {
+   this.comboDetail()
+  }
+ 
+  async comboDetail() {
+    // 接口发送参数
+    // 接口URL
+    let token = await storage.get("token", "")
+    let comboId = this.props.comboId
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
+    await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        //alert(JSON.stringify(result))
+        this.setState({
+          data: result.comboPrices[0]
+        }, () => {
+          that.insertOrder()
+        })
+      })
+  }
+  async insertOrder() {
+    // 接口发送参数
+    // 接口URL
+    let token = await storage.get("token", "")
+    let body = {
+      "priceId": this.state.data.priceId,
+      "comboId": this.state.data.comboId,
+      "ordRes": "pc",
+      "remark": "测试",
+      "business": "anatomy"
+    }
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/order/insertOrder?token=" + token
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    }).then(resp => resp.json())
+      .then(result => {
+        this.setState({
+          ordNo: result.order.ordNo
+        }, () => {
+          that.getNativeQRCode();
+        })
+      })
+  }
+  async getNativeQRCode() {
+    let token = await storage.get("token", "")
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
-      data:this.state.dataAll[this.props.num]
+      ImgUrl: url
     })
+    //alert(this.state.ImgUrl)
   }
-  changeID(){ 
+
+
+  changeID() {
     // AsyncStorage.removeItem("userName");
     // AsyncStorage.removeItem("password");
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Login" })]
     });
-    this.props.navigation.dispatch(resetAction);  
+    this.props.navigation.dispatch(resetAction);
   }
-  render(){
-    return(
-      <View style={[styles.container,color.rightBackground]}>
+  render() {
+    return (
+      <View style={[styles.container, color.rightBackground]}>
 
         <View style={styles.personInformation}>
           <Image
@@ -81,27 +124,33 @@ class PayBody extends Component {
             <Text style={font.font18}>普通用户</Text>
           </View>
           <View>
-            <TouchableHighlight  onPress={()=>this.changeID()}>
-              <Text style={[font.font18,styles.changeID]}>切换账号</Text>
+            <TouchableHighlight onPress={() => this.changeID()}>
+              <Text style={[font.font18, styles.changeID]}>切换账号</Text>
             </TouchableHighlight>
           </View>
         </View>
 
-        <View style={[styles.main,color.borderBackground,color.lightBorder]}>
-          <View style={[styles.bodyTop,color.lightBorderBottom]}>
-            <Text style={font.font25}>{this.state.data.title}</Text>
-            <Text style={font.font20}>{this.state.data.intro}</Text>
+        <View style={[styles.main, color.borderBackground, color.lightBorder]}>
+          <View style={[styles.bodyTop, color.lightBorderBottom]}>
+            <Text style={font.font25}>{this.state.data.labelA}</Text>
+            <Text style={font.font20}>{this.state.data.labelB}</Text>
             <Text style={font.font18NoBold}>{this.state.data.content}</Text>
-            <Text style={font.font20NoBoldRed}>{this.state.data.price1}&nbsp;&nbsp;<Text style={font.font15NoBoldRed}>{this.state.data.price2}</Text></Text>
+            <Text style={font.font20NoBoldRed}>原价￥{this.state.data.oldPrice}</Text>
           </View>
           <View style={styles.bodyBottom}>
-            <Text style={[styles.hint,font.font20]}>选择支付方式付款</Text>
-            <Text style={font.font20NoBold}>应付金额：<Text style={font.font20NoBoldRed}>{this.state.data.nowPrice}</Text></Text>
-            <Image
-              resizeMode='contain'
+            <Text style={[styles.hint, font.font20]}>选择支付方式付款</Text>
+            <Text style={font.font20NoBold}>应付金额：<Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text>
+            {/* <Image
               style={styles.payImg}
-              source={this.state.data.source}
-            />
+              source={{ uri: this.state.Img }}
+            /> */}
+            {
+              this.state.ImgUrl.length > 0 ? 
+              <View style={{ height: 150, width: 150 }}>
+                <Image style={styles.payImg} source={{uri: this.state.ImgUrl}} />
+             </View>
+            : null
+            }
             <Text>使用微信扫码支付</Text>
           </View>
         </View>
@@ -112,56 +161,57 @@ class PayBody extends Component {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    height:'100%',
-    width:'100%',
+  container: {
+    height: '100%',
+    width: '100%',
   },
-  personInformation:{
-    flexDirection:'row',
-    paddingLeft:30,
-    paddingTop:30,
+  personInformation: {
+    flexDirection: 'row',
+    paddingLeft: 30,
+    paddingTop: 30,
     //justifyContent: 'center',
   },
-  headPortrait:{
-    height:80,
-    width:80,
-    borderRadius:40,
-    marginRight:20
+  headPortrait: {
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    marginRight: 20
   },
-  information:{
+  information: {
     justifyContent: 'space-around',
   },
-  main:{
-    width:'80%',
-    height:'70%',
-    marginLeft:"10%"
+  main: {
+    width: '80%',
+    height: '70%',
+    marginLeft: "10%"
   },
-  bodyTop:{
-    width:'100%',
-    height:'40%',
-    padding:20,
+  bodyTop: {
+    width: '100%',
+    height: '40%',
+    padding: 20,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  bodyBottom:{
-    width:'100%',
-    height:'60%',
-    padding:20,
+  bodyBottom: {
+    width: '100%',
+    height: '60%',
+    padding: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  hint:{
-    position:"absolute",
-    left:30,
-    top:20,
+  hint: {
+    position: "absolute",
+    left: 30,
+    top: 20,
   },
-  payImg:{
-    height:'70%',
+  payImg: {
+    width: 150,
+    height: 150,
   },
-  changeID:{
-    textDecorationLine:'underline',
-    marginTop:8,
-    marginLeft:15,
+  changeID: {
+    textDecorationLine: 'underline',
+    marginTop: 8,
+    marginLeft: 15,
   },
 });
 
