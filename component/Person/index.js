@@ -5,5 +5,4 @@ import PersonBodyRight3 from "./PersonBodyRight3";
 import PersonTop from "./PersonTop";
 import color from "./color";
 import screen from "../Public/getScreen";
-
-export { PersonBodyLeft, PersonBodyRight1, PersonBodyRight2, PersonBodyRight3, PersonTop, color,screen };
+export { PersonBodyLeft, PersonBodyRight1, PersonBodyRight2, PersonBodyRight3, PersonTop, color,screen};

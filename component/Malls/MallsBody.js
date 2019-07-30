@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ScrollView, Dimensions,AsyncStorage
+  TouchableHighlight, ScrollView, Dimensions, AsyncStorage
 } from "react-native";
 
 import { color } from "./index";
@@ -17,13 +17,13 @@ class MallsBody extends Component {
     //activePage=0,
     width: 1024,
     height: 768,
-    token:'',
+    token: '',
   }
   async comboList() {
     //接口发送参数
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token="+this.state.token
- 
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
+
     await fetch(url, {
       method: "get",
       headers: {
@@ -33,16 +33,16 @@ class MallsBody extends Component {
       .then(result => {
         //alert(JSON.stringify(result.page.list))
         this.setState({
-          data:result.page.list
+          data: result.page.list
         })
       })
   }
   async componentWillMount() {
-    let token =await storage.get("token", "")
+    let token = await storage.get("token", "")
     this.setState({
-      token:token
+      token: token
     })
-    this.time =await setInterval(
+    this.time = await setInterval(
       () => {
         let width = Dimensions.get('window').width;
         let height = Dimensions.get('window').height;
@@ -71,22 +71,21 @@ class MallsBody extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, color.rightBackground]}>
         <Image
           style={styles.imgBackGround}
-          source={require('../../img/text.jpg')}
+          source={require('../../img/mallBackground.png')}
         />
-        <View style={[styles.container, color.rightBackground]}>
-        </View>
-
         <View style={styles.content}>
           <View style={{ width: "6%", height: 200 }}></View>
-          <TouchableHighlight onPress={() => this.moveCommodityLeft()}>
-            <Image
-              style={styles.leftRightImg}
-              source={require('../../img/leftImg.png')}
-            />
-          </TouchableHighlight>
+          <View style={styles.leftRight}>
+            <TouchableHighlight onPress={() => this.moveCommodityLeft()}>
+              <Image
+                style={styles.leftRightImg}
+                source={require('../../img/leftImg.png')}
+              />
+            </TouchableHighlight>
+          </View>
 
           <ScrollView horizontal={true}
             ref='ScrollView'
@@ -96,13 +95,14 @@ class MallsBody extends Component {
             style={styles.commodity}>
             {this.renderCommodity()}
           </ScrollView>
-
-          <TouchableHighlight onPress={() => this.moveCommodityRight()}>
-            <Image
-              style={styles.leftRightImg}
-              source={require('../../img/rightImg.png')}
-            />
-          </TouchableHighlight>
+          <View style={styles.leftRight}>
+            <TouchableHighlight onPress={() => this.moveCommodityRight()}>
+              <Image
+                style={styles.leftRightImg}
+                source={require('../../img/rightImg.png')}
+              />
+            </TouchableHighlight>
+          </View>
           <View style={{ width: "6%", height: 200 }}></View>
         </View>
 
@@ -170,21 +170,23 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   imgBackGround: {
-    height: '37%',
+    height: '30%',
     width: '100%',
   },
   content: {
-    position: "absolute",
-    top: '-3%',
-    height: '100%',
+    height: '90%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'row',
   },
+  leftRight: {
+    height: '100%',
+    width: 25,
+    marginTop: '15%'
+  },
   leftRightImg: {
-    width: 80,
-    height: 80,
+    width: 25,
+    height: 50,
   },
   commodity: {
     marginLeft: '3%',

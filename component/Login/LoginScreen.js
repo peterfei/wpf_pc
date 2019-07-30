@@ -25,7 +25,6 @@ export default class LoginScreen extends Component {
     token:''
   }
   async pcNormalLogin() {
-
     //接口发送参数
     let body = {
       tellAndEmail: this.state.userName,
@@ -232,6 +231,7 @@ export default class LoginScreen extends Component {
     let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'X2S1B5GS1F6G2X5D').toString();
     let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'X2S1B5GS1F6G2X5D').toString();
     let token=this.state.token
+    //console.log(this.state.token)
     storage.save("userName", "", AESuserName);
     storage.save("password", "", AESpassword);
     storage.save("token", "", token);

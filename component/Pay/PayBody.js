@@ -28,7 +28,8 @@ class PayBody extends Component {
       ordNo: '',
       ImgUrl: "",
       token: '',
-      xxx: ''
+      xxx: '',
+      priceId:''
     }
     that = this;
   }
@@ -56,7 +57,6 @@ class PayBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        //alert(JSON.stringify(result))
         this.setState({
           data: result.comboPrices[0]
         }, () => {
@@ -67,10 +67,12 @@ class PayBody extends Component {
   async insertOrder() {
     // 接口发送参数
     // 接口URL
+    let comboId = this.props.comboId
+    let priceId = this.state.data.priceId
     let token = await storage.get("token", "")
     let body = {
-      "priceId": this.state.data.priceId,
-      "comboId": this.state.data.comboId,
+      "priceId": priceId,
+      "comboId": comboId,
       "ordRes": "pc",
       "remark": "测试",
       "business": "anatomy"
@@ -89,6 +91,7 @@ class PayBody extends Component {
         }, () => {
           that.getNativeQRCode();
         })
+       
       })
   }
   async getNativeQRCode() {
