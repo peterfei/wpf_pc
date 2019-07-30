@@ -33,7 +33,7 @@ const RootStack = createStackNavigator( //跟路由
     Initialize: {screen: InitializeScreen},
   },
   {
-    initialRouteName: 'Malls',     //设置初始路由为Home
+    initialRouteName: 'Login',     //设置初始路由为Home
     mode:'modal',
     navigationOptions:{
       header:null,
