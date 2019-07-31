@@ -73,7 +73,8 @@ export default class MainScreen extends Component {
     let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     let AESpassword =await storage.get("password", "")
     let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-    let token =await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     this.setState({
       AESuserName:AESuserName,
       userName:userName,

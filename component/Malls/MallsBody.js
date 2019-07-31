@@ -6,6 +6,7 @@ import {
 
 import { color } from "./index";
 import { font } from "../Public";
+import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 
 //商城主体
@@ -38,7 +39,8 @@ class MallsBody extends Component {
       })
   }
   async componentWillMount() {
-    let token = await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     this.setState({
       token: token
     })

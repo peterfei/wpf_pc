@@ -6,6 +6,8 @@ import {
 
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
+import CryptoJS from "crypto-js";
+import { storage } from "../Public/storage";
 
 
 
@@ -20,6 +22,31 @@ class PasswordView extends Component {
       sureNewPassword:'',
       warn:'',
     };
+  }
+  async updatePassWord(){
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let AESuserName = await storage.get("userName", "")
+    let userName =CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/updatePassWord?tell="
+    +userName+"&password="+this.state.oldPassword+"&newPassword="+this.state.newPassword+"&newPasswordConfirm="+this.state.sureNewPassword+"&token="+token
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        alert(result.msg)
+        if (result.msg == "success") {
+          this.setState({
+            finish: true,
+          })
+          storage.remove("password");
+          let AESpassword = CryptoJS.AES.encrypt(this.state.newPassword, 'X2S1B5GS1F6G2X5D').toString();
+          storage.save("password", "", AESpassword);
+        }
+      })
   }
   render() {
     return (
@@ -66,7 +93,7 @@ class PasswordView extends Component {
           </View>
           <Text style={[font.font15NoBoldRed,{marginTop:10}]}>{this.state.warn}</Text>
           <TouchableHighlight style={{ width: 150 }}
-            onPress={() => this.ok()}>
+            onPress={() => this.updatePassWord()}>
             <View style={styles.button}>
               <Text style={font.font20}>确定</Text>
             </View>
@@ -75,9 +102,6 @@ class PasswordView extends Component {
         </View>
       </View>
     );
-  }
-  ok() {
-    this.close()
   }
   close() {
     DeviceEventEmitter.emit("changePasswordView", { changePasswordView: false });

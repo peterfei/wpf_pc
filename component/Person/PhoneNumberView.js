@@ -7,7 +7,8 @@ import {
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
 import CountDownButton from "../Public/countDownButton"
-
+import CryptoJS from "crypto-js";
+import { storage } from "../Public/storage";
 
 //个人中心修改手机
 
@@ -15,14 +16,180 @@ class PhoneNumberView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step1: true,
-      step2: false,
-      step3: false,
-      oldPhoneNumber:'',
-      oldCode:'',
-      newPhoneNumber:'',
-      newCode:'',
+      verifyPerson: true,
+      bindingPhone: false,
+      finish: false,
+      oldPhoneNumber: '',
+      oldCode: '',
+      newPhoneNumber: '',
+      newCode: '',
+      imgCode: '',
+      imgURL: '',
+      uuid:'',
+      warn:'',
     };
+  }
+  async componentWillMount() {
+    this.setUUID();
+    let AESuserName = await storage.get("userName", "")
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    this.setState({
+      oldPhoneNumber: userName
+    })
+  }
+  // componentWillMount() {
+  //   this.setUUID();
+  // }
+  setUUID() {
+    var guid = "";
+    for (var i = 1; i <= 32; i++) {
+      var n = Math.floor(Math.random() * 16.0).toString(16);
+      guid += n;
+    }
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/appCaptcha?uuid=" + guid;
+    this.setState({
+      imgURL: url,
+      uuid: guid
+    })
+  }
+  shouldStartCountdown = async (shouldStartCountting) => {
+    let userName=this.state.oldPhoneNumber
+    if (userName == '') {
+      this.setState({
+        warn: '电话号码不能为空!'
+      })
+      shouldStartCountting(false)
+      return;
+    } else {
+      const url =
+        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeCheck?tellAndEmail=" +
+        userName;
+      try {
+        await fetch(url, {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(resp => resp.json())
+          .then(result => {
+            alert(JSON.stringify(result))
+            if (result.code == 0) {
+              alert("验证码发送成功!");
+              shouldStartCountting(true)
+            } else {
+              alert(result.msg);
+              shouldStartCountting(false)
+            }
+          });
+      } catch (error) {
+        shouldStartCountting(false)
+      }
+    }
+  };
+  bingdingShouldStartCountdown = async (shouldStartCountting) => {
+    let userName=this.state.newPhoneNumber
+    let uuid=this.state.uuid
+    let code=this.state.imgCode
+    if (userName == '') {
+      this.setState({
+        warn:'电话号码不能为空!'
+      })
+      shouldStartCountting(false)
+      return;
+    } else if (code == '') {
+      this.setState({
+        warn:'图形码不能为空!'
+      })
+      shouldStartCountting(false);
+      return;
+    } else {
+      const url =
+        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+        userName + "&uuid=" + uuid + "&captchaCode=" + code + "&option=register";
+      try {
+        await fetch(url, {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(resp => resp.json())
+          .then(result => {
+            alert(JSON.stringify(result))
+            if (result.code == 0) {
+              alert("验证码发送成功!");
+              shouldStartCountting(true)
+            } else {
+              alert(result.msg);
+              shouldStartCountting(false)
+            }
+          });
+      } catch (error) {
+        shouldStartCountting(false)
+      }
+    }
+  };
+  async checkCode() {
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    // let body = {
+    //   tell: this.state.oldPhoneNumber,
+    //   code: this.state.oldCode,
+    //   token: token,
+    // }
+    //接口URL
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      //body: JSON.stringify(body)
+    }).then(resp => resp.json())
+      .then(result => {
+        alert('短信验证' + JSON.stringify(result))
+        if (result.result == "true") {
+          this.setState({
+            verifyPerson: false,
+            bindingPhone: true,
+          })
+        } else {
+          alert('验证码错误')
+        }
+      })
+  }
+  async changeTellNumber() {
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    // let body = {
+    //   token: token,
+    //   newTell: this.state.newPhoneNumber,
+    //   oldTell: this.state.oldPhoneNumber,
+    //   code: this.state.newCode,
+    // }
+    //接口URL
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/changeTellNumber?code="
+    +this.state.newCode+"&newTell="+this.state.newPhoneNumber+"&oldTell="+this.state.oldPhoneNumber+"&token="+token
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        alert(result.msg)
+        if (result.msg == "success") {
+          this.setState({
+            finish: true,
+          })
+          storage.remove("userName");
+          let AESuserName = CryptoJS.AES.encrypt(this.state.newPhoneNumber, 'X2S1B5GS1F6G2X5D').toString();
+          storage.save("userName", "", AESuserName);
+        } else {
+          alert('修改失败')
+        }
+      })
   }
   render() {
     return (
@@ -46,21 +213,21 @@ class PhoneNumberView extends Component {
     );
   }
   step() {
-    if (this.state.step3) {
+    if (this.state.finish) {
       return (
-        this.step3View()
+        this.finishScreen()
       )
-    } else if (this.state.step2) {
+    } else if (this.state.bindingPhone) {
       return (
-        this.step2View()
+        this.bindingPhoneScreen()
       )
     } else {
       return (
-        this.step1View()
+        this.verifyPersonScreen()
       )
     }
   }
-  step1View() {
+  verifyPersonScreen() {
     return (
       <View style={{ alignItems: 'center', width: '100%', height: '100%' }}>
         <View style={styles.step}>
@@ -97,8 +264,8 @@ class PhoneNumberView extends Component {
           <View style={[styles.row, { marginTop: 30 }]}>
             <Text>手机号：</Text>
             <TextInput style={styles.input} placeholderTextColor="rgb(219,219,219)"
-              placeholder='请输入手机号码'
-              onChangeText={(text) => this.setState({ oldPhoneNumber: text })} />
+              value={this.state.oldPhoneNumber}
+              editable={false} />
           </View>
           <View style={[styles.row, { marginTop: 25 }]}>
             <Text>验证码：</Text>
@@ -108,7 +275,7 @@ class PhoneNumberView extends Component {
             <CountDownButton
               enable={true}
               style={{ height: 20, width: 100, }}
-              textStyle={{ color: '#0094e1' }}
+              textStyle={{ fontSize: 14, color: '#0094e1' }}
               timerCount={60}
               timerTitle={'获取验证码'}
               timerActiveTitle={['请在（', 's）后重试']}
@@ -117,14 +284,13 @@ class PhoneNumberView extends Component {
                 //随机模拟发送验证码成功或失败
                 // const requestSucc = Math.random() + 0.5 > 1;
                 // shouldStartCounting(requestSucc)
-                //this.shouldStartCountdown(shouldStartCountting);
-                this.stepNext()
+                this.shouldStartCountdown(shouldStartCountting);
               }}
             />
           </View>
         </View>
         <TouchableHighlight style={{ width: 150 }}
-          onPress={() => this.stepNext()}>
+          onPress={() => this.stepNext(this.state.oldPhoneNumber, this.state.oldCode)}>
           <View style={styles.button}>
             <Text style={font.font20}>确定</Text>
           </View>
@@ -132,7 +298,7 @@ class PhoneNumberView extends Component {
       </View>
     )
   }
-  step2View() {
+  bindingPhoneScreen() {
     return (
       <View style={{ alignItems: 'center', width: '100%', height: '100%' }}>
         <View style={styles.step}>
@@ -163,24 +329,33 @@ class PhoneNumberView extends Component {
           </View>
         </View>
 
-        <Text style={{ marginTop: 30 }}>请输入您要绑定的手机号，绑定后可用该手机号登录</Text>
+        <Text style={{ marginTop: 25 }}>请输入您要绑定的手机号，绑定后可用该手机号登录</Text>
 
         <View>
-          <View style={[styles.row, { marginTop: 30 }]}>
+          <View style={[styles.row, { marginTop: 20 }]}>
             <Text>手机号：</Text>
             <TextInput style={styles.input} placeholderTextColor="rgb(219,219,219)"
               placeholder='请输入手机号码'
+              editable={true}
               onChangeText={(text) => this.setState({ newPhoneNumber: text })} />
           </View>
-          <View style={[styles.row, { marginTop: 25 }]}>
+          <View style={[styles.row, { marginTop: 16 }]}>
+            <TextInput style={[styles.input, { width: 140 }]} placeholderTextColor="rgb(219,219,219)"
+              placeholder='输入图形验证码'
+              maxLength={6}
+              onChangeText={(text) => this.setState({ imgCode: text })} />
+            <Image source={{ uri: this.state.imgURL }} style={{ width: 80, height: 25, marginLeft: 10 }} />
+          </View>
+          <View style={[styles.row, { marginTop: 16 }]}>
             <Text>验证码：</Text>
             <TextInput style={[styles.input, { width: 80 }]} placeholderTextColor="rgb(219,219,219)"
               placeholder='请输入验证码'
+              defaultValue=''
               onChangeText={(text) => this.setState({ newCode: text })} />
             <CountDownButton
               enable={true}
               style={{ height: 20, width: 100, }}
-              textStyle={{ color: '#0094e1' }}
+              textStyle={{ fontSize: 14, color: '#0094e1' }}
               timerCount={60}
               timerTitle={'获取验证码'}
               timerActiveTitle={['请在（', 's）后重试']}
@@ -189,22 +364,21 @@ class PhoneNumberView extends Component {
                 //随机模拟发送验证码成功或失败
                 // const requestSucc = Math.random() + 0.5 > 1;
                 // shouldStartCounting(requestSucc)
-                //this.shouldStartCountdown(shouldStartCountting);
-                this.stepNext()
+                this.bingdingShouldStartCountdown(shouldStartCountting);
               }}
             />
           </View>
         </View>
         <TouchableHighlight style={{ width: 150 }}
-          onPress={() => this.stepNext()}>
-          <View style={styles.button}>
-            <Text style={font.font20}>确定</Text>
+          onPress={() => this.stepNext(this.state.newPhoneNumber, this.state.newCode)}>
+          <View style={[styles.button, { marginTop: 20 }]}>
+            <Text style={font.font20}>更换</Text>
           </View>
         </TouchableHighlight>
       </View>
     )
   }
-  step3View() {
+  finishScreen() {
     return (
       <View style={{ alignItems: 'center', width: '100%', height: '100%' }}>
         <View style={styles.step}>
@@ -236,7 +410,7 @@ class PhoneNumberView extends Component {
         </View>
 
         <Text style={{ marginTop: 30 }}>修改成功，新手机号码为：</Text>
-        <Text style={{ color: 'rgb(230,140,43)', marginTop: 25 }}>12183249125</Text>
+        <Text style={{ color: 'rgb(230,140,43)', marginTop: 25 }}>{this.state.newPhoneNumber}</Text>
         <Text style={{ fontSize: 13, marginTop: 25 }}>手机号可登录维萨里所有软件应用</Text>
         <TouchableHighlight style={{ width: 150 }}
           onPress={() => this.close()}>
@@ -247,16 +421,15 @@ class PhoneNumberView extends Component {
       </View>
     )
   }
-  stepNext() {
-    if (this.state.step2 == false) {
-      this.setState({
-        step1: false,
-        step2: true,
-      })
+  stepNext(PhoneNumber, Code) {
+    if (PhoneNumber == '' || Code == '') {
+      alert('手机号/验证码不能为空')
+      return
+    }
+    if (this.state.bindingPhone == false) {
+      this.checkCode();
     } else {
-      this.setState({
-        step3: true,
-      })
+      this.changeTellNumber();
     }
   }
   close() {
@@ -331,7 +504,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'rgba(0,0,0,0)',
     borderRadius: 3,
-    width: 150,
+    width: 170,
     height: 25,
     fontSize: 15,
     margin: 0,

@@ -33,7 +33,7 @@ export default class FindScreen extends Component {
     let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/forgetPwd"
     if (this.state.password == '') {
       this.setState({
-        warn:'密码不能为空!'
+        warn: '密码不能为空!'
       })
       return;
     } else {
@@ -52,7 +52,7 @@ export default class FindScreen extends Component {
   shouldStartCountdown = async (shouldStartCountting) => {
     if (this.state.userName == '') {
       this.setState({
-        warn:'电话号码不能为空!'
+        warn: '电话号码不能为空!'
       })
       shouldStartCountting(false)
       return;

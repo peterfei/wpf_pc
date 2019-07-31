@@ -9,7 +9,7 @@ import {font,getScreen} from "../Public/index";
 class PersonBodyLeft extends Component {
   state={
     currentIndex:'个人中心',
-    title:['个人中心','账户设置','我的书签'],
+    title:['个人中心','账户设置','Mac地址'],
     Image:[{"Image":require('../../img/tab1.png')},{"Image":require('../../img/tab2.png')},{"Image":require('../../img/tab3.png')}]
   }
   render() {

@@ -6,6 +6,8 @@ import {
 
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
+import CryptoJS from "crypto-js";
+import { storage } from "../Public/storage";
 
 //个人中心主体右侧
 
@@ -15,7 +17,8 @@ class PersonBodyRight2 extends Component {
     warn: '您的账号存在安全风险，建议您更改密码，提高安全性。',
     changePassword: false,
     changephoneNumber: false,
-    phoneNumber: '17391973517'
+    phoneNumber: '17391973517',
+    password:''
   }
   render() {
     return (
@@ -52,8 +55,7 @@ class PersonBodyRight2 extends Component {
               <View style={{ justifyContent: 'center' }}>
                 <Image style={{ height: 20 }} resizeMode='contain'
                   source={require('../../img/safety.png')} />
-                <Image style={{ height: 20, position: "absolute", left: 0 }} resizeMode='contain'
-                  source={require('../../img/safety2.png')} />
+                {this.safety(20)}
               </View>
               <Text style={[font.font25, { fontWeight: 'bold' }]}>{this.state.securityLevel}</Text>
             </View>
@@ -90,8 +92,7 @@ class PersonBodyRight2 extends Component {
                   <View style={{ justifyContent: 'center' }}>
                     <Image style={{ height: 10 }} resizeMode='contain'
                       source={require('../../img/safety.png')} />
-                    <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
-                      source={require('../../img/safety2.png')} />
+                    {this.safety(10)}
                   </View>
                   <Text style={font.font18}>{this.state.securityLevel}</Text>
                 </View>
@@ -109,6 +110,32 @@ class PersonBodyRight2 extends Component {
         </View>
       </View>
     )
+  }
+  async componentWillMount(){
+    let AESpassword =await storage.get("password", "")
+    let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
+    this.setState({
+      password:password
+    })
+  }
+  safety(x){
+    let str=this.state.password
+    let num = /\d+/
+    let letter = /[a-zA-Z]+/
+    if (str == "" || str == null) {
+      return null
+    } else if (num.test(str) && letter.test(str) && str.length > 6) {
+      //alert(1)
+      return (
+        <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
+          source={require('../../img/safety3.png')} />
+      )
+    } else if (num.test(str) || letter.test(str)) {
+      return (
+        <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
+          source={require('../../img/safety2.png')} />
+      )
+    }
   }
   changephoneNumber() {
     this.setState({

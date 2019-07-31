@@ -79,18 +79,19 @@ class PersonBodyRight1 extends Component {
                 <Text style={[font.font18]}>{this.state.phoneNumber.slice(0,6)+'*****'}</Text>
               </View>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
-                <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>登陆邮箱：</Text>
-                <Text style={[font.font18]}>{this.state.emil.slice(0,3)+'******'+this.state.emil.slice(10)}</Text>
+                {/* <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>登陆邮箱：</Text>
+                <Text style={[font.font18]}>{this.state.emil.slice(0,3)+'******'+this.state.emil.slice(10)}</Text> */}
+                <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>密码：</Text>
+                <Text style={[font.font18]}>{this.state.passWord}</Text>
               </View>
             </View>
 
             {/* 第三行 */}
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
-                <Text style={[font.font20NoBold,styles.mainBodyContentLeft]}>密码：</Text>
-                <Text style={[font.font18]}>{this.state.passWord}</Text>
+                
               </View>
-            </View> 
+            </View>  */}
 
           </View>
     )

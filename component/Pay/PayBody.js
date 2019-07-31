@@ -7,6 +7,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 
 import { color } from "./index";
 import { font } from "../Public";
+import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 
 
@@ -47,7 +48,8 @@ class PayBody extends Component {
   async comboDetail() {
     // 接口发送参数
     // 接口URL
-    let token = await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let comboId = this.props.comboId
     let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
     await fetch(url, {
@@ -69,7 +71,8 @@ class PayBody extends Component {
     // 接口URL
     let comboId = this.props.comboId
     let priceId = this.state.data.priceId
-    let token = await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let body = {
       "priceId": priceId,
       "comboId": comboId,
@@ -95,7 +98,8 @@ class PayBody extends Component {
       })
   }
   async getNativeQRCode() {
-    let token = await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
       ImgUrl: url
@@ -103,10 +107,10 @@ class PayBody extends Component {
     //alert(this.state.ImgUrl)
   }
 
-
   changeID() {
-    // AsyncStorage.removeItem("userName");
-    // AsyncStorage.removeItem("password");
+    storage.remove("userName");
+    storage.remove("password");
+    storage.remove("token");
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Login" })]
