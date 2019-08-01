@@ -85,23 +85,20 @@ export default class LoginScreen extends Component {
     });
     this.timer && clearInterval(this.timer);
   }
-  // async componentWillMount(){            //本地缓存账号自动登录
-  //   let AESuserName =await storage.get("userName", "")
-  //   let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-  //   let AESpassword =await storage.get("password", "")
-  //   let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-  //   let AEStoken = await storage.get("token", "")
-  //   let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-  //   if(userName!=null&&password!=null&&token!=null){
-  //     this.props.navigation.navigate('Main');
-  //     this.refs.TextInput1.setNativeProps({
-  //       placeholder: ''
-  //     });
-  //     this.refs.TextInput2.setNativeProps({
-  //       placeholder: ''
-  //     });
-  //   }
-  // }
+  async componentWillMount(){            //本地缓存账号自动登录
+    let AESuserName =await storage.get("userName", "")
+    let AESpassword =await storage.get("password", "") 
+    let AEStoken = await storage.get("token", "")
+    if(AESuserName!=-1&&AESpassword!=-1&&AEStoken!=-1){
+      this.props.navigation.navigate('Main');
+      this.refs.TextInput1.setNativeProps({
+        placeholder: ''
+      });
+      this.refs.TextInput2.setNativeProps({
+        placeholder: ''
+      });
+    }
+  }
   render() {
     return (
       <View style={styles.container}>

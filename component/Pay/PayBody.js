@@ -108,9 +108,10 @@ class PayBody extends Component {
   }
 
   changeID() {
-    storage.remove("userName");
-    storage.remove("password");
-    storage.remove("token");
+    storage.clearMapForKey("userName")
+    // storage.clearMapForKey("userName");
+    storage.clearMapForKey("password");
+    storage.clearMapForKey("token");
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Login" })]

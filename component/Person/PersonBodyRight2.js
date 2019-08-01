@@ -17,7 +17,7 @@ class PersonBodyRight2 extends Component {
     warn: '您的账号存在安全风险，建议您更改密码，提高安全性。',
     changePassword: false,
     changephoneNumber: false,
-    phoneNumber: '17391973517',
+    phoneNumber: '',
     password:''
   }
   render() {
@@ -114,8 +114,11 @@ class PersonBodyRight2 extends Component {
   async componentWillMount(){
     let AESpassword =await storage.get("password", "")
     let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
+    let AESuserName =await storage.get("userName", "")
+    let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     this.setState({
-      password:password
+      password:password,
+      phoneNumber:userName
     })
   }
   safety(x){

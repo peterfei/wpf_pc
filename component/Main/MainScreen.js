@@ -13,7 +13,7 @@ import {Platform, StyleSheet, Text, View,Image,
   AsyncStorage
 } from 'react-native';
 import _ from "lodash";
-
+import { getScreen } from "../Public";
 import UnityView from "../../UnityView";
 import  CryptoJS from  "crypto-js";
 import { storage } from "../Public/storage";
@@ -46,8 +46,8 @@ export default class MainScreen extends Component {
   }
   state = {
     modalVisible: "flex",
-    width:600,
-    height:600,
+    width: getScreen.width,
+    height:getScreen.height,
     currentIndex:"Main",
     userName:'',
     password:'',
@@ -69,6 +69,7 @@ export default class MainScreen extends Component {
     this.props.navigation.navigate('Malls');
   };
   async componentDidMount(){
+    // alert(`width:${getScreen.width}`)
     let AESuserName =await storage.get("userName", "")
     let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     let AESpassword =await storage.get("password", "")
@@ -80,7 +81,9 @@ export default class MainScreen extends Component {
       userName:userName,
       AESpassword:AESpassword,
       password:password,
-      token:token
+      token:token,
+      width:getScreen.width,
+      height:getScreen.height-20
     })
   }
   render() {

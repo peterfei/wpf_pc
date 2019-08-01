@@ -32,7 +32,7 @@ class MallsBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        //alert(JSON.stringify(result.page.list))
+        //alert(JSON.stringify(result))
         this.setState({
           data: result.page.list
         })

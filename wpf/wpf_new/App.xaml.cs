@@ -72,10 +72,8 @@ namespace wpf_new
                     ShowActivated = true,
                     ShowInTaskbar = true,
                     Title = "wpf_new",
-                    Height = 768,
-                    Width = 1024,
-                    MinHeight = 768,
-                    MinWidth = 1024,
+                    Height = System.Windows.SystemParameters.WorkArea.Height,
+                    Width = System.Windows.SystemParameters.WorkArea.Width,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen
                 };
 
