@@ -1,0 +1,648 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"wid",
+				"width"
+			],
+			[
+				"jus",
+				"justifyContent"
+			],
+			[
+				"te",
+				"textAlign"
+			],
+			[
+				"na",
+				"navigation"
+			],
+			[
+				"Home",
+				"HomeScreen"
+			],
+			[
+				"strin",
+				"stringify"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 796,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/Home/HomeScreen.js",
+			"settings":
+			{
+				"buffer_size": 10741,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/Home/PartDesectScreen.js",
+			"settings":
+			{
+				"buffer_size": 6276,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/Home/WeikeScreen.js",
+			"settings":
+			{
+				"buffer_size": 4642,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/Home/PingJieScreen.js",
+			"settings":
+			{
+				"buffer_size": 4638,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "[{\n\t\"FyList\": [{\n\t\t\"fy_id\": 4,\n\t\t\"fy_name\": \"整体人\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180605101042.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 1,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054226.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 2,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 6,\n\t\t\"fy_name\": \"内脏学\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054349.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 3,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 7,\n\t\t\"fy_name\": \"脉管系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054649.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 4,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 8,\n\t\t\"fy_name\": \"感觉器\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054721.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 5,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 9,\n\t\t\"fy_name\": \"神经系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054740.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 6,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 10,\n\t\t\"fy_name\": \"内分泌系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180326112110.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 7,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}],\n\t\"code\": \"FUNCTIONTYPE\",\n\t\"dict_name\": \"人体构造\",\n\t\"StructList\": [{\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 356,\n\t\t\"struct_code\": \"SA0101001\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/b4bc0c5f381c4598a4c6b4e35ef1a052/SA0101001/SA0101001.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"躯干骨全貌\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 357,\n\t\t\"struct_code\": \"SA0101004\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/291eac7cd8034aa2addaf035f508178e/SA0101004/SA0101004.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"脑颅骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 358,\n\t\t\"struct_code\": \"SA0101005\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/148c7e8efb734bb5a409d67f7d7e4970/SA0101005/SA0101005.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"颅底内面观\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 359,\n\t\t\"struct_code\": \"SA0101007\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/f63ebe8b89504dd1b9a82d76322ba46e/SA0101007/SA0101007.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"面颅骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 360,\n\t\t\"struct_code\": \"SA0101008\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/437fcf35054b43968f991170e27ac2e5/SA0101008/SA0101008.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"上肢骨全貌\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 361,\n\t\t\"struct_code\": \"SA0101009\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/f86e05c1155e48c1b3151fe578890337/SA0101009/SA0101009.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"上肢带骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 362,\n\t\t\"struct_code\": \"SA0101010\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/d6a103ecdcbe4af891e78114e0cac2a4/SA0101010/SA0101010.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"自由上肢骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 363,\n\t\t\"struct_code\": \"SA0101011\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/113b77eeef17408aaab7a852bc02958a/SA0101011/SA0101011.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"下肢骨全貌\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 364,\n\t\t\"struct_code\": \"SA0101012\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/71950e11b881487f895af1ed574f5991/SA0101012/SA0101012.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"下肢带骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 365,\n\t\t\"struct_code\": \"SA0101013\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/9a4810e2d6cb4f0c85ffac8202ae797e/SA0101013/SA0101013.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"自由下肢骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 366,\n\t\t\"struct_code\": \"SA0101017\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/fd663e2cc247406dac2ba2ae11a2ce10/SA0101017/SA0101017.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"尺骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 367,\n\t\t\"struct_code\": \"SA0101018\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/2b2e01ec45f94eccb8852884a4d8c37f/SA0101018/SA0101018.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"骶骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 368,\n\t\t\"struct_code\": \"SA0101019\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/4e4996a9ba4840c09205da3e7b6b94c3/SA0101019/SA0101019.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"顶骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 369,\n\t\t\"struct_code\": \"SA0101020\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/4becf2ae1ad44fa29d67be141de97e6b/SA0101020/SA0101020.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"额骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 370,\n\t\t\"struct_code\": \"SA0101021\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/75d93ddf5fe448e9bbd35b312ab271c5/SA0101021/SA0101021.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"腓骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 371,\n\t\t\"struct_code\": \"SA0101022\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/482a5fa2942a4599ba02c12da0017752/SA0101022/SA0101022.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"肱骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 372,\n\t\t\"struct_code\": \"SA0101023\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/404e4e22e0fd44eaafcd51a1ffc25118/SA0101023/SA0101023.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"肩胛骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 373,\n\t\t\"struct_code\": \"SA0101024\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/27a569b138cb4ca7b1f576e46ea39ef8/SA0101024/SA0101024.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"胫骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 374,\n\t\t\"struct_code\": \"SA0101025\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/1acfe3f2d0d544ebacea86b42d547a7b/SA0101025/SA0101025.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"颈椎\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 375,\n\t\t\"struct_code\": \"SA0101028\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/9e8c49863ea54b92bff79c0f5772a6b6/SA0101028/SA0101028.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"梨骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 376,\n\t\t\"struct_code\": \"SA0101029\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/5a450a8c35d5463a95f0d804384d6465/SA0101029/SA0101029.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"颅骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 377,\n\t\t\"struct_code\": \"SA0101030\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/3a29d32c6bae45dfa14fc57a3244151a/SA0101030/SA0101030.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"颞骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 378,\n\t\t\"struct_code\": \"SA0101031\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/3a472bfb4e8b4949a39aa2892f9ec49d/SA0101031/SA0101031.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"盆骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 379,\n\t\t\"struct_code\": \"SA0101035\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/d1dd893012c9424ea6627839092ebd4f/SA0101035/SA0101035.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"上颌骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 380,\n\t\t\"struct_code\": \"SA0101037\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/4612c6211dc5443fa18921825af60ea1/SA0101037/SA0101037.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"手骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 381,\n\t\t\"struct_code\": \"SA0101038\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/a74c108eb40e4ce481a0ff8a669681ae/SA0101038/SA0101038.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"锁骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 382,\n\t\t\"struct_code\": \"SA0101040\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/50a06a3186404b299a0bdc12ea3e7e80/SA0101040/SA0101040.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"下颌骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 383,\n\t\t\"struct_code\": \"SA0101041\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/ebd5868ad0644c63b74392caa9c3f5f2/SA0101041/SA0101041.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"胸骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 384,\n\t\t\"struct_code\": \"SA0101042\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/e1bb52d2dd194024901436b95ed1b547/SA0101042/SA0101042.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"胸廓\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 385,\n\t\t\"struct_code\": \"SA0101043\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/512f093869bf40b3b544a4f5e521fee5/SA0101043/SA0101043.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"胸椎\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 386,\n\t\t\"struct_code\": \"SA0101044\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/a989bdef0e874135b3d737640818f38b/SA0101044/SA0101044.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"腰椎\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 387,\n\t\t\"struct_code\": \"SA0101045\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/1ad62a7a99f5430b89eb9ab441adae0a/SA0101045/SA0101045.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"枕骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 388,\n\t\t\"struct_code\": \"SA0101046\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/03dbb70e9d1c4a1492c3f0c80c1d4388/SA0101046/SA0101046.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"足骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 389,\n\t\t\"struct_code\": \"SA0101047\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/46d8ceef4f15405db52cc0f344b65ba7/SA0101047/SA0101047.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"全身骨骼系统\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 390,\n\t\t\"struct_code\": \"SA0101048\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/0110e70e5b8546a99f047b7c6bc8f724/SA0101048/SA0101048.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"脊柱全貌\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 391,\n\t\t\"struct_code\": \"SA0101050\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/3b8f7cd2ed4748b6b3f19c4ba16e1f57/SA0101050/SA0101050.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"肋骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 392,\n\t\t\"struct_code\": \"SA0101051\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/eb7c4f8c7c1a4d029a90c1f4e5410601/SA0101051/SA0101051.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"寰椎\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 393,\n\t\t\"struct_code\": \"SA0101052\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/5249486ef48c42e1ab33cfe3cb59faec/SA0101052/SA0101052.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"枢椎\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 394,\n\t\t\"struct_code\": \"SA0101053\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/41442cba465c4758b4ab2cd979a74d4e/SA0101053/SA0101053.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"上颌恒牙\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 395,\n\t\t\"struct_code\": \"SA0101054\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/99a1978f2cef4f0b9b286e569bce4f28/SA0101054/SA0101054.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"尺骨桡骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 396,\n\t\t\"struct_code\": \"SA0101055\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/d726e3948a744fa0bd89c84f3a7f908c/SA0101055/SA0101055.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"股骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 397,\n\t\t\"struct_code\": \"SA0101057\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/7117a13057a549bda9c8c84d6eb15518/SA0101057/SA0101057.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"胫骨腓骨\"\n\t}, {\n\t\t\"youke_use\": \"enabled\",\n\t\t\"platform\": \"app\",\n\t\t\"struct_state\": \"enabled\",\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"struct_id\": 398,\n\t\t\"struct_code\": \"SA0101061\",\n\t\t\"function_type\": \"5\",\n\t\t\"download_count\": 0,\n\t\t\"struct_sell_amount\": 0,\n\t\t\"first_icon_url\": \"http://www.vesal.cn:8080/vesal//file/home/vincent2/7c769b4353984a6a89b1e58a0c0f1fc3/SA0101061/SA0101061.jpg\",\n\t\t\"visible_identity\": \"1\",\n\t\t\"struct_name\": \"蝶骨\"\n\t}],\n\t\"parent_id\": 4,\n\t\"dict_value\": \"RTGZ\",\n\t\"id\": 5,\n\t\"sort\": 1\n}, {\n\t\"FyList\": [{\n\t\t\"fy_id\": 4,\n\t\t\"fy_name\": \"整体人\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180605101042.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 1,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054226.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 2,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 6,\n\t\t\"fy_name\": \"内脏学\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054349.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 3,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 7,\n\t\t\"fy_name\": \"脉管系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054649.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 4,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 8,\n\t\t\"fy_name\": \"感觉器\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054721.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 5,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 9,\n\t\t\"fy_name\": \"神经系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054740.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 6,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 10,\n\t\t\"fy_name\": \"内分泌系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180326112110.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 7,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}],\n\t\"code\": \"FUNCTIONTYPE\",\n\t\"dict_name\": \"微课课程\",\n\t\"StructList\": [],\n\t\"parent_id\": 4,\n\t\"dict_value\": \"WKKC\",\n\t\"id\": 7,\n\t\"sort\": 2\n}, {\n\t\"FyList\": [{\n\t\t\"fy_id\": 4,\n\t\t\"fy_name\": \"整体人\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180605101042.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 1,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054226.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 2,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 6,\n\t\t\"fy_name\": \"内脏学\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054349.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 3,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 7,\n\t\t\"fy_name\": \"脉管系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054649.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 4,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 8,\n\t\t\"fy_name\": \"感觉器\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054721.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 5,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 9,\n\t\t\"fy_name\": \"神经系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054740.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 6,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 10,\n\t\t\"fy_name\": \"内分泌系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180326112110.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 7,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}],\n\t\"code\": \"FUNCTIONTYPE\",\n\t\"dict_name\": \"测验练习\",\n\t\"StructList\": [],\n\t\"parent_id\": 4,\n\t\"dict_value\": \"CYLX\",\n\t\"id\": 6,\n\t\"sort\": 3\n}, {\n\t\"FyList\": [{\n\t\t\"fy_id\": 4,\n\t\t\"fy_name\": \"整体人\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180605101042.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 1,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 5,\n\t\t\"fy_name\": \"运动系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054226.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 2,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 6,\n\t\t\"fy_name\": \"内脏学\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054349.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 3,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 7,\n\t\t\"fy_name\": \"脉管系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054649.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 4,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 8,\n\t\t\"fy_name\": \"感觉器\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054721.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 5,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 9,\n\t\t\"fy_name\": \"神经系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20170601054740.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 6,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}, {\n\t\t\"fy_id\": 10,\n\t\t\"fy_name\": \"内分泌系统\",\n\t\t\"parent_id\": 2,\n\t\t\"icon\": \"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/20180326112110.png\",\n\t\t\"state\": \"enabled\",\n\t\t\"fy_sort\": 7,\n\t\t\"fy_grade\": 2,\n\t\t\"add_time\": 1529373803000\n\t}],\n\t\"code\": \"FUNCTIONTYPE\",\n\t\"dict_name\": \"互动游戏\",\n\t\"StructList\": [],\n\t\"parent_id\": 4,\n\t\"dict_value\": \"HDYX\",\n\t\"id\": 8,\n\t\"sort\": 4\n}]",
+			"file": "//Mac/Home/Desktop/struct/data.json",
+			"file_size": 22519,
+			"file_write_time": 131738620540000000,
+			"settings":
+			{
+				"buffer_size": 25128,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/Home/MoreWeikeScreen.js",
+			"settings":
+			{
+				"buffer_size": 3303,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/api.js",
+			"settings":
+			{
+				"buffer_size": 43736,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "screen/RootScreen.js",
+			"settings":
+			{
+				"buffer_size": 9338,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 35.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"install",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"in",
+				"Package Control: Install Package→安装插件"
+			],
+			[
+				"i",
+				"Package Control: Install Package→安装插件"
+			]
+		],
+		"width": 378.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/liufei/Vesal_PC",
+		"/C/Users/liufei/Vesal_PC/screen",
+		"/C/Users/liufei/Vesal_PC/screen/common",
+		"/C/Users/liufei/Vesal_PC/screen/Home",
+		"/C/Users/liufei/Vesal_PC/screen/widget"
+	],
+	"file_history":
+	[
+		"/C/Users/liufei/Vesal_PC/node_modules/react-native-windows/ReactWindows/ReactNative.Net46/DevSupport/WebSocketJavaScriptExecutor.cs",
+		"/C/Users/liufei/Vesal_PC/screen/widget/WebScene.js",
+		"/C/Users/liufei/Vesal_PC/node_modules/react-native-windows/ReactWindows/ReactNative.Net46/Bridge/DispatcherHelpers.cs",
+		"/C/Users/liufei/Vesal_PC/screen/Home/MoreScreen.js",
+		"/C/Users/liufei/Vesal_PC/wpf/Vesal_PC/MyReactPage.cs",
+		"/C/Users/liufei/Vesal_PC/screen/Home/TestDesectScreen.js",
+		"/C/Users/liufei/Vesal_PC/node_modules/react-native-windows/ReactWindows/ReactNative.Net46/UIManager/BaseViewManager.cs",
+		"/C/Program Files (x86)/Sublime Text3/Data/Packages/User/Package Control.sublime-settings",
+		"/C/Users/liufei/Vesal_PC/.gitignore",
+		"/C/Users/liufei/Vesal_PC/react-native-windows/.github/ISSUE_TEMPLATE.md",
+		"/C/Users/liufei/Vesal_PC/screen/Home/HomeScreen.js",
+		"/C/Users/liufei/Vesal_PC/screen/Home/PartItemGridView.js",
+		"/C/Users/liufei/Vesal_PC/screen/api.js",
+		"/C/Users/liufei/Vesal_PC/index.js",
+		"/C/Users/liufei/Vesal_PC/screen/Home/HomeMenuView.js",
+		"/C/Users/liufei/Vesal_PC/package-lock.json",
+		"/C/Users/liufei/Vesal_PC/screen/Home/HomeMenuItem.js",
+		"/C/Users/liufei/Vesal_PC/package.json",
+		"/C/Users/liufei/Vesal_PC/screen/RootScreen.js",
+		"/C/Users/liufei/Vesal_PC/screen/widget/DetailCell.js",
+		"/C/Users/liufei/Vesal_PC/node_modules/react-native-windows/local-cli/generator-wpf/templates/src/App.xaml.cs",
+		"/C/Users/liufei/Vesal_PC/screen/HomeScreen.js",
+		"/C/Users/liufei/Vesal_PC/screen/HomeDetailScreen.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"changeTabList",
+			"getStorageByStructList",
+			"requestData",
+			"changeTabList",
+			"http://www.vesal.cn:8080/vesal//file/home/vincent2",
+			"http://www.vesal.cn:8080/vesal//file/home/vincent2/b4bc0c5f381c4598a4c6b4e35ef1a052/SA0101001/",
+			"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg/",
+			"WebSocketJavaScriptExecutor",
+			"_gate",
+			"debugger",
+			"content_weike",
+			"http://admin.vesal.cn/Rykj_ImgDeposit/Ry_Total_TypeImg",
+			"HomeScreen",
+			"menuItems",
+			"eleContainer",
+			"itemContainer",
+			"StackNavigator"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "C:\\Users\\liufei\\Vesal_PC"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 8,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 796,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								748,
+								748
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "screen/Home/HomeScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7997,
+								7997
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 138.0,
+						"translation.y": 3690.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "screen/Home/PartDesectScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3779,
+								3727
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 31.0,
+						"translation.y": 1763.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "screen/Home/WeikeScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2755,
+								2755
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1382.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "screen/Home/PingJieScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2601,
+								2622
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1085.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "//Mac/Home/Desktop/struct/data.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1680,
+								19822
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2380.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "screen/Home/MoreWeikeScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1046,
+								1046
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 514.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "screen/api.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 43736,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								64,
+								1734
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 347.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "screen/RootScreen.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6838,
+								6838
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2509.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"websocketjava",
+				"node_modules\\react-native-windows\\ReactWindows\\ReactNative.Net46\\DevSupport\\WebSocketJavaScriptExecutor.cs"
+			],
+			[
+				"dispa",
+				"node_modules\\react-native-windows\\ReactWindows\\ReactNative.Net46\\Bridge\\DispatcherHelpers.cs"
+			],
+			[
+				"baseview",
+				"node_modules\\react-native-windows\\ReactWindows\\ReactNative.Net46\\UIManager\\BaseViewManager.cs"
+			],
+			[
+				"app.xaml.cs",
+				"node_modules\\react-native-windows\\local-cli\\generator-wpf\\templates\\src\\App.xaml.cs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 250.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

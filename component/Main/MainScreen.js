@@ -17,6 +17,8 @@ import _ from "lodash";
 import UnityView from "../../UnityView";
 import  CryptoJS from  "crypto-js";
 import { storage } from "../Public/storage";
+import { NativeModules } from "react-native";
+
 export default class MainScreen extends Component {
   listeners = {
     update: DeviceEventEmitter.addListener(
@@ -46,8 +48,8 @@ export default class MainScreen extends Component {
   }
   state = {
     modalVisible: "flex",
-    width:600,
-    height:600,
+    width:0,
+    height:0,
     currentIndex:"Main",
     userName:'',
     password:'',
@@ -75,13 +77,18 @@ export default class MainScreen extends Component {
     let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     let AEStoken = await storage.get("token", "")
     let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
+      let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
     this.setState({
       AESuserName:AESuserName,
       userName:userName,
       AESpassword:AESpassword,
       password:password,
-      token:token
+      token:token,
+      height: mainHeight-20,
+      width: mainWidth
     })
+    //alert(`height is ${this.state.height}`)
   }
   render() {
     return (
@@ -90,8 +97,7 @@ export default class MainScreen extends Component {
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
-            opacity={0.1}
-            zIndex={-9999999}
+            
             >
           </UnityView>
 
