@@ -29,7 +29,7 @@ class PersonBodyRight3 extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        //alert(result.deviceIds[0].deviceId)
+        //alert(JSON.stringify(result) )
         this.setState({
           deviceIds: result.deviceIds
         })

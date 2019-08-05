@@ -83,7 +83,7 @@ export default class MainScreen extends Component {
       password:password,
       token:token,
       width:getScreen.width,
-      height:getScreen.height-20
+      height:getScreen.height
     })
   }
   render() {

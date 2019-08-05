@@ -22,14 +22,15 @@ export default class LoginScreen extends Component {
     MacAddress: '',
     dataSource: [],
     weixinLogin: false,
-    token:''
+    token:'',
+    userdata:''
   }
   async pcNormalLogin() {
     //接口发送参数
     let body = {
       tellAndEmail: this.state.userName,
       password: this.state.password,
-      deviceId: this.state.MacAddress,
+      device_id: this.state.MacAddress,
       business: 'anatomy',
     }
     //接口URL
@@ -42,10 +43,11 @@ export default class LoginScreen extends Component {
       body: JSON.stringify(body)
     }).then(resp => resp.json())
       .then(result => {
-        //alert(JSON.stringify(result))
+        alert(JSON.stringify(result))
         if (result.msg == 'success') { 
           this.setState({
             token:result.token,
+            userdata:result.member
           },()=>this.loding())
            } else {
           this.setState({
@@ -245,10 +247,16 @@ export default class LoginScreen extends Component {
     let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'X2S1B5GS1F6G2X5D').toString();
     let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'X2S1B5GS1F6G2X5D').toString();
     let AEStoken=CryptoJS.AES.encrypt(this.state.token, 'X2S1B5GS1F6G2X5D').toString();
+    let AESmbId = CryptoJS.AES.encrypt(this.state.userdata.mbId, 'X2S1B5GS1F6G2X5D').toString();
+    let AESmbName = CryptoJS.AES.encrypt(this.state.userdata.mbName, 'X2S1B5GS1F6G2X5D').toString();
+    let AESmbSex = CryptoJS.AES.encrypt(this.state.userdata.mbSex, 'X2S1B5GS1F6G2X5D').toString();
     //console.log(this.state.token)
     storage.save("userName", "", AESuserName);
     storage.save("password", "", AESpassword);
     storage.save("token", "", AEStoken);
+    storage.save("mbId", "", AESmbId);
+    storage.save("mbName", "", AESmbName);
+    storage.save("mbSex", "", AESmbSex);
     this.props.navigation.navigate('Main');
     this.setState({
       warn: '',

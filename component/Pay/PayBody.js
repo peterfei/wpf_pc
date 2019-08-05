@@ -25,12 +25,22 @@ class PayBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      data: {
+        "priceId": "Loading……",
+        "productId": "Loading……",
+        "comboId": "Loading……",
+        "oldPrice": "Loading……",
+        "deadline": "Loading……",
+        "sellPrice": "Loading……",
+        "addTime": "Loading……",
+        "labelA": "Loading……",
+        "labelB": "Loading……"
+      },
       ordNo: '',
       ImgUrl: "",
       token: '',
       xxx: '',
-      priceId:''
+      priceId: ''
     }
     that = this;
   }
@@ -42,16 +52,17 @@ class PayBody extends Component {
   }
 
   componentDidMount() {
-   this.comboDetail()
+    this.comboDetail()
   }
- 
+
   async comboDetail() {
     // 接口发送参数
     // 接口URL
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let comboId = this.props.comboId
     let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
+    console.log(url)
     await fetch(url, {
       method: "get",
       headers: {
@@ -59,11 +70,11 @@ class PayBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        this.setState({
+        if(result.comboPrices[0]==''){this.setState({
           data: result.comboPrices[0]
         }, () => {
           that.insertOrder()
-        })
+        })}
       })
   }
   async insertOrder() {
@@ -72,7 +83,7 @@ class PayBody extends Component {
     let comboId = this.props.comboId
     let priceId = this.state.data.priceId
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let body = {
       "priceId": priceId,
       "comboId": comboId,
@@ -94,12 +105,12 @@ class PayBody extends Component {
         }, () => {
           that.getNativeQRCode();
         })
-       
+
       })
   }
   async getNativeQRCode() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
       ImgUrl: url
@@ -153,11 +164,11 @@ class PayBody extends Component {
               source={{ uri: this.state.Img }}
             /> */}
             {
-              this.state.ImgUrl.length > 0 ? 
-              <View style={{ height: 150, width: 150 }}>
-                <Image style={styles.payImg} source={{uri: this.state.ImgUrl}} />
-             </View>
-            : null
+              this.state.ImgUrl.length > 0 ?
+                <View style={{ height: 150, width: 150 }}>
+                  <Image style={styles.payImg} source={{ uri: this.state.ImgUrl }} />
+                </View>
+                : null
             }
             <Text>使用微信扫码支付</Text>
           </View>
