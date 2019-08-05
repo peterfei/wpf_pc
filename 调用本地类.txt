@@ -1,0 +1,3 @@
+react-native bundle --platform windows --entry-file index.js --dev false --bundle-output wpf/Vesal_PC/ReactAssets\/index.wpf.bundle  --assets-dest wpf/Vesal_PC/ReactAssets/
+
+./node_modules\react-native-windows\ReactWindows\ReactNative.Net46\Modules\Dialog\DialogModule.cs
