@@ -22,8 +22,10 @@ export default class LoginScreen extends Component {
     MacAddress: '',
     dataSource: [],
     weixinLogin: false,
-    token:'',
-    userdata:''
+    token: '',
+    mbId: '',
+    mbName: '',
+    mbSex: ''
   }
   async pcNormalLogin() {
     //接口发送参数
@@ -44,12 +46,14 @@ export default class LoginScreen extends Component {
     }).then(resp => resp.json())
       .then(result => {
         alert(JSON.stringify(result))
-        if (result.msg == 'success') { 
+        if (result.msg == 'success') {
           this.setState({
-            token:result.token,
-            userdata:result.member
-          },()=>this.loding())
-           } else {
+            token: result.token,
+            mbId: result.member.mbId,
+            mbName: result.member.mbName,
+            mbSex: result.member.mbSex
+          }, () => this.loding())
+        } else {
           this.setState({
             warn: '账号/密码错误，请重试！',
           })
@@ -87,11 +91,11 @@ export default class LoginScreen extends Component {
     });
     this.timer && clearInterval(this.timer);
   }
-  async componentWillMount(){            //本地缓存账号自动登录
-    let AESuserName =await storage.get("userName", "")
-    let AESpassword =await storage.get("password", "") 
+  async componentWillMount() {            //本地缓存账号自动登录
+    let AESuserName = await storage.get("userName", "")
+    let AESpassword = await storage.get("password", "")
     let AEStoken = await storage.get("token", "")
-    if(AESuserName!=-1&&AESpassword!=-1&&AEStoken!=-1){
+    if (AESuserName != -1 && AESpassword != -1 && AEStoken != -1) {
       this.props.navigation.navigate('Main');
       this.refs.TextInput1.setNativeProps({
         placeholder: ''
@@ -246,17 +250,14 @@ export default class LoginScreen extends Component {
   loding() {
     let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'X2S1B5GS1F6G2X5D').toString();
     let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'X2S1B5GS1F6G2X5D').toString();
-    let AEStoken=CryptoJS.AES.encrypt(this.state.token, 'X2S1B5GS1F6G2X5D').toString();
-    let AESmbId = CryptoJS.AES.encrypt(this.state.userdata.mbId, 'X2S1B5GS1F6G2X5D').toString();
-    let AESmbName = CryptoJS.AES.encrypt(this.state.userdata.mbName, 'X2S1B5GS1F6G2X5D').toString();
-    let AESmbSex = CryptoJS.AES.encrypt(this.state.userdata.mbSex, 'X2S1B5GS1F6G2X5D').toString();
+    let AEStoken = CryptoJS.AES.encrypt(this.state.token, 'X2S1B5GS1F6G2X5D').toString();
     //console.log(this.state.token)
     storage.save("userName", "", AESuserName);
     storage.save("password", "", AESpassword);
     storage.save("token", "", AEStoken);
-    storage.save("mbId", "", AESmbId);
-    storage.save("mbName", "", AESmbName);
-    storage.save("mbSex", "", AESmbSex);
+    storage.save("mbId", "", this.state.mbId);
+    storage.save("mbName", "", this.state.mbName);
+    storage.save("mbSex", "", this.state.mbSex);
     this.props.navigation.navigate('Main');
     this.setState({
       warn: '',

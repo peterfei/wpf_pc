@@ -15,7 +15,7 @@ class PersonBodyRight3 extends Component {
   state = {
     deviceIds: '',
   }
-  componentWillMount() {
+  componentDidMount() {
     this.currMbAllDeviceIds();
   }
   async currMbAllDeviceIds() {
@@ -75,7 +75,7 @@ class PersonBodyRight3 extends Component {
     for (let i = 0; i < deviceIds.length; i++) {
       itemArr.push(
         <View key={i}>
-          <Text style={font.font20}>Mac:{deviceIds[i].deviceId}</Text>
+          <Text style={font.font20}>Mac[{i+1}]:&nbsp;&nbsp;&nbsp;&nbsp;{deviceIds[i].deviceId}</Text>
         </View>
       )
     }

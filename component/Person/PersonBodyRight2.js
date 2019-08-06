@@ -111,7 +111,7 @@ class PersonBodyRight2 extends Component {
       </View>
     )
   }
-  async componentWillMount(){
+  async componentDidMount(){
     let AESpassword =await storage.get("password", "")
     let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     let AESuserName =await storage.get("userName", "")

@@ -4,13 +4,21 @@ import { Platform, StyleSheet, Text, View,Image,
 
 import {color, screen } from "./index";
 import {font,getScreen} from "../Public/index";
-
+import CryptoJS from "crypto-js";
+import { storage } from "../Public/storage";
 //个人中心主体左侧
 class PersonBodyLeft extends Component {
   state={
     currentIndex:'个人中心',
     title:['个人中心','账户设置','Mac地址'],
-    Image:[{"Image":require('../../img/tab1.png')},{"Image":require('../../img/tab2.png')},{"Image":require('../../img/tab3.png')}]
+    Image:[{"Image":require('../../img/tab1.png')},{"Image":require('../../img/tab2.png')},{"Image":require('../../img/tab3.png')}],
+    userName:''
+  }
+  async componentDidMount(){
+    let mbName = await storage.get("mbName", "")
+    this.setState({
+      userName: mbName,
+    })
   }
   render() {
     return (
@@ -20,7 +28,7 @@ class PersonBodyLeft extends Component {
             style={styles.headPortrait}
             source={require('../../img/text.jpg')}
           />
-          <Text style={font.font20}>某某某</Text>
+          <Text style={font.font20}>{this.state.userName}</Text>
         </View>
 
           {this.renderLabel()}

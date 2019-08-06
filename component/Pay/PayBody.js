@@ -40,20 +40,20 @@ class PayBody extends Component {
       ImgUrl: "",
       token: '',
       xxx: '',
-      priceId: ''
+      priceId: '',
+      userName:'',
     }
     that = this;
   }
 
-  async componentWillMount() {
-    // await this.comboDetail()
-    // await this.insertOrder()
-    // await this.getNativeQRCode()
-  }
-
-  componentDidMount() {
+  async componentDidMount(){
+    let mbName = await storage.get("mbName", "")
+    this.setState({
+      userName: mbName,
+    })
     this.comboDetail()
   }
+
 
   async comboDetail() {
     // 接口发送参数
@@ -139,7 +139,7 @@ class PayBody extends Component {
             source={require('../../img/text.jpg')}
           />
           <View style={styles.information}>
-            <Text style={font.font18}>某某某</Text>
+            <Text style={font.font18}>{this.state.userName}</Text>
             <Text style={font.font18}>普通用户</Text>
           </View>
           <View>
@@ -168,7 +168,7 @@ class PayBody extends Component {
                 <View style={{ height: 150, width: 150 }}>
                   <Image style={styles.payImg} source={{ uri: this.state.ImgUrl }} />
                 </View>
-                : null
+                : <Text style={font.font20}>Loading……</Text>
             }
             <Text>使用微信扫码支付</Text>
           </View>

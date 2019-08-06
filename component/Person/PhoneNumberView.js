@@ -29,7 +29,7 @@ class PhoneNumberView extends Component {
       warn:'',
     };
   }
-  async componentWillMount() {
+  async componentDidMount() {
     this.setUUID();
     let AESuserName = await storage.get("userName", "")
     let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);

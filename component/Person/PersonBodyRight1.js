@@ -17,9 +17,9 @@ class PersonBodyRight1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initId: '2',
-      initItem: '女',
-      userName: '某某某',
+      initId: '0',
+      initItem: '',
+      userName: 'loading',
       phoneNumber: '17391973517',
       emil: '2438325121@qq.com',
       passWord: '*********',
@@ -27,48 +27,53 @@ class PersonBodyRight1 extends Component {
       saveArray: ""
     };
   }
-  async componentWillMount() {
-    let AESmbName = await storage.get("mbName", "")
-    let mbName = CryptoJS.AES.decrypt(AESmbName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let AESmbSex = await storage.get("mbSex", "")
-    let mbSex = CryptoJS.AES.decrypt(AESmbSex, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+
+  async componentDidMount() {
+    let mbName = await storage.get("mbName", "")
+    let mbSex = await storage.get("mbSex", "")
+
+    let initId = mbSex == '男' ? '0' : '1';
+    let initItem = mbSex == '男' ? '男' : '女';
     this.setState({
+      initId: initId,
+      initItem: initItem,
       userName: mbName,
     })
-    if (mbSex == '男') {
-      this.setState({
-        initId: '1',
-        initItem: '男'
-      })
-    } else if (mbSex == '女') {
-      this.setState({
-        initId: '1',
-        initItem: '男'
-      })
-    } else {
-      this.setState({
-        initId: '',
-        initItem: ''
-      })
-    }
   }
+
+
   async updateMemberInfo() {
     let AEStoken = await storage.get("token", "")
     let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let AESmbId = await storage.get("mbId", "")
-    let mbId = CryptoJS.AES.decrypt(AESmbId, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let mbId = await storage.get("mbId", "")
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/updateMemberInfo?token="+token+"&mbId="+mbId+"&mbName="+this.state.userName+"&mbSex="+this.state.initItem
-    console.log(url)
+    let body = {
+      mbName: this.state.userName,
+      mbId:mbId,
+      mbSex:this.state.initItem
+    }
+    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/updateMemberInfo?token="+token
     await fetch(url, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(body)
     }).then(resp => resp.json())
-      .then(result => {
-        alert(JSON.stringify(result))
-
+      .then(async result => {
+        if(result.msg=="success"){
+          alert('修改成功')
+          // storage.remove("mbName");
+          // storage.remove("mbSex");
+          await storage.save("mbName", "", this.state.userName);
+          await storage.save("mbSex", "", this.state.initItem);
+          
+        }else{
+          alert(JSON.stringify(result))
+          this.setState({
+            
+          })
+        }
       })
   }
   render() {
@@ -178,10 +183,11 @@ class PersonBodyRight1 extends Component {
     }
   }
   radioModal() {
+    // alert("initId:"+this.state.initId)
     return (
       <RadioModal
         selectedValue={this.state.initId}
-        onValueChange={(id, item) => this.setState({ initId: id, initItem: item })}
+        onValueChange={(id, item) => this.setState({ initId: id, initItem: item },()=>this.updateMemberInfo())}
         selImg={require('../../img/selImg.png')}
         seledImg={require('../../img/seledImg.png')}
         style={{
