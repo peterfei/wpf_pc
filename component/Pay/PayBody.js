@@ -42,14 +42,21 @@ class PayBody extends Component {
       xxx: '',
       priceId: '',
       userName: '',
+      mbHeadUrl: '',
+      mbIdentity: '',
     }
     that = this;
   }
 
   async componentDidMount() {
-    let mbName = await storage.get("mbName", "")
+    let member = await storage.get("member", "")
+    let mbName = member.mbName
+    let mbHeadUrl = member.mbHeadUrl
+    let mbIdentity = member.mbIdentity
     this.setState({
       userName: mbName,
+      mbHeadUrl: mbHeadUrl,
+      mbIdentity: mbIdentity==1?'学生':mbIdentity==2?'教师':mbIdentity==3?'医生':mbIdentity==4?'游客':'普通用户'
     })
     this.comboDetail()
   }
@@ -141,11 +148,11 @@ class PayBody extends Component {
         <View style={styles.personInformation}>
           <Image
             style={styles.headPortrait}
-            source={require('../../img/text.jpg')}
+            source={this.state.mbHeadUrl?{uri:this.state.mbHeadUrl}:require('../../img/text.jpg')}
           />
           <View style={styles.information}>
             <Text style={font.font18}>{this.state.userName}</Text>
-            <Text style={font.font18}>普通用户</Text>
+            <Text style={font.font18}>{this.state.mbIdentity}</Text>
           </View>
           <View>
             <TouchableOpacity onPress={() => this.changeID()}>

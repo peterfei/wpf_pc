@@ -23,9 +23,7 @@ export default class LoginScreen extends Component {
     dataSource: [],
     weixinLogin: false,
     token: '',
-    mbId: '',
-    mbName: '',
-    mbSex: ''
+    member:'',
   }
   async pcNormalLogin() {
     //接口发送参数
@@ -45,13 +43,11 @@ export default class LoginScreen extends Component {
       body: JSON.stringify(body)
     }).then(resp => resp.json())
       .then(result => {
-        alert(JSON.stringify(result))
+        // alert(JSON.stringify(result))
         if (result.msg == 'success') {
           this.setState({
             token: result.token,
-            mbId: result.member.mbId,
-            mbName: result.member.mbName,
-            mbSex: result.member.mbSex
+            member:result.member
           }, () => this.loding())
         } else {
           this.setState({
@@ -255,9 +251,7 @@ export default class LoginScreen extends Component {
     storage.save("userName", "", AESuserName);
     storage.save("password", "", AESpassword);
     storage.save("token", "", AEStoken);
-    storage.save("mbId", "", this.state.mbId);
-    storage.save("mbName", "", this.state.mbName);
-    storage.save("mbSex", "", this.state.mbSex);
+    storage.save("member", "", this.state.member);
     this.props.navigation.navigate('Main');
     this.setState({
       warn: '',

@@ -20,47 +20,51 @@ class PersonBodyRight1 extends Component {
       initId: '0',
       initItem: '',
       userName: 'loading',
-      phoneNumber: '17391973517',
-      emil: '2438325121@qq.com',
+      phoneNumber: 'loading',
+      emil: 'loading',
       passWord: '*********',
       editable: false,
-      saveArray: ""
+      saveArray: "",
+      mbHeadUrl: '',
     };
   }
 
   async componentDidMount() {
-    this._isMounted = true
-    let mbName = await storage.get("mbName", "")
-    let mbSex = await storage.get("mbSex", "")
-
+    let member = await storage.get("member", "")
+    let mbName = member.mbName
+    let mbSex = member.mbSex
+    let phoneNumber = member.mbTell
+    let emil = member.mbEmail
+    let mbHeadUrl = member.mbHeadUrl
     let initId = mbSex == '男' ? '0' : '1';
     let initItem = mbSex == '男' ? '男' : '女';
-    if(this._isMounted){
-      this.setState({
-        initId: initId,
-        initItem: initItem,
-        userName: mbName,
-      })
-    }
+    this.setState({
+      initId: initId,
+      initItem: initItem,
+      userName: mbName,
+      phoneNumber: phoneNumber,
+      emil: emil,
+      mbHeadUrl: mbHeadUrl
+    })
   }
   componentWillUnmount() {
-    this.setState = (state,callback)=>{
+    this.setState = (state, callback) => {
       return;
     };
   }
 
   async updateMemberInfo() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let mbId = await storage.get("mbId", "")
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let member = await storage.get("member", "")
+    let mbId = member.mbId
     //接口URL
     let body = {
       mbName: this.state.userName,
-      mbId:mbId,
-      mbSex:this.state.initItem
+      mbId: mbId,
+      mbSex: this.state.initItem
     }
-    let url =api.base_uri_test + "pc/member/updateMemberInfo?token="+token
-    alert(url)
+    let url = api.base_uri_test + "pc/member/updateMemberInfo?token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -69,45 +73,23 @@ class PersonBodyRight1 extends Component {
       body: JSON.stringify(body)
     }).then(resp => resp.json())
       .then(async result => {
-        if(result.msg=="success"){
+        if (result.msg == "success") {
           alert('修改成功')
           // storage.remove("mbName");
           // storage.remove("mbSex");
-          await storage.save("mbName", "", this.state.userName);
-          await storage.save("mbSex", "", this.state.initItem);
-          
-        }else{
+          let newmember = member
+          newmember.mbName = this.state.userName
+          newmember.mbSex = this.state.initItem
+          await storage.save("member", "", newmember);
+        } else {
           alert(JSON.stringify(result))
           this.setState({
-            
+
           })
         }
       })
   }
-  render() {
-    return (
-      <View style={[styles.container, color.rightBackground]}>
-        <View style={[styles.top, color.borderBottom]}>
-          <Text style={font.font20}>|&nbsp;&nbsp;个人中心</Text>
-        </View>
-        <View style={styles.main}>
-          <View style={styles.mainTop}>
-            <Image
-              style={styles.headPortrait}
-              source={require('../../img/text.jpg')}
-            />
-            <View style={styles.mainTopRight}>
-              <Text style={font.font20Blue}>点击修改头像</Text>
-              <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
-            </View>
-          </View>
-
-          {this.main()}
-        </View>
-      </View>
-    );
-  }
-
+  
   main() {
     return (
       <View style={styles.mainBody}>
@@ -195,7 +177,7 @@ class PersonBodyRight1 extends Component {
     return (
       <RadioModal
         selectedValue={this.state.initId}
-        onValueChange={(id, item) => this.setState({ initId: id, initItem: item },()=>this.updateMemberInfo())}
+        onValueChange={(id, item) => this.setState({ initId: id, initItem: item }, () => this.updateMemberInfo())}
         selImg={require('../../img/selImg.png')}
         seledImg={require('../../img/seledImg.png')}
         style={{
@@ -209,6 +191,30 @@ class PersonBodyRight1 extends Component {
       </RadioModal>
     )
   }
+  render() {
+    return (
+      <View style={[styles.container, color.rightBackground]}>
+        <View style={[styles.top, color.borderBottom]}>
+          <Text style={font.font20}>|&nbsp;&nbsp;个人中心</Text>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.mainTop}>
+            <Image
+              style={styles.headPortrait}
+              source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../../img/text.jpg')}
+            />
+            <View style={styles.mainTopRight}>
+              <Text style={font.font20Blue}>点击修改头像</Text>
+              <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
+            </View>
+          </View>
+
+          {this.main()}
+        </View>
+      </View>
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({

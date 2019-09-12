@@ -48,6 +48,30 @@ class PasswordView extends Component {
         }
       })
   }
+  
+  close() {
+    DeviceEventEmitter.emit("changePasswordView", { changePasswordView: false });
+  }
+  safety() {
+    let str = this.state.newPassword
+    let num = /\d+/
+    let letter = /[a-zA-Z]+/
+    if (str == "" || str == null) {
+      return null
+    } else if (num.test(str) && letter.test(str) && str.length > 6) {
+      //alert(1)
+      return (
+        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+          source={require('../../img/safety3.png')} />
+      )
+    } else if (num.test(str) || letter.test(str)) {
+      return (
+        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+          source={require('../../img/safety2.png')} />
+      )
+    }
+  }
+
   render() {
     return (
       <View style={styles.topView}>
@@ -103,28 +127,6 @@ class PasswordView extends Component {
       </View>
     );
   }
-  close() {
-    DeviceEventEmitter.emit("changePasswordView", { changePasswordView: false });
-  }
-  safety() {
-    let str = this.state.newPassword
-    let num = /\d+/
-    let letter = /[a-zA-Z]+/
-    if (str == "" || str == null) {
-      return null
-    } else if (num.test(str) && letter.test(str) && str.length > 6) {
-      //alert(1)
-      return (
-        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../../img/safety3.png')} />
-      )
-    } else if (num.test(str) || letter.test(str)) {
-      return (
-        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../../img/safety2.png')} />
-      )
-    }
-  }
 }
 
 const styles = StyleSheet.create({
@@ -166,13 +168,12 @@ const styles = StyleSheet.create({
     right: 15
   },
   input: {
-    backgroundColor: 'rgba(0,0,0,0)',
     borderRadius: 3,
     width: 150,
     height: 25,
     fontSize: 11,
     margin: 0,
-    padding: 0
+    padding: 0,
   },
   button: {
     width: 150,

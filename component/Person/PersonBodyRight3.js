@@ -16,20 +16,17 @@ class PersonBodyRight3 extends Component {
     deviceIds: '',
   }
   componentDidMount() {
-    this._isMounted = true
-    if(this._isMounted){
-      this.currMbAllDeviceIds();
-    }
+    this.currMbAllDeviceIds();
   }
   componentWillUnmount() {
-    this.setState = (state,callback)=>{
+    this.setState = (state, callback) => {
       return;
     };
   }
   async currMbAllDeviceIds() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = api.base_uri_test +"pc/member/currMbAllDeviceIds?token=" + token
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = api.base_uri_test + "pc/member/currMbAllDeviceIds?token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -44,13 +41,13 @@ class PersonBodyRight3 extends Component {
       })
   }
   async clearCurrMbDeviceIds() {
-    if(this.state.deviceIds==''){
+    if (this.state.deviceIds == '') {
       alert('无Mac地址')
       return
     }
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = api.base_uri_test +"pc/member/clearCurrMbDeviceIds?token=" + token
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = api.base_uri_test + "pc/member/clearCurrMbDeviceIds?token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -58,36 +55,38 @@ class PersonBodyRight3 extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        if(result.msg=="success"){
+        if (result.msg == "success") {
           alert('清除成功');
           this.currMbAllDeviceIds();
-        }else{
+        } else {
           alert('清除失败');
         }
       })
   }
-  render() {
-    return (
-      <View style={[styles.container, color.rightBackground]}>
-        {this.renderMac()}
-        <TouchableOpacity
-          onPress={()=>this.clearCurrMbDeviceIds()}  >
-          <Text style={font.font20Blue}>清空Mac地址</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+  
   renderMac() {
     let itemArr = [];
     let deviceIds = this.state.deviceIds;
     for (let i = 0; i < deviceIds.length; i++) {
       itemArr.push(
         <View key={i}>
-          <Text style={font.font20}>Mac[{i+1}]:&nbsp;&nbsp;&nbsp;&nbsp;{deviceIds[i].deviceId}</Text>
+          <Text style={font.font20}>Mac[{i + 1}]:&nbsp;&nbsp;&nbsp;&nbsp;{deviceIds[i].deviceId}</Text>
         </View>
       )
     }
     return itemArr
+  }
+  
+  render() {
+    return (
+      <View style={[styles.container, color.rightBackground]}>
+        {this.renderMac()}
+        <TouchableOpacity
+          onPress={() => this.clearCurrMbDeviceIds()}  >
+          <Text style={font.font20Blue}>清空Mac地址</Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 }
 

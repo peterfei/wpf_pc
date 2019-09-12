@@ -502,7 +502,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   input: {
-    backgroundColor: 'rgba(0,0,0,0)',
     borderRadius: 3,
     width: 170,
     height: 25,

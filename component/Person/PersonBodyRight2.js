@@ -18,119 +18,29 @@ class PersonBodyRight2 extends Component {
     changePassword: false,
     changephoneNumber: false,
     phoneNumber: '',
-    password:''
+    password: '',
+    mbHeadUrl: ''
   }
-  render() {
-    return (
-      <View style={[styles.container, color.rightBackground]}>
-        <View style={[styles.top, color.borderBottom]}>
-          <Text style={font.font20}>|&nbsp;&nbsp;账号设置</Text>
-        </View>
-        <View style={styles.main}>
-          {/* 修改头像 */}
-          <View style={{
-            flexDirection: 'row', marginTop: 40,
-            marginBottom: 30,
-          }}>
-            <Image
-              style={{
-                height: 80,
-                width: 80,
-                borderRadius: 40,
-              }}
-              source={require('../../img/text.jpg')}
-            />
-            <View style={{
-              justifyContent: 'space-around',
-              marginLeft: 30,
-            }}>
-              <Text style={font.font20Blue}>点击修改头像</Text>
-              <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
-            </View>
-          </View>
-          {/* 修改头像 */}
-          <View style={styles.mainBody}>
-            <View style={[styles.row1, { marginBottom: 10, alignItems: 'center' }]}>
-              <Text style={[font.font25, { fontWeight: 'bold' }]}>安全等级：</Text>
-              <View style={{ justifyContent: 'center' }}>
-                <Image style={{ height: 20 }} resizeMode='contain'
-                  source={require('../../img/safety.png')} />
-                {this.safety(20)}
-              </View>
-              <Text style={[font.font25, { fontWeight: 'bold' }]}>{this.state.securityLevel}</Text>
-            </View>
-            <Text style={[font.font15NoBold, { height: 20, marginBottom: 10 }]}>{this.state.warn}</Text>
-            <View style={styles.row2}>
-              <View style={styles.center}>
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require('../../img/changephoneNumber.png')} />
-                <Text style={font.font20}>手机绑定</Text>
-              </View>
-              <View style={styles.round}>
-                <Text style={font.font18}>你已经绑定了手机号&nbsp;&nbsp;&nbsp;&nbsp;{this.state.phoneNumber.slice(0, 6) + '*****'}</Text>
-                <Text style={font.font18NoBoldGray}>手机号用于快速登录、找回密码、提高用户安全性</Text>
-              </View>
-              <View>
-                <Text style={font.font20Blue}
-                  onPress={() => {
-                    this.changephoneNumber();
-                  }}>
-                  修改手机号</Text>
-              </View>
-            </View>
-            <View style={styles.row2}>
-              <View style={styles.center}>
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require('../../img/changPassword.png')} />
-                <Text style={font.font20}>密码保护</Text>
-              </View>
-              <View style={styles.round}>
-                <View style={styles.row}>
-                  <Text style={font.font18}>密码强度</Text>
-                  <View style={{ justifyContent: 'center' }}>
-                    <Image style={{ height: 10 }} resizeMode='contain'
-                      source={require('../../img/safety.png')} />
-                    {this.safety(10)}
-                  </View>
-                  <Text style={font.font18}>{this.state.securityLevel}</Text>
-                </View>
-                <Text style={font.font18NoBoldGray}>密码用于一般登录、找回密码、保证用户安全性</Text>
-              </View>
-              <View>
-                <Text style={font.font20Blue}
-                  onPress={() => {
-                    this.changePassword();
-                  }}>
-                  修改密码</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-    )
-  }
-  async componentDidMount(){
-    this._isMounted = true
-    let AESpassword =await storage.get("password", "")
-    let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-    let AESuserName =await storage.get("userName", "")
-    let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-    if(this._isMounted){
-      this.setState({
-        password:password,
-        phoneNumber:userName
-      })
-    }
+  async componentDidMount() {
+    let AESpassword = await storage.get("password", "")
+    let password = CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let AESuserName = await storage.get("userName", "")
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let member =  await storage.get("member", "")
+    let mbHeadUrl = member.mbHeadUrl
+    this.setState({
+      password: password,
+      phoneNumber: userName,
+      mbHeadUrl: mbHeadUrl
+    })
   }
   componentWillUnmount() {
-    this.setState = (state,callback)=>{
+    this.setState = (state, callback) => {
       return;
     };
   }
-  safety(x){
-    let str=this.state.password
+  safety(x) {
+    let str = this.state.password
     let num = /\d+/
     let letter = /[a-zA-Z]+/
     if (str == "" || str == null) {
@@ -160,6 +70,100 @@ class PersonBodyRight2 extends Component {
     })
     DeviceEventEmitter.emit("changePasswordView", { changePasswordView: true });
   }
+
+  render() {
+    return (
+      <View style={[styles.container, color.rightBackground]}>
+        <View style={[styles.top, color.borderBottom]}>
+          <Text style={font.font20}>|&nbsp;&nbsp;账号设置</Text>
+        </View>
+        <View style={styles.main}>
+          {/* 修改头像 */}
+          <View style={{
+            flexDirection: 'row', marginTop: 40,
+            marginBottom: 30,
+          }}>
+            <Image
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 40,
+              }}
+              source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../../img/text.jpg')}
+            />
+            <View style={{
+              justifyContent: 'space-around',
+              marginLeft: 30,
+            }}>
+              <Text style={font.font20Blue}>点击修改头像</Text>
+              <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
+            </View>
+          </View>
+          {/* 修改绑定 */}
+          <View style={styles.mainBody}>
+            <View style={[styles.row1, { marginBottom: 10, alignItems: 'center' }]}>
+              <Text style={[font.font25, { fontWeight: 'bold' }]}>安全等级：</Text>
+              <View style={{ justifyContent: 'center' }}>
+                <Image style={{ height: 20 }} resizeMode='contain'
+                  source={require('../../img/safety.png')} />
+                {this.safety(20)}
+              </View>
+              <Text style={[font.font25, { fontWeight: 'bold' }]}>{this.state.securityLevel}</Text>
+            </View>
+            <Text style={[font.font15NoBold, { height: 20, marginBottom: 10 }]}>{this.state.warn}</Text>
+
+            <View style={styles.row2}>
+              <View style={styles.center}>
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={require('../../img/changephoneNumber.png')} />
+                <Text style={font.font20}>手机绑定</Text>
+              </View>
+              <View style={styles.round}>
+                <Text style={font.font18}>你已经绑定了手机号&nbsp;&nbsp;&nbsp;&nbsp;{this.state.phoneNumber.slice(0, 6) + '*****'}</Text>
+                <Text style={font.font18NoBoldGray}>手机号用于快速登录、找回密码、提高用户安全性</Text>
+              </View>
+              <View>
+                <Text style={font.font20Blue}
+                  onPress={() => {
+                    this.changephoneNumber();
+                  }}>
+                  修改手机号</Text>
+              </View>
+            </View>
+
+            <View style={styles.row2}>
+              <View style={styles.center}>
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={require('../../img/changPassword.png')} />
+                <Text style={font.font20}>密码保护</Text>
+              </View>
+              <View style={styles.round}>
+                <View style={styles.row}>
+                  <Text style={font.font18}>密码强度</Text>
+                  <View style={{ justifyContent: 'center' }}>
+                    <Image style={{ height: 10 }} resizeMode='contain'
+                      source={require('../../img/safety.png')} />
+                    {this.safety(10)}
+                  </View>
+                  <Text style={font.font18}>{this.state.securityLevel}</Text>
+                </View>
+                <Text style={font.font18NoBoldGray}>密码用于一般登录、找回密码、保证用户安全性</Text>
+              </View>
+              <View>
+                <Text style={font.font20Blue}
+                  onPress={() => {
+                    this.changePassword();
+                  }}>
+                  &nbsp;&nbsp;&nbsp;&nbsp;修改密码</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -186,6 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   mainBody: {
+    width: '100%',
     marginBottom: 30,
     borderTopWidth: 1,
     borderColor: "rgb(110,110,110)",
@@ -206,10 +211,10 @@ const styles = StyleSheet.create({
   },
   row2: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: 30,
+    margin: 20,
   },
   center: {
     justifyContent: 'center',
