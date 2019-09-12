@@ -1,6 +1,6 @@
 export default {
    base_uri: "http://api.vesal.cn:8000/vesal-jiepao-prod/",
-  // base_uri: "http://118.24.119.234:8083/vesal-jiepao-test/",
+   base_uri_test: "http://118.24.119.234:8003/vesal-jiepao-test/",
   initStructLists: [
     {
       FyList: [

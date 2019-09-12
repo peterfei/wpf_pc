@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, TextInput
+  TouchableOpacity, TextInput
 } from "react-native";
 
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-
+import api from "../../screen/api";
 //个人中心主体右侧
 
 class PersonBodyRight3 extends Component {
@@ -16,12 +16,20 @@ class PersonBodyRight3 extends Component {
     deviceIds: '',
   }
   componentDidMount() {
-    this.currMbAllDeviceIds();
+    this._isMounted = true
+    if(this._isMounted){
+      this.currMbAllDeviceIds();
+    }
+  }
+  componentWillUnmount() {
+    this.setState = (state,callback)=>{
+      return;
+    };
   }
   async currMbAllDeviceIds() {
     let AEStoken = await storage.get("token", "")
     let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/currMbAllDeviceIds?token=" + token
+    let url = api.base_uri_test +"pc/member/currMbAllDeviceIds?token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -42,7 +50,7 @@ class PersonBodyRight3 extends Component {
     }
     let AEStoken = await storage.get("token", "")
     let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/clearCurrMbDeviceIds?token=" + token
+    let url = api.base_uri_test +"pc/member/clearCurrMbDeviceIds?token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -62,10 +70,10 @@ class PersonBodyRight3 extends Component {
     return (
       <View style={[styles.container, color.rightBackground]}>
         {this.renderMac()}
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={()=>this.clearCurrMbDeviceIds()}  >
           <Text style={font.font20Blue}>清空Mac地址</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }

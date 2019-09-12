@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight,
+  TouchableOpacity,
   DeviceEventEmitter
 } from "react-native";
 
@@ -15,7 +15,7 @@ class PersonTop extends Component {
       <View style={color.topBackground}>
         <View style={styles.top}>
           <Text style={font.font30}>个人中心</Text>
-          <TouchableHighlight style={styles.buttonImage}
+          <TouchableOpacity style={styles.buttonImage}
           onPress={() => { 
             this.props.navigation.dispatch(NavigationActions.back())
             setTimeout(()=>{
@@ -28,7 +28,7 @@ class PersonTop extends Component {
           style={styles.Image}
             source={require('../../img/close.png')}
           />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );

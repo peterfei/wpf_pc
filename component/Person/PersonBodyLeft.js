@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,DeviceEventEmitter} from "react-native";
+  TouchableOpacity ,DeviceEventEmitter} from "react-native";
 
 import {color, screen } from "./index";
 import {font,getScreen} from "../Public/index";
@@ -9,7 +9,7 @@ import { storage } from "../Public/storage";
 //个人中心主体左侧
 class PersonBodyLeft extends Component {
   state={
-    currentIndex:'个人中心',
+    currentIndex:0,
     title:['个人中心','账户设置','Mac地址'],
     Image:[{"Image":require('../../img/tab1.png')},{"Image":require('../../img/tab2.png')},{"Image":require('../../img/tab3.png')}],
     userName:''
@@ -33,7 +33,6 @@ class PersonBodyLeft extends Component {
 
           {this.renderLabel()}
 
-
       </View>
     );
   }
@@ -42,14 +41,13 @@ class PersonBodyLeft extends Component {
     let indicator=[],isLabel;
     let title=this.state.title;
     for(let i=0;i<title.length;i++){
-      if(title[i]==this.state.currentIndex){
+      i==this.state.currentIndex?
           isLabel={backgroundColor:"rgb(78,78,78)",borderRightWidth:1,borderColor:"rgb(110,110,110)"}
-      }else{
+      :
           isLabel={}
-      };
       indicator.push(
-        <TouchableHighlight key={i}
-        onPress={() => this.change(i,title[i])}
+        <TouchableOpacity key={i}
+        onPress={() => this.change(i)}
         >
           <View style={[styles.label,color.borderBottom,isLabel]}>
             <Image  style={{width:25,height:25,margin:10}}
@@ -57,14 +55,15 @@ class PersonBodyLeft extends Component {
             />
             <Text style={font.font20}>{title[i]}</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       )
     }
     return indicator;
   }
-  change(i,title){
-    // alert(`i is ${i} and title is ${title}`)
-    this.setState({currentIndex:title});
+  change(i){
+    this.setState({
+      currentIndex:i
+    });
     DeviceEventEmitter.emit("PersonBodyRightNum", {
       num: i
     });

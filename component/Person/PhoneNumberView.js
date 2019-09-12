@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, TextInput, DeviceEventEmitter
+  TouchableOpacity, TextInput, DeviceEventEmitter
 } from "react-native";
 
 import { color, screen } from "./index";
@@ -9,7 +9,7 @@ import { font, getScreen } from "../Public";
 import CountDownButton from "../Public/countDownButton"
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-
+import api from "../../screen/api";
 //个人中心修改手机
 
 class PhoneNumberView extends Component {
@@ -46,7 +46,7 @@ class PhoneNumberView extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/appCaptcha?uuid=" + guid;
+    let url = api.base_uri_test +"appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
@@ -62,7 +62,7 @@ class PhoneNumberView extends Component {
       return;
     } else {
       const url =
-        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeCheck?tellAndEmail=" +
+      api.base_uri_test +"v1/app/member/getCodeCheck?tellAndEmail=" +
         userName;
       try {
         await fetch(url, {
@@ -105,7 +105,7 @@ class PhoneNumberView extends Component {
       return;
     } else {
       const url =
-        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+      api.base_uri_test +"v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         userName + "&uuid=" + uuid + "&captchaCode=" + code + "&option=register";
       try {
         await fetch(url, {
@@ -139,7 +139,7 @@ class PhoneNumberView extends Component {
     //   token: token,
     // }
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
+    let url = api.base_uri_test +"pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -169,7 +169,7 @@ class PhoneNumberView extends Component {
     //   code: this.state.newCode,
     // }
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/changeTellNumber?code="
+    let url = api.base_uri_test +"pc/member/changeTellNumber?code="
     +this.state.newCode+"&newTell="+this.state.newPhoneNumber+"&oldTell="+this.state.oldPhoneNumber+"&token="+token
     await fetch(url, {
       method: "post",
@@ -197,11 +197,11 @@ class PhoneNumberView extends Component {
         <View style={styles.bodyView}>
           <View style={styles.title}>
             <Text style={font.font20}>修改绑定手机号码</Text>
-            <TouchableHighlight style={styles.close}
+            <TouchableOpacity style={styles.close}
               onPress={() => this.close()}>
               <Image style={{ width: '100%', height: '100%' }}
                 source={require('../../img/close.png')} />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           {this.step()}
@@ -289,12 +289,12 @@ class PhoneNumberView extends Component {
             />
           </View>
         </View>
-        <TouchableHighlight style={{ width: 150 }}
+        <TouchableOpacity style={{ width: 150 }}
           onPress={() => this.stepNext(this.state.oldPhoneNumber, this.state.oldCode)}>
           <View style={styles.button}>
             <Text style={font.font20}>确定</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -369,12 +369,12 @@ class PhoneNumberView extends Component {
             />
           </View>
         </View>
-        <TouchableHighlight style={{ width: 150 }}
+        <TouchableOpacity style={{ width: 150 }}
           onPress={() => this.stepNext(this.state.newPhoneNumber, this.state.newCode)}>
           <View style={[styles.button, { marginTop: 20 }]}>
             <Text style={font.font20}>更换</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -412,12 +412,12 @@ class PhoneNumberView extends Component {
         <Text style={{ marginTop: 30 }}>修改成功，新手机号码为：</Text>
         <Text style={{ color: 'rgb(230,140,43)', marginTop: 25 }}>{this.state.newPhoneNumber}</Text>
         <Text style={{ fontSize: 13, marginTop: 25 }}>手机号可登录维萨里所有软件应用</Text>
-        <TouchableHighlight style={{ width: 150 }}
+        <TouchableOpacity style={{ width: 150 }}
           onPress={() => this.close()}>
           <View style={styles.button}>
             <Text style={font.font20}>立即转跳</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }

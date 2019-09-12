@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ImageBackground, TextInput, DeviceEventEmitter, NativeModules
+  TouchableOpacity, ImageBackground, TextInput, DeviceEventEmitter, NativeModules
 } from "react-native";
 import color from "../Person/color";
 import { font } from "../Public";
 import CountDownButton from "../Public/countDownButton"
-
+import api from "../../screen/api";
 //注册页面
 export default class RegisterScreen extends Component {
   static navigationOptions = {
@@ -40,7 +40,7 @@ export default class RegisterScreen extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/appCaptcha?uuid=" + guid;
+    let url = api.base_uri_test +"appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
@@ -60,7 +60,7 @@ export default class RegisterScreen extends Component {
       business: 'anatomy',
     }
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/register"
+    let url = api.base_uri_test +"pc/member/register"
     if (this.state.password == '') {
       this.setState({
         warn:'密码不能为空!'
@@ -95,7 +95,7 @@ export default class RegisterScreen extends Component {
       return;
     } else {
       const url =
-        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+      api.base_uri_test +"v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         this.state.phoneNumber + "&uuid=" + this.state.uuid + "&captchaCode=" + this.state.code + "&option=register";
       try {
         await fetch(url, {
@@ -185,18 +185,18 @@ export default class RegisterScreen extends Component {
                 />
               </View>
 
-              <TouchableHighlight style={{ width: '100%' }} onPress={() => {
+              <TouchableOpacity style={{ width: '100%' }} onPress={() => {
                 this.register()
               }}>
                 <View style={styles.button}>
                   <Text style={font.font20}>注册</Text>
                 </View>
-              </TouchableHighlight>
+              </TouchableOpacity>
 
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => this.change()}>
                 <Text style={font.font18NoBoldGray}>已有账号？登陆</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </ImageBackground>

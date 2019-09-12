@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput
+  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput
 } from "react-native";
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -9,7 +9,7 @@ import { color } from "./index";
 import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-
+import api from "../../screen/api";
 
 var that = null;
 //支付页面主体
@@ -41,12 +41,12 @@ class PayBody extends Component {
       token: '',
       xxx: '',
       priceId: '',
-      userName:'',
+      userName: '',
     }
     that = this;
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     let mbName = await storage.get("mbName", "")
     this.setState({
       userName: mbName,
@@ -61,7 +61,7 @@ class PayBody extends Component {
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let comboId = this.props.comboId
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
+    let url = api.base_uri_test + "pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
     console.log(url)
     await fetch(url, {
       method: "get",
@@ -70,11 +70,16 @@ class PayBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        if(result.comboPrices[0]==''){this.setState({
-          data: result.comboPrices[0]
-        }, () => {
-          that.insertOrder()
-        })}
+        //alert(JSON.stringify(result))
+        if (result.msg == 'success') {
+          if (result.comboPrices[0] == '') {
+            this.setState({
+              data: result.comboPrices[0]
+            }, () => {
+              that.insertOrder()
+            })
+          }
+        }
       })
   }
   async insertOrder() {
@@ -91,7 +96,7 @@ class PayBody extends Component {
       "remark": "测试",
       "business": "anatomy"
     }
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/order/insertOrder?token=" + token
+    let url = api.base_uri_test + "pc/order/insertOrder?token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -111,7 +116,7 @@ class PayBody extends Component {
   async getNativeQRCode() {
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
+    let url = api.base_uri_test + "pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
       ImgUrl: url
     })
@@ -143,9 +148,9 @@ class PayBody extends Component {
             <Text style={font.font18}>普通用户</Text>
           </View>
           <View>
-            <TouchableHighlight onPress={() => this.changeID()}>
+            <TouchableOpacity onPress={() => this.changeID()}>
               <Text style={[font.font18, styles.changeID]}>切换账号</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
 

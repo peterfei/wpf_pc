@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ImageBackground, TextInput, AsyncStorage, DeviceEventEmitter, NativeModules
+  TouchableOpacity, ImageBackground, TextInput, AsyncStorage, DeviceEventEmitter, NativeModules
 } from "react-native";
-
+import api from "../../screen/api"
 import color from "../Person/color";
 import { font } from "../Public";
 import TestData from "../../LocalData/TestData.json"
@@ -36,7 +36,7 @@ export default class LoginScreen extends Component {
       business: 'anatomy',
     }
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/pcNormalLogin"
+    let url = api.base_uri_test+"pc/member/pcNormalLogin"
     await fetch(url, {
       method: "post",
       headers: {
@@ -166,24 +166,24 @@ export default class LoginScreen extends Component {
           </View>
         </View>
 
-        <TouchableHighlight style={{ width: '25%' }}
+        <TouchableOpacity style={{ width: '25%' }}
           onPress={() => { this.pcNormalLogin() }} >
           <View style={styles.button}>
             <Text style={font.font20}>登陆</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <View style={styles.index}>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => this.change1()}>
             <Text style={font.font18NoBoldGray}>忘记密码</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => this.change2()}>
             <Text style={font.font18NoBoldRed}>立即注册</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
-        <TouchableHighlight style={{ marginTop: 15 }}
+        <TouchableOpacity style={{ marginTop: 15 }}
           onPress={() => this.change3()}
         >
           <View style={{ flexDirection: 'row' }}>
@@ -193,7 +193,7 @@ export default class LoginScreen extends Component {
             />
             <Text style={font.font18NoBoldGray}>微信登陆</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -205,7 +205,7 @@ export default class LoginScreen extends Component {
           style={{ height: '40%' }}
           source={require('../../img/weixin.png')}
         />
-        <TouchableHighlight style={{ marginTop: 15 }}
+        <TouchableOpacity style={{ marginTop: 15 }}
           onPress={() => this.change4()}
         >
           <View style={{ flexDirection: 'row' }}>
@@ -215,7 +215,7 @@ export default class LoginScreen extends Component {
             />
             <Text style={font.font18NoBoldGray}>账户登陆</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }

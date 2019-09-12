@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, TextInput, DeviceEventEmitter
+  TouchableOpacity, TextInput, DeviceEventEmitter
 } from "react-native";
 
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-
+import api from "../../screen/api";
 
 
 //个人中心修改密码
@@ -28,7 +28,7 @@ class PasswordView extends Component {
     let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let AESuserName = await storage.get("userName", "")
     let userName =CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/updatePassWord?tell="
+    let url = api.base_uri_test+"pc/member/updatePassWord?tell="
     +userName+"&password="+this.state.oldPassword+"&newPassword="+this.state.newPassword+"&newPasswordConfirm="+this.state.sureNewPassword+"&token="+token
     await fetch(url, {
       method: "post",
@@ -54,11 +54,11 @@ class PasswordView extends Component {
         <View style={styles.bodyView}>
           <View style={styles.title}>
             <Text style={font.font20}>修改密码</Text>
-            <TouchableHighlight style={styles.close}
+            <TouchableOpacity style={styles.close}
               onPress={() => this.close()}>
               <Image style={{ width: '100%', height: '100%' }}
                 source={require('../../img/close.png')} />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <View style={[styles.row, { marginTop: 30 }]}>
@@ -92,12 +92,12 @@ class PasswordView extends Component {
               onChangeText={(text) => this.setState({ sureNewPassword: text })}  />
           </View>
           <Text style={[font.font15NoBoldRed,{marginTop:10}]}>{this.state.warn}</Text>
-          <TouchableHighlight style={{ width: 150 }}
+          <TouchableOpacity style={{ width: 150 }}
             onPress={() => this.updatePassWord()}>
             <View style={styles.button}>
               <Text style={font.font20}>确定</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
 
         </View>
       </View>

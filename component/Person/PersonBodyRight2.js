@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, TextInput, DeviceEventEmitter
+  TouchableOpacity, TextInput, DeviceEventEmitter
 } from "react-native";
 
 import { color, screen } from "./index";
@@ -112,14 +112,22 @@ class PersonBodyRight2 extends Component {
     )
   }
   async componentDidMount(){
+    this._isMounted = true
     let AESpassword =await storage.get("password", "")
     let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
     let AESuserName =await storage.get("userName", "")
     let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-    this.setState({
-      password:password,
-      phoneNumber:userName
-    })
+    if(this._isMounted){
+      this.setState({
+        password:password,
+        phoneNumber:userName
+      })
+    }
+  }
+  componentWillUnmount() {
+    this.setState = (state,callback)=>{
+      return;
+    };
   }
   safety(x){
     let str=this.state.password

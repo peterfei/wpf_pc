@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import {
-  Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ImageBackground, TextInput, DeviceEventEmitter
+  Platform, StyleSheet, Text, View, Image,TouchableOpacity
+  , ImageBackground, TextInput, DeviceEventEmitter
 } from "react-native";
 
 import color from "../Person/color";
 import { font } from "../Public";
 import CountDownButton from "../Public/countDownButton"
-
+import api from "../../screen/api";
 //找回密码页面
 export default class FindScreen extends Component {
   static navigationOptions = {
@@ -30,7 +30,7 @@ export default class FindScreen extends Component {
       code: this.state.securityCode,
     }
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/forgetPwd"
+    let url = api.base_uri_test +"pc/member/forgetPwd"
     if (this.state.password == '') {
       this.setState({
         warn: '密码不能为空!'
@@ -58,7 +58,7 @@ export default class FindScreen extends Component {
       return;
     } else {
       const url =
-        "http://118.24.119.234:8087/vesal-jiepao-test/v1/app/member/getCodeCheck?tellAndEmail=" +
+        api.base_uri_test+"v1/app/member/getCodeCheck?tellAndEmail=" +
         this.state.userName;
       try {
         await fetch(url, {
@@ -146,17 +146,17 @@ export default class FindScreen extends Component {
                 />
               </View>
 
-              <TouchableHighlight style={{ width: '100%' }}
+              <TouchableOpacity style={{ width: '100%' }}
                 onPress={() => this.forgetPwd()}>
                 <View style={styles.button}>
                   <Text style={font.font20}>找回</Text>
                 </View>
-              </TouchableHighlight>
+              </TouchableOpacity>
 
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => this.change()}>
                 <Text style={font.font18NoBoldGray}>已有找回？登陆</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </ImageBackground>

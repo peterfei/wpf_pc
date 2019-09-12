@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight,ImageBackground } from "react-native";
+  TouchableOpacity,ImageBackground } from "react-native";
 
 
   //初始化页面

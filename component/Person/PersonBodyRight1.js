@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, TextInput
+  TouchableOpacity, TextInput
 } from "react-native";
 
 import { color, screen } from "./index";
@@ -10,7 +10,7 @@ import { font, getScreen } from "../Public";
 import { storage } from "../Public/storage";
 import CryptoJS from "crypto-js";
 import RadioModal from 'react-native-radio-master';
-
+import api from "../../screen/api";
 //个人中心主体右侧
 
 class PersonBodyRight1 extends Component {
@@ -29,18 +29,25 @@ class PersonBodyRight1 extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true
     let mbName = await storage.get("mbName", "")
     let mbSex = await storage.get("mbSex", "")
 
     let initId = mbSex == '男' ? '0' : '1';
     let initItem = mbSex == '男' ? '男' : '女';
-    this.setState({
-      initId: initId,
-      initItem: initItem,
-      userName: mbName,
-    })
+    if(this._isMounted){
+      this.setState({
+        initId: initId,
+        initItem: initItem,
+        userName: mbName,
+      })
+    }
   }
-
+  componentWillUnmount() {
+    this.setState = (state,callback)=>{
+      return;
+    };
+  }
 
   async updateMemberInfo() {
     let AEStoken = await storage.get("token", "")
@@ -52,7 +59,8 @@ class PersonBodyRight1 extends Component {
       mbId:mbId,
       mbSex:this.state.initItem
     }
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/member/updateMemberInfo?token="+token
+    let url =api.base_uri_test + "pc/member/updateMemberInfo?token="+token
+    alert(url)
     await fetch(url, {
       method: "post",
       headers: {

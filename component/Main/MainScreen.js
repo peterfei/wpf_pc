@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight,
+  TouchableOpacity,
   DeviceEventEmitter,
   AsyncStorage
 } from 'react-native';
@@ -107,20 +107,20 @@ export default class MainScreen extends Component {
                     right:50,
                     top:50,
                     }}>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     this.showPerson();
                   }}
                 >
                   <Text style={{fontWeight:'bold'}}>个人中心</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
+                </TouchableOpacity>
+                <TouchableOpacity
                   onPress={() => {
                     this.showMalls();
                   }}
                 >
                   <Text style={{fontWeight:'bold'}}>商城</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <View style={{width:200,margin:20}}>
                 <Text style={{fontWeight:'bold',margin:10}}>AES用户名：{this.state.AESuserName}</Text>
                 <Text style={{fontWeight:'bold',margin:10}}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>

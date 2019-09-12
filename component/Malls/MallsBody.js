@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, ScrollView, Dimensions, AsyncStorage
+  TouchableOpacity, ScrollView, Dimensions, AsyncStorage
 } from "react-native";
 
 import { color } from "./index";
 import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-
+import api from "../../screen/api";
 //商城主体
 class MallsBody extends Component {
   state = {
@@ -23,7 +23,7 @@ class MallsBody extends Component {
   async comboList() {
     //接口发送参数
     //接口URL
-    let url = "http://118.24.119.234:8087/vesal-jiepao-test/pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
+    let url = api.base_uri_test+"pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
 
     await fetch(url, {
       method: "get",
@@ -81,12 +81,12 @@ class MallsBody extends Component {
         <View style={styles.content}>
           <View style={{ width: "6%", height: 200 }}></View>
           <View style={styles.leftRight}>
-            <TouchableHighlight onPress={() => this.moveCommodityLeft()}>
+            <TouchableOpacity onPress={() => this.moveCommodityLeft()}>
               <Image
                 style={styles.leftRightImg}
                 source={require('../../img/leftImg.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
 
           <ScrollView horizontal={true}
@@ -98,12 +98,12 @@ class MallsBody extends Component {
             {this.renderCommodity()}
           </ScrollView>
           <View style={styles.leftRight}>
-            <TouchableHighlight onPress={() => this.moveCommodityRight()}>
+            <TouchableOpacity onPress={() => this.moveCommodityRight()}>
               <Image
                 style={styles.leftRightImg}
                 source={require('../../img/rightImg.png')}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <View style={{ width: "6%", height: 200 }}></View>
         </View>
@@ -127,9 +127,9 @@ class MallsBody extends Component {
             <Text style={font.font25}>{data[i].comboName}</Text>
             <Text style={font.font20NoBold}>{data[i].labelA}</Text>
             <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
-            <TouchableHighlight onPress={() => this.change(data[i].comboId)} style={styles.button}>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
               <Text style={{ fontSize: 16 }}>立即购买</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       )

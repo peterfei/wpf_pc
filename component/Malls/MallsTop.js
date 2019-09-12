@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
-  TouchableHighlight ,DeviceEventEmitter} from "react-native";
+  TouchableOpacity ,DeviceEventEmitter} from "react-native";
 
 import {NavigationActions} from "react-navigation";
 import { color} from "./index";
@@ -13,7 +13,7 @@ class MallsTop extends Component {
       <View style={color.topBackground}>
         <View style={styles.top}>
           <Text style={font.font30}>商城中心</Text>
-          <TouchableHighlight style={styles.buttonImage}
+          <TouchableOpacity style={styles.buttonImage}
           onPress={() => { 
             this.props.navigation.dispatch(NavigationActions.back())
             setTimeout(()=>{
@@ -26,7 +26,7 @@ class MallsTop extends Component {
           style={styles.Image}
             source={require('../../img/close.png')}
           />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );

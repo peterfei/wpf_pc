@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableHighlight, DeviceEventEmitter
+  TouchableOpacity, DeviceEventEmitter
 } from "react-native";
 
 import { PersonBodyLeft, PersonBodyRight1, PersonBodyRight2, PersonBodyRight3, PersonTop } from "./index";
