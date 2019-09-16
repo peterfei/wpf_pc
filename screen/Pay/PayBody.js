@@ -56,11 +56,40 @@ class PayBody extends Component {
     this.setState({
       userName: mbName,
       mbHeadUrl: mbHeadUrl,
-      mbIdentity: mbIdentity==1?'学生':mbIdentity==2?'教师':mbIdentity==3?'医生':mbIdentity==4?'游客':'普通用户'
+      mbIdentity: mbIdentity == 1 ? '学生' : mbIdentity == 2 ? '教师' : mbIdentity == 3 ? '医生' : mbIdentity == 4 ? '游客' : '普通用户'
     })
     this.comboDetail()
   }
 
+  initInterval() {
+    this.timer = setInterval(
+      () => {
+        that.getOrderState()
+      },
+      1000
+    );
+  }
+
+  async getOrderState() {
+    let AEStoken = await storage.get("token", "")
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = api.base_uri_test + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
+    await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        if (result.result == 'finished') {
+          alert('支付成功')
+        }
+      })
+  }
+
+  componentWillUnmount() {
+    this.time && clearTimeout(this.time);
+  }
 
   async comboDetail() {
     // 接口发送参数
@@ -79,7 +108,7 @@ class PayBody extends Component {
       .then(result => {
         //alert(JSON.stringify(result))
         if (result.msg == 'success') {
-          if (result.comboPrices[0] == '') {
+          if (result.comboPrices[0] !== '') {
             this.setState({
               data: result.comboPrices[0]
             }, () => {
@@ -116,6 +145,7 @@ class PayBody extends Component {
           ordNo: result.order.ordNo
         }, () => {
           that.getNativeQRCode();
+          that.initInterval()
         })
 
       })
@@ -148,7 +178,7 @@ class PayBody extends Component {
         <View style={styles.personInformation}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl?{uri:this.state.mbHeadUrl}:require('../img/text.jpg')}
+            source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
           />
           <View style={styles.information}>
             <Text style={font.font18}>{this.state.userName}</Text>
