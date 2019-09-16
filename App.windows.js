@@ -12,14 +12,14 @@ import {Platform, StyleSheet, Text, View,Image,
 } from 'react-native';
 import { createStackNavigator} from 'react-navigation';
 
-import PersonScreen from "./component/Person/PersonScreen";
-import MallsScreen from "./component/Malls/MallsScreen";
-import MainScreen from './component/Main/MainScreen';
-import PayScreen from './component/Pay/PayScreen';
-import LoginScreen from './component/Login/LoginScreen';
-import RegisterScreen from './component/Register/RegisterScreen';
-import FindScreen from './component/Find/FindScreen';
-import InitializeScreen from './component/Initialize/InitializeScreen';
+import PersonScreen from "./screen/Person/PersonScreen";
+import MallsScreen from "./screen/Malls/MallsScreen";
+import MainScreen from './screen/Main/MainScreen';
+import PayScreen from './screen/Pay/PayScreen';
+import LoginScreen from './screen/Login/LoginScreen';
+import RegisterScreen from './screen/Register/RegisterScreen';
+import FindScreen from './screen/Find/FindScreen';
+import InitializeScreen from './screen/Initialize/InitializeScreen';
 
 const RootStack = createStackNavigator( //跟路由
   {//定义模块
@@ -51,17 +51,7 @@ const RootStack = createStackNavigator( //跟路由
 export default class App extends Component {
   constructor(props) {
     super(props);
-    //this._bootstrapAsync();
   }
-  // _bootstrapAsync = async () => {
-  //   const userName = await AsyncStorage.getItem("userName");
-  //   const password = await AsyncStorage.getItem("password");
-  //   if (userName !== null && userName != "" && password != null && password != "") {
-  //     this.props.navigation.navigate('Main');
-  //   } else {
-  //     this.props.navigation.navigate('Login');
-  //   }
-  // };
   render() {                            //将Navigation作为根路径导出
     return <RootStack />;
   }
