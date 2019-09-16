@@ -101,19 +101,6 @@ export default class LoginScreen extends Component {
       });
     }
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.background}
-          source={require('../../img/background.png')}>
-
-          {this.Login()}
-
-        </ImageBackground>
-      </View>
-    );
-  }
   Login() {
     if (this.state.weixinLogin) {
       return (
@@ -179,7 +166,7 @@ export default class LoginScreen extends Component {
             <Text style={font.font18NoBoldRed}>立即注册</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ marginTop: 15 }}
+        {/* <TouchableOpacity style={{ marginTop: 15 }}
           onPress={() => this.change3()}
         >
           <View style={{ flexDirection: 'row' }}>
@@ -189,7 +176,7 @@ export default class LoginScreen extends Component {
             />
             <Text style={font.font18NoBoldGray}>微信登陆</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     )
   }
@@ -256,6 +243,19 @@ export default class LoginScreen extends Component {
     this.setState({
       warn: '',
     });
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.background}
+          source={require('../../img/background.png')}>
+
+          {this.Login()}
+
+        </ImageBackground>
+      </View>
+    );
   }
 }
 
