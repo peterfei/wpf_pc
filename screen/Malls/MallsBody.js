@@ -3,7 +3,6 @@ import {
   Platform, StyleSheet, Text, View, Image,
   TouchableOpacity, ScrollView, Dimensions, AsyncStorage
 } from "react-native";
-import Loading from "../common/Loading";
 import { color } from "./index";
 import { font } from "../Public";
 import CryptoJS from "crypto-js";
@@ -40,13 +39,11 @@ class MallsBody extends Component {
       })
   }
   async componentDidMount() {
-    //this.Loading.show("加载中...");
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     this.setState({
       token: token
     })
-    //this.Loading.close();
     this.time = await setInterval(
       () => {
         let width = Dimensions.get('window').width;
