@@ -21,6 +21,20 @@ import { storage } from "../Public/storage";
 import { NativeModules } from "react-native";
 
 export default class MainScreen extends Component {
+  
+  static navigationOptions = {
+    title: 'Main',
+  }
+  state = {
+    modalVisible: "flex",
+    width: 0,
+    height: 0,
+    currentIndex: "Main",
+    userName: '',
+    password: '',
+    AESuserName: '',
+    AESpassword: '',
+  };
   listeners = {
     update: [DeviceEventEmitter.addListener(
       "UnityWinEmitter",
@@ -41,30 +55,33 @@ export default class MainScreen extends Component {
         this.sendMsgToUnity("BuyComplete", data, "BuyComplete");
       }
     ),
+
+    DeviceEventEmitter.addListener("testBind", data => {
+      // alert(data);
+      if (data == "hide") {
+        // this.setState({ modalVisible: "none" });
+      }
+      else if(data=='OpenClientCenter'){
+        // this.setState({ modalVisible: "none" });
+        this.showPerson();
+        // alert(1111)
+      }
+      else if(data=='ShowMall') {
+        // this.setState({ modalVisible: "none" });
+        this.showMalls();
+      }
+    })
     ]
   };
   componentWillUnmount() {
     // cleaning up listeners
-    // I am using lodash
+    // I am using lod.ash
     _.each(this.listeners, listener => {
       listener[0].remove();
       listener[1].remove();
     });
     this.timer && clearInterval(this.timer);
   }
-  static navigationOptions = {
-    title: 'Main',
-  }
-  state = {
-    modalVisible: "flex",
-    width: 0,
-    height: 0,
-    currentIndex: "Main",
-    userName: '',
-    password: '',
-    AESuserName: '',
-    AESpassword: '',
-  };
   showPerson() {
     this.setState({
       currentIndex: "Person",
@@ -142,13 +159,13 @@ export default class MainScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <UnityView   
+          <UnityView   
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
             
             >
-          </UnityView> */}
+          </UnityView>  
 
         {/* 1.1.主界面按钮 */}
         <View style={{

@@ -22,7 +22,7 @@ class PersonTop extends Component {
               DeviceEventEmitter.emit("UnityWinEmitter", {
                 modalVisible: "flex"
               });
-            },200)
+            },100)
           }}>
           <Image
           style={styles.Image}

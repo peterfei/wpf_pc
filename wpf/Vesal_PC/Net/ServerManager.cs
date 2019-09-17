@@ -281,6 +281,13 @@ namespace VesalPCVip.Net
                                         ServerManager.sendToJs("show");
                                         GameHost.ActivateUnityWindow();
                                     }
+                                    else if (str == "OpenClientCenter")
+                                    {
+                                        ServerManager.sendToJs("OpenClientCenter");
+                                    }
+                                    else if (str == "ShowMall") {
+                                        ServerManager.sendToJs("ShowMall");
+                                    }
                                    
                                     vesal_log.vesal_write_log("change model.");
                                 }

@@ -54,12 +54,12 @@ class PayBody extends Component {
   }
 
   initInterval() {
-    this.timer = setInterval(
-      () => {
-        that.getOrderState()
-      },
-      1000
-    );
+    // this.timer = setInterval(
+    //   () => {
+    //     that.getOrderState()
+    //   },
+    //   1000
+    // );
   }
 
   async getOrderState() {
