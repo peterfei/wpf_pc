@@ -11,7 +11,7 @@ import { storage } from "../Public/storage";
 import api from "../api";
 //个人中心主体右侧
 
-class PersonBodyRight3 extends Component {
+class PersonBodyRightThree extends Component {
   state = {
     deviceIds: '',
   }
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = PersonBodyRight3;
+module.exports = PersonBodyRightThree;

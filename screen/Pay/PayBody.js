@@ -14,14 +14,6 @@ import api from "../api";
 var that = null;
 //支付页面主体
 class PayBody extends Component {
-  // state = {
-  //   data: {},
-  //   ordNo: '',
-  //   ImgUrl: "",
-  //   token: '',
-  //   xxx: ''
-  // }
-
   constructor(props) {
     super(props);
     this.state = {

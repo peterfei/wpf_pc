@@ -11,7 +11,7 @@ import { storage } from "../Public/storage";
 
 //个人中心主体右侧
 
-class PersonBodyRight2 extends Component {
+class PersonBodyRightTwo extends Component {
   state = {
     securityLevel: '中',
     warn: '您的账号存在安全风险，建议您更改密码，提高安全性。',
@@ -222,4 +222,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = PersonBodyRight2;
+module.exports = PersonBodyRightTwo;

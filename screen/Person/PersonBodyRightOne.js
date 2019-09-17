@@ -13,7 +13,7 @@ import RadioModal from 'react-native-radio-master';
 import api from "../api";
 //个人中心主体右侧
 
-class PersonBodyRight1 extends Component {
+class PersonBodyRightOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -284,4 +284,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = PersonBodyRight1;
+module.exports = PersonBodyRightOne;

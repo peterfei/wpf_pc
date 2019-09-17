@@ -3,7 +3,7 @@ import {
   Platform, StyleSheet, Text, View, Image,
   TouchableOpacity, ScrollView, Dimensions, AsyncStorage
 } from "react-native";
-
+import Loading from "../common/Loading";
 import { color } from "./index";
 import { font } from "../Public";
 import CryptoJS from "crypto-js";
@@ -23,7 +23,7 @@ class MallsBody extends Component {
   async comboList() {
     //接口发送参数
     //接口URL
-    let url = api.base_uri_test+"pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
+    let url = api.base_uri_test + "pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
 
     await fetch(url, {
       method: "get",
@@ -33,17 +33,20 @@ class MallsBody extends Component {
     }).then(resp => resp.json())
       .then(result => {
         //alert(JSON.stringify(result.page.list))
+        
         this.setState({
           data: result.page.list
         })
       })
   }
   async componentDidMount() {
+    //this.Loading.show("加载中...");
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     this.setState({
       token: token
     })
+    //this.Loading.close();
     this.time = await setInterval(
       () => {
         let width = Dimensions.get('window').width;
@@ -66,55 +69,6 @@ class MallsBody extends Component {
   }
   componentWillUnmount() {
     this.time && clearTimeout(this.time);
-  }
-  // componentWillUnmount(){
-  //   this.time && setInterval(this.time);
-  // }
-
-  render() {
-    return (
-      <View style={[styles.container, color.rightBackground]}>
-        <Image
-          style={styles.imgBackGround}
-          source={require('../img/mallBackground.png')}
-        />
-        <View style={styles.content}>
-          <View style={{ width: "6%", height: 200 }}></View>
-          <View style={styles.leftRight}>
-            <TouchableOpacity onPress={() => this.moveCommodityLeft()}>
-              <Image
-                style={styles.leftRightImg}
-                source={require('../img/leftImg.png')}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <ScrollView horizontal={true}
-            ref='ScrollView'
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={true}
-            //onMomentumScrollEnd={this.onScrollAnimationEnd}
-            style={styles.commodity}>
-            {this.renderCommodity()}
-          </ScrollView>
-          <View style={styles.leftRight}>
-            <TouchableOpacity onPress={() => this.moveCommodityRight()}>
-              <Image
-                style={styles.leftRightImg}
-                source={require('../img/rightImg.png')}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ width: "6%", height: 200 }}></View>
-        </View>
-
-        {/* <View style={styles.bottom}>
-          {this.renderIndicator()}
-        </View> */}
-
-      </View>
-
-    );
   }
 
   renderCommodity() {
@@ -163,7 +117,56 @@ class MallsBody extends Component {
   moveCommodityRight() {
     this.refs.ScrollView.scrollTo({ x: 800, y: 0, animated: true })
   }
+  render() {
+    return (
+      <View style={[styles.container, color.rightBackground]}>
+        <Image
+          style={styles.imgBackGround}
+          source={require('../img/mallBackground.png')}
+        />
+        <View style={styles.content}>
+          <View style={{ width: "6%", height: 200 }}></View>
+          <View style={styles.leftRight}>
+            <TouchableOpacity onPress={() => this.moveCommodityLeft()}>
+              <Image
+                style={styles.leftRightImg}
+                source={require('../img/leftImg.png')}
+              />
+            </TouchableOpacity>
+          </View>
 
+          <ScrollView horizontal={true}
+            ref='ScrollView'
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
+            //onMomentumScrollEnd={this.onScrollAnimationEnd}
+            style={styles.commodity}>
+            {this.renderCommodity()}
+          </ScrollView>
+          <View style={styles.leftRight}>
+            <TouchableOpacity onPress={() => this.moveCommodityRight()}>
+              <Image
+                style={styles.leftRightImg}
+                source={require('../img/rightImg.png')}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ width: "6%", height: 200 }}></View>
+        </View>
+        <Loading
+          ref={r => {
+            this.Loading = r;
+          }}
+          hudHidden={false}
+        />
+        {/* <View style={styles.bottom}>
+          {this.renderIndicator()}
+        </View> */}
+
+      </View>
+
+    );
+  }
 }
 
 const styles = StyleSheet.create({

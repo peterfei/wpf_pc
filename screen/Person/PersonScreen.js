@@ -4,7 +4,7 @@ import {
   TouchableOpacity, DeviceEventEmitter
 } from "react-native";
 
-import { PersonBodyLeft, PersonBodyRight1, PersonBodyRight2, PersonBodyRight3, PersonTop } from "./index";
+import { PersonBodyLeft, PersonBodyRightOne, PersonBodyRightTwo, PersonBodyRightThree, PersonTop } from "./index";
 import _ from "lodash";
 import PhoneNumberView from './PhoneNumberView';
 import PasswordView from './PasswordView'
@@ -95,15 +95,15 @@ export default class PersonScreen extends Component {
   PersonBodyRight() {
     if (this.state.num == 0) {
       return (
-        <PersonBodyRight1 />
+        <PersonBodyRightOne />
       )
     } else if (this.state.num == 1) {
       return (
-        <PersonBodyRight2 />
+        <PersonBodyRightTwo />
       )
     } else {
       return (
-        <PersonBodyRight3 />
+        <PersonBodyRightThree />
       )
     }
   }
