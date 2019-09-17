@@ -18,7 +18,6 @@ import _ from "lodash";
 import UnityView from "../../UnityView";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-import { NativeModules } from "react-native";
 
 export default class MainScreen extends Component {
   
