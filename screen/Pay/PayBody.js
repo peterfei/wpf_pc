@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput
+  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput,NativeModules
 } from "react-native";
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -76,7 +76,10 @@ class PayBody extends Component {
         if (result.result == 'finished') {
           alert('支付成功')
           let data={"comboId":this.props.comboId}
-          DeviceEventEmitter.emit("BuyComplete", { data: data });
+          let _content={"type":"BuyComplete","data": data}
+          NativeModules.MyDialogModel.SendMessageToUnity(
+            JSON.stringify(_content)
+          );
         }
       })
   }

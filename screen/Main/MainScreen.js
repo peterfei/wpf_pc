@@ -11,7 +11,7 @@ import {
   Platform, StyleSheet, Text, View, Image,
   TouchableOpacity,
   DeviceEventEmitter,
-  AsyncStorage
+  AsyncStorage,NativeModules
 } from 'react-native';
 import _ from "lodash";
 
@@ -48,14 +48,6 @@ export default class MainScreen extends Component {
         }
       }
     ),
-    DeviceEventEmitter.addListener(
-      "BuyComplete",
-      ({ ...passedArgs }) => {
-        let data = passedArgs.data;
-        this.sendMsgToUnity("BuyComplete", data, "BuyComplete");
-      }
-    ),
-
     DeviceEventEmitter.addListener("testBind", data => {
       // alert(data);
       if (data == "hide") {
@@ -117,7 +109,10 @@ export default class MainScreen extends Component {
     })
     let member = await storage.get("member", "")
     let data = { "mb_id": member.mbId, "token": token }
-    this.sendMsgToUnity("ClientInfo", data, "ClientInfo");
+    let _content={"type":"ClientInfo","data": data}
+    NativeModules.MyDialogModel.SendMessageToUnity(
+      JSON.stringify(_content)
+    );
   }
 
   onUnityMessage(handler) {
@@ -133,26 +128,6 @@ export default class MainScreen extends Component {
     }
     if (handler.name == "ShowMall") {
       this.showMalls();
-    }
-  }
-
-  /**
-     * 发送消息给unity
-     */
-  sendMsgToUnity(name, info, type) {
-    if (this.unity) {
-      if (type == 'json') {
-        let temp = Object.assign({}, info)
-        this.unity.postMessageToUnityManager({
-          name: name,
-          data: JSON.stringify(temp)
-        })
-      } else {
-        this.unity.postMessageToUnityManager({
-          name: name,
-          data: info
-        })
-      }
     }
   }
 
