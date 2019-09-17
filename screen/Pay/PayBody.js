@@ -75,6 +75,8 @@ class PayBody extends Component {
       .then(result => {
         if (result.result == 'finished') {
           alert('支付成功')
+          let data={"comboId":this.props.comboId}
+          DeviceEventEmitter.emit("BuyComplete", { data: data });
         }
       })
   }
@@ -90,7 +92,6 @@ class PayBody extends Component {
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let comboId = this.props.comboId
     let url = api.base_uri_test + "pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
-    console.log(url)
     await fetch(url, {
       method: "get",
       headers: {
@@ -141,6 +142,25 @@ class PayBody extends Component {
         })
 
       })
+  }
+  /**
+     * 发送消息给unity
+     */
+  sendMsgToUnity(name, info, type) {
+    if (this.unity) {
+      if (type == 'json') {
+        let temp = Object.assign({}, info)
+        this.unity.postMessageToUnityManager({
+          name: name,
+          data: JSON.stringify(temp)
+        })
+      } else {
+        this.unity.postMessageToUnityManager({
+          name: name,
+          data: info
+        })
+      }
+    }
   }
   async getNativeQRCode() {
     let AEStoken = await storage.get("token", "")

@@ -150,12 +150,6 @@ class MallsBody extends Component {
           </View>
           <View style={{ width: "6%", height: 200 }}></View>
         </View>
-        <Loading
-          ref={r => {
-            this.Loading = r;
-          }}
-          hudHidden={false}
-        />
         {/* <View style={styles.bottom}>
           {this.renderIndicator()}
         </View> */}

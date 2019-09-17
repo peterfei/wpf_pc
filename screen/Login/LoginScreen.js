@@ -21,7 +21,7 @@ export default class LoginScreen extends Component {
     MacAddress: '',
     weixinLogin: false,
     token: '',
-    member:'',
+    member: '',
   }
   async pcNormalLogin() {
     //接口发送参数
@@ -32,7 +32,7 @@ export default class LoginScreen extends Component {
       business: 'anatomy',
     }
     //接口URL
-    let url = api.base_uri_test+"pc/member/pcNormalLogin"
+    let url = api.base_uri_test + "pc/member/pcNormalLogin"
     await fetch(url, {
       method: "post",
       headers: {
@@ -45,7 +45,7 @@ export default class LoginScreen extends Component {
         if (result.msg == 'success') {
           this.setState({
             token: result.token,
-            member:result.member
+            member: result.member
           }, () => this.loding())
         } else {
           this.setState({

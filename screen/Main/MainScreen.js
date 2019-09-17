@@ -6,8 +6,9 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Image,
+import React, { Component } from 'react';
+import {
+  Platform, StyleSheet, Text, View, Image,
   TouchableOpacity,
   DeviceEventEmitter,
   AsyncStorage
@@ -15,13 +16,13 @@ import {Platform, StyleSheet, Text, View,Image,
 import _ from "lodash";
 
 import UnityView from "../../UnityView";
-import  CryptoJS from  "crypto-js";
+import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import { NativeModules } from "react-native";
 
 export default class MainScreen extends Component {
   listeners = {
-    update: DeviceEventEmitter.addListener(
+    update: [DeviceEventEmitter.addListener(
       "UnityWinEmitter",
       ({ ...passedArgs }) => {
         let _key = passedArgs.modalVisible;
@@ -33,67 +34,115 @@ export default class MainScreen extends Component {
         }
       }
     ),
-    
+    DeviceEventEmitter.addListener(
+      "BuyComplete",
+      ({ ...passedArgs }) => {
+        let data = passedArgs.data;
+        this.sendMsgToUnity("BuyComplete", data, "BuyComplete");
+      }
+    ),
+    ]
   };
   componentWillUnmount() {
     // cleaning up listeners
     // I am using lodash
     _.each(this.listeners, listener => {
-      listener.remove();
+      listener[0].remove();
+      listener[1].remove();
     });
     this.timer && clearInterval(this.timer);
   }
   static navigationOptions = {
-    title:'Main',
+    title: 'Main',
   }
   state = {
     modalVisible: "flex",
-    width:0,
-    height:0,
-    currentIndex:"Main",
-    userName:'',
-    password:'',
-    AESuserName:'',
-    AESpassword:'',
+    width: 0,
+    height: 0,
+    currentIndex: "Main",
+    userName: '',
+    password: '',
+    AESuserName: '',
+    AESpassword: '',
   };
-  showPerson(){
+  showPerson() {
     this.setState({
-      currentIndex:"Person",
-      modalVisible:"none"
+      currentIndex: "Person",
+      modalVisible: "none"
     });
     this.props.navigation.navigate('Person');
   };
-  showMalls(){
+  showMalls() {
     this.setState({
-      currentIndex:"Malls",
-      modalVisible:"none"
+      currentIndex: "Malls",
+      modalVisible: "none"
     });
     this.props.navigation.navigate('Malls');
   };
-  async componentDidMount(){
-    let AESuserName =await storage.get("userName", "")
-    let userName=CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
-    let AESpassword =await storage.get("password", "")
-    let password=CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8); 
+  async componentDidMount() {
+    let AESuserName = await storage.get("userName", "")
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let AESpassword = await storage.get("password", "")
+    let password = CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
-      let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
+    let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
     this.setState({
-      AESuserName:AESuserName,
-      userName:userName,
-      AESpassword:AESpassword,
-      password:password,
-      token:token,
-      height: mainHeight-20,
+      AESuserName: AESuserName,
+      userName: userName,
+      AESpassword: AESpassword,
+      password: password,
+      token: token,
+      height: mainHeight - 20,
       width: mainWidth
     })
-    //alert(`height is ${this.state.height}`)
+    let member = await storage.get("member", "")
+    let data = { "mb_id": member.mbId, "token": token }
+    this.sendMsgToUnity("ClientInfo", data, "ClientInfo");
   }
+
+  onUnityMessage(handler) {
+    //alert(JSON.stringify(handler))
+    if (handler.name == "hide") {
+      this.setState({
+        height: 0,
+        width: 0
+      })
+    }
+    if (handler.name == "OpenClientCenter") {
+      this.showPerson();
+    }
+    if (handler.name == "ShowMall") {
+      this.showMalls();
+    }
+  }
+
+  /**
+     * 发送消息给unity
+     */
+  sendMsgToUnity(name, info, type) {
+    if (this.unity) {
+      if (type == 'json') {
+        let temp = Object.assign({}, info)
+        this.unity.postMessageToUnityManager({
+          name: name,
+          data: JSON.stringify(temp)
+        })
+      } else {
+        this.unity.postMessageToUnityManager({
+          name: name,
+          data: info
+        })
+      }
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-          {/* <UnityView   
+        {/* <UnityView   
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
@@ -103,32 +152,32 @@ export default class MainScreen extends Component {
 
         {/* 1.1.主界面按钮 */}
         <View style={{
-                    position:"absolute",
-                    right:50,
-                    top:50,
-                    }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.showPerson();
-                  }}
-                >
-                  <Text style={{fontWeight:'bold'}}>个人中心</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.showMalls();
-                  }}
-                >
-                  <Text style={{fontWeight:'bold'}}>商城</Text>
-                </TouchableOpacity>
-                <View style={{width:200,margin:20}}>
-                <Text style={{fontWeight:'bold',margin:10}}>AES用户名：{this.state.AESuserName}</Text>
-                <Text style={{fontWeight:'bold',margin:10}}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
-                <Text style={{fontWeight:'bold',margin:10}}>用户名：{this.state.userName}</Text>
-                <Text style={{fontWeight:'bold',margin:10}}>密&nbsp;&nbsp;码：{this.state.password}</Text>
-                </View>
+          position: "absolute",
+          right: 50,
+          top: 50,
+        }}>
+          <TouchableOpacity
+            onPress={() => {
+              this.showPerson();
+            }}
+          >
+            <Text style={{ fontWeight: 'bold' }}>个人中心</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.showMalls();
+            }}
+          >
+            <Text style={{ fontWeight: 'bold' }}>商城</Text>
+          </TouchableOpacity>
+          <View style={{ width: 200, margin: 20 }}>
+            <Text style={{ fontWeight: 'bold', margin: 10 }}>AES用户名：{this.state.AESuserName}</Text>
+            <Text style={{ fontWeight: 'bold', margin: 10 }}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
+            <Text style={{ fontWeight: 'bold', margin: 10 }}>用户名：{this.state.userName}</Text>
+            <Text style={{ fontWeight: 'bold', margin: 10 }}>密&nbsp;&nbsp;码：{this.state.password}</Text>
+          </View>
         </View>
-        
+
       </View>
     );
   }
@@ -138,10 +187,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  component:{
+  component: {
     flex: 1,
-    width:"100%",
-    height:"100%",
+    width: "100%",
+    height: "100%",
     justifyContent: 'center',
     alignItems: 'center',
   }
