@@ -28,7 +28,6 @@ export default class MainScreen extends Component {
     modalVisible: "flex",
     width: 0,
     height: 0,
-    currentIndex: "Main",
     userName: '',
     password: '',
     AESuserName: '',
@@ -75,14 +74,12 @@ export default class MainScreen extends Component {
   }
   showPerson() {
     this.setState({
-      currentIndex: "Person",
       modalVisible: "none"
     });
     this.props.navigation.navigate('Person');
   };
   showMalls() {
     this.setState({
-      currentIndex: "Malls",
       modalVisible: "none"
     });
     this.props.navigation.navigate('Malls');
@@ -115,7 +112,7 @@ export default class MainScreen extends Component {
   }
 
   onUnityMessage(handler) {
-    //alert(JSON.stringify(handler))
+    // alert(JSON.stringify(handler))
     if (handler.name == "hide") {
       this.setState({
         height: 0,

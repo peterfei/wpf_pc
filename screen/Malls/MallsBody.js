@@ -11,7 +11,6 @@ import api from "../api";
 //商城主体
 class MallsBody extends Component {
   state = {
-    currentIndex: '个人中心',
     isLabel: {},
     data: [],
     //activePage=0,

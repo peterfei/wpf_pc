@@ -85,7 +85,6 @@ export default class PersonScreen extends Component {
         <PersonTop navigation={this.props.navigation} />
         {/* Body */}
         <View style={styles.body}>
-          <Text>{this.state.currentIndex}</Text>
           <PersonBodyLeft />
           {this.PersonBodyRight()}
         </View>
