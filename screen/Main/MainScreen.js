@@ -100,11 +100,11 @@ export default class MainScreen extends Component {
       AESpassword: AESpassword,
       password: password,
       token: token,
-      height: mainHeight - 20,
+      height: mainHeight - 5,
       width: mainWidth
     })
     let member = await storage.get("member", "")
-    let data = { "mb_id": member.mbId, "token": token }
+    let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
     let _content={"type":"ClientInfo","data": data}
     NativeModules.MyDialogModel.SendMessageToUnity(
       JSON.stringify(_content)
