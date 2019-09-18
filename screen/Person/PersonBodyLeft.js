@@ -12,8 +12,8 @@ import { storage } from "../Public/storage";
 class PersonBodyLeft extends Component {
   state = {
     currentIndex: 0,
-    title: ['个人中心', '账户设置', 'Mac地址'],
-    Image: [{ "Image": require('../img/tab1.png') }, { "Image": require('../img/tab2.png') }, { "Image": require('../img/tab3.png') }],
+    title: ['个人中心', '账户设置', 'Mac地址','我的订单'],
+    Image: [{ "Image": require('../img/tab1.png') }, { "Image": require('../img/tab2.png') }, { "Image": require('../img/tab3.png') }, { "Image": require('../img/tab4.png') }],
     userName: '',
     mbHeadUrl: '',
   }

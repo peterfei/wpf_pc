@@ -5,6 +5,7 @@ import {
 } from "react-native";
 
 import { PersonBodyLeft, PersonBodyRightOne, PersonBodyRightTwo, PersonBodyRightThree, PersonTop } from "./index";
+import PersonBodyRightFour from '../Oder/PersonBodyRightFour';
 import _ from "lodash";
 import PhoneNumberView from './PhoneNumberView';
 import PasswordView from './PasswordView'
@@ -87,9 +88,13 @@ export default class PersonScreen extends Component {
       return (
         <PersonBodyRightTwo />
       )
-    } else {
+    } else if (this.state.num == 2) {
       return (
         <PersonBodyRightThree />
+      )
+    } else {
+      return (
+        <PersonBodyRightFour />
       )
     }
   }
