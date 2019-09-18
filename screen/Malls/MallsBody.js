@@ -154,7 +154,7 @@ class MallsBody extends Component {
         {/* <View style={styles.bottom}>
           {this.renderIndicator()}
         </View> */}
-
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
 
     );
