@@ -38,7 +38,7 @@ export default class Loading extends Component {
         let title = this.props.title
         return (
             <View style={{ position:'absolute',width:'100%',height:'100%', alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ borderRadius: 10, backgroundColor: 'rgba(250,250,250,0.5)', width: 150, height: 50,justifyContent: 'center' ,alignItems: 'center' }}>
+                <View style={{ borderRadius: 10,borderWidth:1,borderColor:'rgb(13,192,217)', backgroundColor: 'rgb(78,78,78)', width: 150, height: 50,justifyContent: 'center' ,alignItems: 'center' }}>
                     <Text style={{ color: "white" }}>{this.state.title}</Text>
                 </View>
             </View>

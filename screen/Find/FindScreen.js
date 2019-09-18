@@ -46,11 +46,17 @@ export default class FindScreen extends Component {
         body: JSON.stringify(body)
       }).then(resp => resp.json())
         .then(result => {
-          //alert(JSON.stringify(result))
-          this.Loading.show(JSON.stringify(result));
-          this.timer = setTimeout(() => {
-            this.Loading.close()
-          }, 1000);
+          if (reult.msg == 'success') {
+            this.Loading.show('密码修改成功');
+            this.timer = setTimeout(() => {
+              this.Loading.close()
+            }, 1000);
+          } else {
+            this.Loading.show(result.msg);
+            this.timer = setTimeout(() => {
+              this.Loading.close()
+            }, 1000);
+          }
         })
     }
   }
@@ -75,7 +81,7 @@ export default class FindScreen extends Component {
           .then(resp => resp.json())
           .then(result => {
             //alert(JSON.stringify(result))
-            if (result.code == 0) {
+            if (result.code && result.code == 0) {
               this.Loading.show("验证码发送成功!");
               this.timer = setTimeout(() => {
                 this.Loading.close()
