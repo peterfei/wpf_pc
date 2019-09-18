@@ -19,10 +19,10 @@ import UnityView from "../../UnityView";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 
-export default class MainScreen extends Component {
+export default class HomeScreen extends Component {
   
   static navigationOptions = {
-    title: 'Main',
+    title: 'Home',
   }
   state = {
     modalVisible: "flex",

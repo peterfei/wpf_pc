@@ -89,7 +89,7 @@ export default class LoginScreen extends Component {
     let AESpassword = await storage.get("password", "")
     let AEStoken = await storage.get("token", "")
     if (AESuserName != -1 && AESpassword != -1 && AEStoken != -1) {
-      this.props.navigation.navigate('Main');
+      this.props.navigation.navigate('Home');
       this.refs.TextInput1.setNativeProps({
         placeholder: ''
       });
@@ -236,7 +236,7 @@ export default class LoginScreen extends Component {
     storage.save("password", "", AESpassword);
     storage.save("token", "", AEStoken);
     storage.save("member", "", this.state.member);
-    this.props.navigation.navigate('Main');
+    this.props.navigation.navigate('Home');
     this.setState({
       warn: '',
     });

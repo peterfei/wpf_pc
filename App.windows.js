@@ -14,7 +14,7 @@ import { createStackNavigator} from 'react-navigation';
 
 import PersonScreen from "./screen/Person/PersonScreen";
 import MallsScreen from "./screen/Malls/MallsScreen";
-import MainScreen from './screen/Main/MainScreen';
+import HomeScreen from './screen/Home/HomeScreen';
 import PayScreen from './screen/Pay/PayScreen';
 import LoginScreen from './screen/Login/LoginScreen';
 import RegisterScreen from './screen/Register/RegisterScreen';
@@ -23,7 +23,7 @@ import InitializeScreen from './screen/Initialize/InitializeScreen';
 
 const RootStack = createStackNavigator( //跟路由
   {//定义模块
-    Main: {screen: MainScreen},
+    Home: {screen: HomeScreen},
     Person: {screen: PersonScreen,},
     Malls: {screen: MallsScreen,},
     Pay: {screen: PayScreen},
