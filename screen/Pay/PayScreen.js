@@ -13,7 +13,7 @@ export default class PayScreen extends Component {
     return (
       <View style={styles.container}>
         <PayTop navigation={this.props.navigation}/>
-        <PayBody navigation={this.props.navigation} comboId={this.props.navigation.state.params.comboId}/>
+        <PayBody navigation={this.props.navigation} Malls_key={this.props.navigation.state.params.Malls_key} comboId={this.props.navigation.state.params.comboId}/>
       </View>
     );
   }

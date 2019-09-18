@@ -31,7 +31,7 @@ class MallsBody extends Component {
     }).then(resp => resp.json())
       .then(result => {
         //alert(JSON.stringify(result.page.list))
-        
+
         this.setState({
           data: result.page.list
         })
@@ -87,7 +87,7 @@ class MallsBody extends Component {
     return itemArr;
   }
   change(comboId) {
-    this.props.navigation.navigate('Pay', { comboId: comboId });
+    this.props.navigation.navigate('Pay', { comboId: comboId, Malls_key: this.props.navigation.state.key });
   }
   //this.props.navigation.navigate('Pay');
 
