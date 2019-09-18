@@ -10,6 +10,7 @@ import CountDownButton from "../Public/countDownButton"
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
+import Loading from '../common/Loading'
 //个人中心修改手机
 
 class PhoneNumberView extends Component {
@@ -25,8 +26,8 @@ class PhoneNumberView extends Component {
       newCode: '',
       imgCode: '',
       imgURL: '',
-      uuid:'',
-      warn:'',
+      uuid: '',
+      warn: '',
     };
   }
   async componentDidMount() {
@@ -46,14 +47,14 @@ class PhoneNumberView extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = api.base_uri_test +"appCaptcha?uuid=" + guid;
+    let url = api.base_uri_test + "appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
     })
   }
   shouldStartCountdown = async (shouldStartCountting) => {
-    let userName=this.state.oldPhoneNumber
+    let userName = this.state.oldPhoneNumber
     if (userName == '') {
       this.setState({
         warn: '电话号码不能为空!'
@@ -62,7 +63,7 @@ class PhoneNumberView extends Component {
       return;
     } else {
       const url =
-      api.base_uri_test +"v1/app/member/getCodeCheck?tellAndEmail=" +
+        api.base_uri_test + "v1/app/member/getCodeCheck?tellAndEmail=" +
         userName;
       try {
         await fetch(url, {
@@ -73,12 +74,18 @@ class PhoneNumberView extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            alert(JSON.stringify(result))
+            //alert(JSON.stringify(result))
             if (result.code == 0) {
-              alert("验证码发送成功!");
+              this.Loading.show("验证码发送成功!");
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(true)
             } else {
-              alert(result.msg);
+              this.Loading.show(result.msg);
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(false)
             }
           });
@@ -88,24 +95,24 @@ class PhoneNumberView extends Component {
     }
   };
   bingdingShouldStartCountdown = async (shouldStartCountting) => {
-    let userName=this.state.newPhoneNumber
-    let uuid=this.state.uuid
-    let code=this.state.imgCode
+    let userName = this.state.newPhoneNumber
+    let uuid = this.state.uuid
+    let code = this.state.imgCode
     if (userName == '') {
       this.setState({
-        warn:'电话号码不能为空!'
+        warn: '电话号码不能为空!'
       })
       shouldStartCountting(false)
       return;
     } else if (code == '') {
       this.setState({
-        warn:'图形码不能为空!'
+        warn: '图形码不能为空!'
       })
       shouldStartCountting(false);
       return;
     } else {
       const url =
-      api.base_uri_test +"v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+        api.base_uri_test + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         userName + "&uuid=" + uuid + "&captchaCode=" + code + "&option=register";
       try {
         await fetch(url, {
@@ -116,12 +123,18 @@ class PhoneNumberView extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            alert(JSON.stringify(result))
+            //alert(JSON.stringify(result))
             if (result.code == 0) {
-              alert("验证码发送成功!");
+              this.Loading.show("验证码发送成功!");
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(true)
             } else {
-              alert(result.msg);
+              this.Loading.show(result.msg);
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(false)
             }
           });
@@ -132,14 +145,14 @@ class PhoneNumberView extends Component {
   };
   async checkCode() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     // let body = {
     //   tell: this.state.oldPhoneNumber,
     //   code: this.state.oldCode,
     //   token: token,
     // }
     //接口URL
-    let url = api.base_uri_test +"pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
+    let url = api.base_uri_test + "pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -148,20 +161,27 @@ class PhoneNumberView extends Component {
       //body: JSON.stringify(body)
     }).then(resp => resp.json())
       .then(result => {
-        alert('短信验证' + JSON.stringify(result))
+        //alert('短信验证' + JSON.stringify(result))
         if (result.result == "true") {
+          this.Loading.show('验证码正确');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
           this.setState({
             verifyPerson: false,
             bindingPhone: true,
           })
         } else {
-          alert('验证码错误')
+          this.Loading.show("验证码错误");
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         }
       })
   }
   async changeTellNumber() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     // let body = {
     //   token: token,
     //   newTell: this.state.newPhoneNumber,
@@ -169,8 +189,8 @@ class PhoneNumberView extends Component {
     //   code: this.state.newCode,
     // }
     //接口URL
-    let url = api.base_uri_test +"pc/member/changeTellNumber?code="
-    +this.state.newCode+"&newTell="+this.state.newPhoneNumber+"&oldTell="+this.state.oldPhoneNumber+"&token="+token
+    let url = api.base_uri_test + "pc/member/changeTellNumber?code="
+      + this.state.newCode + "&newTell=" + this.state.newPhoneNumber + "&oldTell=" + this.state.oldPhoneNumber + "&token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -178,7 +198,7 @@ class PhoneNumberView extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        alert(result.msg)
+        //alert(result.msg)
         if (result.msg == "success") {
           this.setState({
             finish: true,
@@ -186,8 +206,15 @@ class PhoneNumberView extends Component {
           storage.remove("userName");
           let AESuserName = CryptoJS.AES.encrypt(this.state.newPhoneNumber, 'X2S1B5GS1F6G2X5D').toString();
           storage.save("userName", "", AESuserName);
+          this.Loading.show("修改成功");
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         } else {
-          alert('修改失败')
+          this.Loading.show("修改失败");
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         }
       })
   }
@@ -208,6 +235,7 @@ class PhoneNumberView extends Component {
 
 
         </View>
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
 
     );
@@ -423,7 +451,10 @@ class PhoneNumberView extends Component {
   }
   stepNext(PhoneNumber, Code) {
     if (PhoneNumber == '' || Code == '') {
-      alert('手机号/验证码不能为空')
+      this.Loading.show('手机号/验证码不能为空');
+      this.timer = setTimeout(() => {
+        this.Loading.close()
+      }, 1000);
       return
     }
     if (this.state.bindingPhone == false) {

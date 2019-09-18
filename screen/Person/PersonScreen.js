@@ -8,7 +8,6 @@ import { PersonBodyLeft, PersonBodyRightOne, PersonBodyRightTwo, PersonBodyRight
 import _ from "lodash";
 import PhoneNumberView from './PhoneNumberView';
 import PasswordView from './PasswordView'
-
 //个人中心
 export default class PersonScreen extends Component {
   static navigationOptions = {
@@ -78,19 +77,7 @@ export default class PersonScreen extends Component {
     });
     this.timer && clearInterval(this.timer);
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.changeView()}
-        <PersonTop navigation={this.props.navigation} />
-        {/* Body */}
-        <View style={styles.body}>
-          <PersonBodyLeft />
-          {this.PersonBodyRight()}
-        </View>
-      </View>
-    );
-  }
+  
   PersonBodyRight() {
     if (this.state.num == 0) {
       return (
@@ -105,6 +92,19 @@ export default class PersonScreen extends Component {
         <PersonBodyRightThree />
       )
     }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.changeView()}
+        <PersonTop navigation={this.props.navigation} />
+        {/* Body */}
+        <View style={styles.body}>
+          <PersonBodyLeft />
+          {this.PersonBodyRight()}
+        </View>
+      </View>
+    );
   }
 }
 

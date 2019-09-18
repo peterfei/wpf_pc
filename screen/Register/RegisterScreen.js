@@ -7,6 +7,7 @@ import color from "../Person/color";
 import { font } from "../Public";
 import CountDownButton from "../Public/countDownButton"
 import api from "../api";
+import Loading from '../common/Loading'
 //注册页面
 export default class RegisterScreen extends Component {
   static navigationOptions = {
@@ -40,7 +41,7 @@ export default class RegisterScreen extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = api.base_uri_test +"appCaptcha?uuid=" + guid;
+    let url = api.base_uri_test + "appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
@@ -60,10 +61,10 @@ export default class RegisterScreen extends Component {
       business: 'anatomy',
     }
     //接口URL
-    let url = api.base_uri_test +"pc/member/register"
+    let url = api.base_uri_test + "pc/member/register"
     if (this.state.password == '') {
       this.setState({
-        warn:'密码不能为空!'
+        warn: '密码不能为空!'
       })
       return;
     } else {
@@ -75,27 +76,30 @@ export default class RegisterScreen extends Component {
         body: JSON.stringify(body)
       }).then(resp => resp.json())
         .then(result => {
-          alert(JSON.stringify(result))
+          //alert(JSON.stringify(result))
+          this.Loading.show(JSON.stringify(result));
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         })
     }
   }
   shouldStartCountdown = async (shouldStartCountting) => {
     if (this.state.phoneNumber == '') {
       this.setState({
-        warn:'电话号码不能为空!'
+        warn: '电话号码不能为空!'
       })
       shouldStartCountting(false)
       return;
     } else if (this.state.code == '') {
-      alert("");
       this.setState({
-        warn:'图形码不能为空!'
+        warn: '图形码不能为空!'
       })
       shouldStartCountting(false);
       return;
     } else {
       const url =
-      api.base_uri_test +"v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+        api.base_uri_test + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         this.state.phoneNumber + "&uuid=" + this.state.uuid + "&captchaCode=" + this.state.code + "&option=register";
       try {
         await fetch(url, {
@@ -106,12 +110,18 @@ export default class RegisterScreen extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            alert(JSON.stringify(result))
+            //alert(JSON.stringify(result))
             if (result.code == 0) {
-              alert("验证码发送成功!");
+              this.Loading.show("验证码发送成功!");
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(true)
             } else {
-              alert(result.msg);
+              this.Loading.show(result.msg);
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(false)
             }
           });
@@ -200,6 +210,7 @@ export default class RegisterScreen extends Component {
             </View>
           </View>
         </ImageBackground>
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     );
   }

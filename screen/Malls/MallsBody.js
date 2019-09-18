@@ -8,6 +8,7 @@ import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
+import Loading from '../common/Loading'
 //商城主体
 class MallsBody extends Component {
   state = {
@@ -31,13 +32,14 @@ class MallsBody extends Component {
     }).then(resp => resp.json())
       .then(result => {
         //alert(JSON.stringify(result.page.list))
-
+        this.Loading.close();
         this.setState({
           data: result.page.list
         })
       })
   }
   async componentDidMount() {
+    this.Loading.show('加载中……');
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     this.setState({
@@ -64,7 +66,7 @@ class MallsBody extends Component {
     await this.comboList()
   }
   componentWillUnmount() {
-    // this.time && clearTimeout(this.time);
+    this.time && clearTimeout(this.time);
   }
 
   renderCommodity() {

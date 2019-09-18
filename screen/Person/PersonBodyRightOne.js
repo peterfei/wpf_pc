@@ -11,6 +11,7 @@ import { storage } from "../Public/storage";
 import CryptoJS from "crypto-js";
 import RadioModal from 'react-native-radio-master';
 import api from "../api";
+import Loading from '../common/Loading'
 //个人中心主体右侧
 
 class PersonBodyRightOne extends Component {
@@ -74,7 +75,10 @@ class PersonBodyRightOne extends Component {
     }).then(resp => resp.json())
       .then(async result => {
         if (result.msg == "success") {
-          alert('修改成功')
+          this.Loading.show('修改成功');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
           // storage.remove("mbName");
           // storage.remove("mbSex");
           let newmember = member
@@ -82,14 +86,18 @@ class PersonBodyRightOne extends Component {
           newmember.mbSex = this.state.initItem
           await storage.save("member", "", newmember);
         } else {
-          alert(JSON.stringify(result))
+          //alert(JSON.stringify(result))
+          this.Loading.show(JSON.stringify(result));
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
           this.setState({
 
           })
         }
       })
   }
-  
+
   main() {
     return (
       <View style={styles.mainBody}>
@@ -211,6 +219,7 @@ class PersonBodyRightOne extends Component {
 
           {this.main()}
         </View>
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     );
   }

@@ -10,7 +10,7 @@ import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
-
+import Loading from '../common/Loading'
 var that = null;
 //支付页面主体
 class PayBody extends Component {
@@ -91,19 +91,20 @@ class PayBody extends Component {
         if (result.result == 'finished') {
           clearTimeout(timer);
           //FIXME 跳转一下
-          //alert('支付成功')
-          let data = { "comboId": this.props.comboId }
-          let _content = { "type": "BuyComplete", "data": data }
-          NativeModules.MyDialogModel.SendMessageToUnity(
-            JSON.stringify(_content)
-          );
-
-          // setTimeout(()=>{
-          DeviceEventEmitter.emit("UnityWinEmitter", {
-            modalVisible: "flex"
-          });
-          this.props.navigation.goBack(this.props.Malls_key, { payState: true });//返回商城前一个界面
-          // },1000)
+          this.Loading.show('支付成功');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+            let data = { "comboId": this.props.comboId }
+            let _content = { "type": "BuyComplete", "data": data }
+            NativeModules.MyDialogModel.SendMessageToUnity(
+              JSON.stringify(_content)
+            );
+            DeviceEventEmitter.emit("UnityWinEmitter", {
+              modalVisible: "flex"
+            });
+            this.props.navigation.goBack(this.props.Malls_key, { payState: true });//返回商城前一个界面
+          }, 500);
+         
         }
       })
   }
@@ -254,7 +255,7 @@ class PayBody extends Component {
             <Text>使用微信扫码支付</Text>
           </View>
         </View>
-
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     );
   }

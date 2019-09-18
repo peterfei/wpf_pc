@@ -9,6 +9,7 @@ import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
+import Loading from '../common/Loading'
 //个人中心主体右侧
 
 class PersonBodyRightThree extends Component {
@@ -42,7 +43,10 @@ class PersonBodyRightThree extends Component {
   }
   async clearCurrMbDeviceIds() {
     if (this.state.deviceIds == '') {
-      alert('无Mac地址')
+      this.Loading.show('无Mac地址');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
       return
     }
     let AEStoken = await storage.get("token", "")
@@ -56,10 +60,16 @@ class PersonBodyRightThree extends Component {
     }).then(resp => resp.json())
       .then(result => {
         if (result.msg == "success") {
-          alert('清除成功');
+          this.Loading.show('清除成功');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
           this.currMbAllDeviceIds();
         } else {
-          alert('清除失败');
+          this.Loading.show('清除失败');
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         }
       })
   }
@@ -85,6 +95,7 @@ class PersonBodyRightThree extends Component {
           onPress={() => this.clearCurrMbDeviceIds()}  >
           <Text style={font.font20Blue}>清空Mac地址</Text>
         </TouchableOpacity>
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     )
   }

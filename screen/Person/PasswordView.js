@@ -9,7 +9,7 @@ import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
-
+import Loading from '../common/Loading'
 
 //个人中心修改密码
 
@@ -17,19 +17,19 @@ class PasswordView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPassword:'',
+      oldPassword: '',
       newPassword: '',
-      sureNewPassword:'',
-      warn:'',
+      sureNewPassword: '',
+      warn: '',
     };
   }
-  async updatePassWord(){
+  async updatePassWord() {
     let AEStoken = await storage.get("token", "")
-    let token =CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let AESuserName = await storage.get("userName", "")
-    let userName =CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = api.base_uri_test+"pc/member/updatePassWord?tell="
-    +userName+"&password="+this.state.oldPassword+"&newPassword="+this.state.newPassword+"&newPasswordConfirm="+this.state.sureNewPassword+"&token="+token
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = api.base_uri_test + "pc/member/updatePassWord?tell="
+      + userName + "&password=" + this.state.oldPassword + "&newPassword=" + this.state.newPassword + "&newPasswordConfirm=" + this.state.sureNewPassword + "&token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -37,7 +37,10 @@ class PasswordView extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        alert(result.msg)
+        this.Loading.show(result.msg);
+        this.timer = setTimeout(() => {
+          this.Loading.close()
+        }, 1000);
         if (result.msg == "success") {
           this.setState({
             finish: true,
@@ -48,7 +51,7 @@ class PasswordView extends Component {
         }
       })
   }
-  
+
   close() {
     DeviceEventEmitter.emit("changePasswordView", { changePasswordView: false });
   }
@@ -113,9 +116,9 @@ class PasswordView extends Component {
             <TextInput style={styles.input} placeholderTextColor="rgb(219,219,219)"
               secureTextEntry={true}
               placeholder='请确认密码'
-              onChangeText={(text) => this.setState({ sureNewPassword: text })}  />
+              onChangeText={(text) => this.setState({ sureNewPassword: text })} />
           </View>
-          <Text style={[font.font15NoBoldRed,{marginTop:10}]}>{this.state.warn}</Text>
+          <Text style={[font.font15NoBoldRed, { marginTop: 10 }]}>{this.state.warn}</Text>
           <TouchableOpacity style={{ width: 150 }}
             onPress={() => this.updatePassWord()}>
             <View style={styles.button}>
@@ -124,6 +127,7 @@ class PasswordView extends Component {
           </TouchableOpacity>
 
         </View>
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     );
   }

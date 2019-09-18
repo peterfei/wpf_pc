@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Platform, StyleSheet, Text, View, Image,TouchableOpacity
+  Platform, StyleSheet, Text, View, Image, TouchableOpacity
   , ImageBackground, TextInput, DeviceEventEmitter
 } from "react-native";
 
@@ -8,6 +8,7 @@ import color from "../Person/color";
 import { font } from "../Public";
 import CountDownButton from "../Public/countDownButton"
 import api from "../api";
+import Loading from '../common/Loading'
 //找回密码页面
 export default class FindScreen extends Component {
   static navigationOptions = {
@@ -30,7 +31,7 @@ export default class FindScreen extends Component {
       code: this.state.securityCode,
     }
     //接口URL
-    let url = api.base_uri_test +"pc/member/forgetPwd"
+    let url = api.base_uri_test + "pc/member/forgetPwd"
     if (this.state.password == '') {
       this.setState({
         warn: '密码不能为空!'
@@ -45,7 +46,11 @@ export default class FindScreen extends Component {
         body: JSON.stringify(body)
       }).then(resp => resp.json())
         .then(result => {
-          alert(JSON.stringify(result))
+          //alert(JSON.stringify(result))
+          this.Loading.show(JSON.stringify(result));
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
         })
     }
   }
@@ -58,7 +63,7 @@ export default class FindScreen extends Component {
       return;
     } else {
       const url =
-        api.base_uri_test+"v1/app/member/getCodeCheck?tellAndEmail=" +
+        api.base_uri_test + "v1/app/member/getCodeCheck?tellAndEmail=" +
         this.state.userName;
       try {
         await fetch(url, {
@@ -69,12 +74,18 @@ export default class FindScreen extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            alert(JSON.stringify(result))
+            //alert(JSON.stringify(result))
             if (result.code == 0) {
-              alert("验证码发送成功!");
+              this.Loading.show("验证码发送成功!");
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(true)
             } else {
-              alert(result.msg);
+              this.Loading.show(result.msg);
+              this.timer = setTimeout(() => {
+                this.Loading.close()
+              }, 1000);
               shouldStartCountting(false)
             }
           });
@@ -160,6 +171,8 @@ export default class FindScreen extends Component {
             </View>
           </View>
         </ImageBackground>
+
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }
