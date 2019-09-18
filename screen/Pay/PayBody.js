@@ -54,15 +54,30 @@ class PayBody extends Component {
   }
 
   initInterval() {
-    // this.timer = setInterval(
-    //   () => {
-    //     that.getOrderState()
-    //   },
-    //   1000
-    // );
+    this.timer = setInterval(
+      () => {
+       that.getOrderState(this.timer)
+        // that.debounce( that.getOrderState(timer),3000)
+      },
+      1500
+    );
   }
 
-  async getOrderState() {
+  //防抖函数
+  debounce(fn, wait) {
+    let timeout;
+
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+            fn.apply(context, args)
+        }, wait);
+    }
+  }
+  async getOrderState(timer) {
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let url = api.base_uri_test + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
@@ -74,18 +89,31 @@ class PayBody extends Component {
     }).then(resp => resp.json())
       .then(result => {
         if (result.result == 'finished') {
-          alert('支付成功')
+          clearTimeout(timer);
+          //FIXME 跳转一下
+          //alert('支付成功')
           let data={"comboId":this.props.comboId}
           let _content={"type":"BuyComplete","data": data}
           NativeModules.MyDialogModel.SendMessageToUnity(
             JSON.stringify(_content)
           );
+          
+          // setTimeout(()=>{
+            const resetAction = StackActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Main" })]
+            });
+            this.props.navigation.dispatch(resetAction);
+            DeviceEventEmitter.emit("UnityWinEmitter", {
+              modalVisible: "flex"
+            });
+          // },1000)
         }
       })
   }
 
   componentWillUnmount() {
-    this.time && clearTimeout(this.time);
+    this.timer && clearTimeout(this.timer);
   }
 
   async comboDetail() {

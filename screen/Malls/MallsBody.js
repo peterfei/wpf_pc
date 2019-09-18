@@ -44,28 +44,28 @@ class MallsBody extends Component {
     this.setState({
       token: token
     })
-    this.time = await setInterval(
-      () => {
-        let width = Dimensions.get('window').width;
-        let height = Dimensions.get('window').height;
-        if (width != null && width != '' && height != null && height != '') {
-          this.setState({
-            width: width,
-            height: height,
-          });
-        } else {
-          this.setState({
-            width: 1024,
-            height: 768,
-          });
-        }
+    // this.time = await setInterval(
+    //   () => {
+    //     let width = Dimensions.get('window').width;
+    //     let height = Dimensions.get('window').height;
+    //     if (width != null && width != '' && height != null && height != '') {
+    //       this.setState({
+    //         width: width,
+    //         height: height,
+    //       });
+    //     } else {
+    //       this.setState({
+    //         width: 1024,
+    //         height: 768,
+    //       });
+    //     }
 
-      }
-    );
+    //   }
+    // );
     await this.comboList()
   }
   componentWillUnmount() {
-    this.time && clearTimeout(this.time);
+    // this.time && clearTimeout(this.time);
   }
 
   renderCommodity() {
