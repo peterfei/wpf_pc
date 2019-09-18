@@ -80,7 +80,7 @@ class MallsBody extends Component {
             <Text style={font.font20NoBold}>{data[i].labelA}</Text>
             <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
             <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
-              <Text style={{ fontSize: 16 }}>立即购买</Text>
+              <Text style={font.font18NoBold}>立即购买</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -215,7 +215,8 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   button: {
-    backgroundColor: 'white',
+    borderWidth:1,
+    borderColor:'#F47575',
     borderRadius: 3,
     width: '70%',
     height: 40,
