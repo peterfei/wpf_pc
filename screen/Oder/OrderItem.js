@@ -1,105 +1,79 @@
 import React, { Component } from "react";
-import { DeviceEventEmitter, StyleSheet, View, } from "react-native";
+import { StyleSheet, View, DeviceEventEmitter,Text } from "react-native";
 
-import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Cell from "./Cell";
+import api from '../api';
 import { storage } from "../Public/storage";
-import api from "../api";
-import { NavigationActions,StackActions } from "react-navigation";
+import CryptoJS from "crypto-js";
+import _ from "lodash";
+import Loading from '../common/Loading'
 
 export default class OrderItem extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
+      nowIndex: 1,
       dataList: [],
-      refreshState: RefreshState.Idle
     };
   }
 
   componentDidMount() {
-    let curr = this;
-    DeviceEventEmitter.addListener("reloadOrder", function() {
-      curr.onHeaderRefresh();
+    this.myOrder()
+  }
+  listeners = {
+    update: DeviceEventEmitter.addListener(
+      "checkBotton",
+      () => {
+        this.myOrder()
+      }
+    )
+  };
+  componentWillUnmount() {
+    _.each(this.listeners, listener => {
+      listener.remove();
     });
-    this.onHeaderRefresh();
+    this.timer && clearInterval(this.timer);
   }
 
-  /*//在组件销毁的时候要将其移除
-    componentWillUnmount() {
-        alert( "组件销毁")
-        DeviceEventEmitter.remove()?"":DeviceEventEmitter.remove();
-    }*/
-
-  onHeaderRefresh = async () => {
-    this.setState({ refreshState: RefreshState.HeaderRefreshing });
-    let { orderState } = this.props;
-    let tokens = await storage.get("userTokens");
-    const url = api.base_uri + "/v1/app/orthope/order/myOrder?page=1&limit=10&business=orthope&ordState="+orderState;
-    try {
-      let responseData = await fetch(url, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          token: tokens.token
-        },
+  async myOrder() {
+    this.Loading.show('加载中……');
+    let AEStoken = await storage.get("token", "")
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let url = api.base_uri_test + "/pc/order/myOrder?business=anatomy&limit=4&token=" + token + "&ordState=" + this.props.orderState + '&page=' + this.state.nowIndex
+    //alert(url)
+    await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+      .then(result => {
+        // alert(JSON.stringify(result))
+        if (result.msg == 'success') {
+          this.Loading.close();
+          this.setState({
+            dataList: result.page.list
+          })
+        }
       })
-        .then(resp => resp.json())
-        .then(result => {
-          if (result.code == 0) {
-            this.setState({
-              dataList: result.page.list,
-              refreshState:
-                result.page.list.length == 0
-                  ? RefreshState.EmptyData
-                  : RefreshState.NoMoreData
-            });
-          } else if (result.msg.indexOf("token失效") != -1) {
-            storage.clearMapForKey("userTokens");
-            storage.clearMapForKey("memberInfo");
-            // Alert.alert("登录过期,请重新登录")
-            const resetAction = StackActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({ routeName: "LoginPage" })]
-            });
-            this.props.navigation.dispatch(resetAction);
-          }
-        });
-    } catch (error) {
-      alert("订单查询失败!" + error);
+  }
+
+  _renderCell() {
+    let arr = []
+    for (let i = 0; i < this.state.dataList.length; i++) {
+      arr.push(
+        <Cell info={this.state.dataList[i]} navigation={this.props.navigation} />
+      )
     }
-  };
-
-  onFooterRefresh = () => {
-    //  alert("foot")
-  };
-
-  keyExtractor = (item: any, index: number) => {
-    return index;
-  };
-
-  renderCell = (info: Object) => {
-    console.log(info);
-    return <Cell info={info.item} navigation={this.props.navigation} />;
+    return arr
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <RefreshListView
-          data={this.state.dataList}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderCell}
-          refreshState={this.state.refreshState}
-          onHeaderRefresh={this.onHeaderRefresh}
-          onFooterRefresh={this.onFooterRefresh}
-          // 可选
-          footerRefreshingText="玩命加载中..."
-          footerFailureText="加载失败啦~~"
-          footerNoMoreDataText="--我是有底线的--"
-          footerEmptyDataText="-还没有数据哦,下拉刷新试试-"
-        />
+        {this._renderCell()}
+        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
       </View>
     );
   }
@@ -112,7 +86,10 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   container: {
-    flex: 1,
-    backgroundColor: "white"
+    width:'100%',
+    borderColor:'#383838',
+    borderWidth:1,
+    paddingLeft:30,
+    paddingRight:30,
   }
 });

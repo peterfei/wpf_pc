@@ -130,13 +130,13 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <UnityView   
+          {/* <UnityView   
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
             
             >
-          </UnityView>  
+          </UnityView>   */}
 
         {/* 1.1.主界面按钮 */}
         <View style={{
