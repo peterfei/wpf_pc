@@ -110,8 +110,7 @@ export default class RegisterScreen extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            //alert(JSON.stringify(result))
-            if (result.code == 0) {
+            if (result.code && result.code == 0) {
               this.Loading.show("验证码发送成功!");
               this.timer = setTimeout(() => {
                 this.Loading.close()
@@ -210,7 +209,7 @@ export default class RegisterScreen extends Component {
             </View>
           </View>
         </ImageBackground>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }
