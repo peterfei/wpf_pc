@@ -105,18 +105,19 @@ export default class HomeScreen extends Component {
       height: mainHeight - 5,
       width: mainWidth
     })
-    let member = await storage.get("member", "")
-    let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
-    let _content={"type":"ClientInfo","data": data}
-    // alert(`data111 is ${token}`)
-    NativeModules.MyDialogModel.SendMessageToUnity(
-      JSON.stringify(_content)
-    );
+    // let member = await storage.get("member", "")
+    // let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
+    // let _content={"type":"ClientInfo","data": data}
+    // // alert(`data111 is ${token}`)
+    // NativeModules.MyDialogModel.SendMessageToUnity(
+    //   JSON.stringify(_content)
+    // );
   }
   async sendMsg(){
     
     let member = await storage.get("member", "")
-    let token = await storage.get("token", "")
+    let AEStoken = await storage.get("token", "")
+    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     // alert(`tokens is ${JSON.stringify(tokens)}`)
     let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
     let _content={"type":"ClientInfo","data": data}

@@ -94,7 +94,7 @@ class PayBody extends Component {
           this.Loading.show('支付成功');
           this.timer = setTimeout(() => {
             this.Loading.close()
-            let data = { "comboId": this.props.comboId,"token": AEStoken }
+            let data = { "comboId": this.props.comboId,"token": token }
             let _content = { "type": "BuyComplete", "data": data }
             NativeModules.MyDialogModel.SendMessageToUnity(
               JSON.stringify(_content)
