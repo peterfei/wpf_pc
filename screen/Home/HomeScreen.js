@@ -49,6 +49,7 @@ export default class HomeScreen extends Component {
     DeviceEventEmitter.addListener("testBind", data => {
       // alert(data);
       if (data == "hide") {
+        this.sendMsg()
         // this.setState({ modalVisible: "none" });
       }
       else if(data=='OpenClientCenter'){
@@ -89,11 +90,12 @@ export default class HomeScreen extends Component {
     let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
     let AESpassword = await storage.get("password", "")
     let password = CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    
+    // let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
 
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
     let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
+    let token = await storage.get("token", "")
     this.setState({
       AESuserName: AESuserName,
       userName: userName,
@@ -106,11 +108,23 @@ export default class HomeScreen extends Component {
     let member = await storage.get("member", "")
     let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
     let _content={"type":"ClientInfo","data": data}
+    // alert(`data111 is ${token}`)
     NativeModules.MyDialogModel.SendMessageToUnity(
       JSON.stringify(_content)
     );
   }
-
+  async sendMsg(){
+    
+    let member = await storage.get("member", "")
+    let token = await storage.get("token", "")
+    // alert(`tokens is ${JSON.stringify(tokens)}`)
+    let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
+    let _content={"type":"ClientInfo","data": data}
+    // alert(JSON.stringify(_content))
+    NativeModules.MyDialogModel.SendMessageToUnity(
+      JSON.stringify(_content)
+    );
+  }
   onUnityMessage(handler) {
     // alert(JSON.stringify(handler))
     if (handler.name == "hide") {
@@ -130,13 +144,13 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <UnityView   
+           <UnityView   
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
             
             >
-          </UnityView>  
+          </UnityView>   
 
         {/* 1.1.主界面按钮 */}
         <View style={{
@@ -144,6 +158,13 @@ export default class HomeScreen extends Component {
           right: 50,
           top: 50,
         }}>
+            <TouchableOpacity
+            onPress={() => {
+              this.sendMsg();
+            }}
+          >
+            <Text style={{ fontWeight: 'bold' }}>sendMsg</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               this.showPerson();

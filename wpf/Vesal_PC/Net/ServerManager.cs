@@ -45,7 +45,8 @@ namespace VesalPCVip.Net
             }
             do
             {
-                myProt = (ushort)rd.Next(4000, 49000);
+                myProt = 16667;
+                //myProt = (ushort)rd.Next(4000, 49000);
 
             } while (PortInUse(myProt));
             File.WriteAllText(filename, myProt + "");
