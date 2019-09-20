@@ -172,7 +172,7 @@ class PersonBodyRightFour extends Component {
             orderState={this.state.buttonData[this.state.nowTopIndex].orderState}
             getOrderNumber={(num) => this.getOrderNumber(num)} />
 
-          <View style={[styles.button, { justifyContent: 'flex-end' }]}>
+          <View style={[styles.button, { justifyContent: 'flex-end',marginTop:10 }]}>
             {this._renderBottomButton()}
           </View>
 
@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     alignItems: 'center',
+    marginBottom:3,
   },
   buttonBody: {
     paddingRight: 50
