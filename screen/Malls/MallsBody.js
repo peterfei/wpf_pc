@@ -14,7 +14,9 @@ class MallsBody extends Component {
   state = {
     isLabel: {},
     data: [],
-    //activePage=0,
+    //activePage:0,
+    pageNum:1,//Scroll页码数
+    scrollPosition: 0,//当前Scroll位置
     width: 1024,
     height: 768,
     token: '',
@@ -34,7 +36,8 @@ class MallsBody extends Component {
         //alert(JSON.stringify(result.page.list))
         this.Loading.close();
         this.setState({
-          data: result.page.list
+          data: result.page.list,
+          pageNum:result.page.list.length
         })
       })
   }
@@ -75,7 +78,79 @@ class MallsBody extends Component {
     for (let i = 0; i < data.length; i++) {
       itemArr.push(
         <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
-          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.2 }]}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
+            <Text style={font.font25}>{data[i].comboName}</Text>
+            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
+            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
+              <Text style={font.font18NoBold}>立即购买</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+      itemArr.push(
+        <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
+          <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
             <Text style={font.font25}>{data[i].comboName}</Text>
             <Text style={font.font20NoBold}>{data[i].labelA}</Text>
             <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
@@ -110,10 +185,21 @@ class MallsBody extends Component {
   //   }) 
   // }
   moveCommodityLeft() {
-    this.refs.ScrollView.scrollTo({ x: -800, y: 0, animated: true })
+    this.refs.ScrollView.scrollTo({ x: this.state.scrollPosition == 0 ? 0 : this.state.scrollPosition - this.state.width * 0.66, y: 0, animated: true })
+    if (this.state.scrollPosition !== 0) {
+      this.setState({
+        scrollPosition: this.state.scrollPosition - this.state.width * 0.66
+      })
+    }
+    // this.refs.ScrollView.scrollTo({ x: 0, y: 0, animated: true })
   }
   moveCommodityRight() {
-    this.refs.ScrollView.scrollTo({ x: 800, y: 0, animated: true })
+    this.refs.ScrollView.scrollTo({ x: this.state.scrollPosition == this.state.pageNum*this.state.width * 0.66 ? this.state.pageNum*this.state.width * 0.66 : this.state.scrollPosition + this.state.width * 0.66, y: 0, animated: true })
+    if (this.state.scrollPosition !== this.state.pageNum*this.state.width * 0.66) {
+      this.setState({
+        scrollPosition: this.state.scrollPosition + this.state.width * 0.66
+      })
+    }
   }
   render() {
     return (
@@ -138,7 +224,7 @@ class MallsBody extends Component {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={true}
             //onMomentumScrollEnd={this.onScrollAnimationEnd}
-            style={styles.commodity}>
+            style={[styles.commodity, { width: this.state.width * 0.66 }]}>
             {this.renderCommodity()}
           </ScrollView>
           <View style={styles.leftRight}>
@@ -154,7 +240,7 @@ class MallsBody extends Component {
         {/* <View style={styles.bottom}>
           {this.renderIndicator()}
         </View> */}
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
 
     );
@@ -191,7 +277,6 @@ const styles = StyleSheet.create({
     //justifyContent: 'space-between', 
     //alignItems: 'center',
     //flexDirection:'row',
-    width: '66%',
     margin: 0,
     height: '60%',
   },
@@ -215,8 +300,8 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   button: {
-    borderWidth:1,
-    borderColor:'#F47575',
+    borderWidth: 1,
+    borderColor: '#F47575',
     borderRadius: 3,
     width: '70%',
     height: 40,

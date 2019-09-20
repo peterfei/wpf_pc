@@ -19,9 +19,9 @@ class PersonBodyRightFour extends Component {
     this.state = {
       nowTopIndex: 0,//顶部索引页码
       nowBottomIndex: 0,//底部索引页码
-      num: 1,
-      renderRightDot: false,
-      renderLeftDot: false,
+      num: 1,//总页码数
+      renderRightDot: false,//页码左侧点点
+      renderLeftDot: false,//页码右侧点点
       buttonData: [
         { title: "全部订单", orderState: '' },
         { title: "已完成", orderState: 'finished' },
@@ -187,7 +187,8 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '83%',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    paddingTop:20,
     alignItems: 'center',
   },
   top: {
