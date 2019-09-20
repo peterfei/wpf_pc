@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, DeviceEventEmitter,Text } from "react-native";
+import { StyleSheet, View, DeviceEventEmitter, Text } from "react-native";
 
 import Cell from "./Cell";
 import api from '../api';
@@ -13,19 +13,19 @@ export default class OrderItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nowIndex: 1,
       dataList: [],
     };
   }
 
   componentDidMount() {
-    this.myOrder()
+    this.myOrder(1)
   }
   listeners = {
     update: DeviceEventEmitter.addListener(
       "checkBotton",
-      () => {
-        this.myOrder()
+      ({ ...passedArgs }) => {
+        let nowBottomIndex = passedArgs.nowBottomIndex?passedArgs.nowBottomIndex:1
+        this.myOrder(nowBottomIndex)
       }
     )
   };
@@ -36,12 +36,11 @@ export default class OrderItem extends Component {
     this.timer && clearInterval(this.timer);
   }
 
-  async myOrder() {
+  async myOrder(nowBottomIndex) {
     this.Loading.show('加载中……');
     let AEStoken = await storage.get("token", "")
     let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
-    let url = api.base_uri_test + "/pc/order/myOrder?business=anatomy&limit=4&token=" + token + "&ordState=" + this.props.orderState + '&page=' + this.state.nowIndex
-    //alert(url)
+    let url = api.base_uri_test + "/pc/order/myOrder?business=anatomy&limit=4&token=" + token + "&ordState=" + this.props.orderState + '&page=' + nowBottomIndex
     await fetch(url, {
       method: "get",
       headers: {
@@ -49,22 +48,29 @@ export default class OrderItem extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        // alert(JSON.stringify(result))
+        //alert(JSON.stringify(result))
         if (result.msg == 'success') {
           this.Loading.close();
           this.setState({
             dataList: result.page.list
           })
+          this.props.getOrderNumber(result.page.totalPage)
         }
       })
   }
 
   _renderCell() {
     let arr = []
-    for (let i = 0; i < this.state.dataList.length; i++) {
+    if (this.state.dataList.length == 0) {
       arr.push(
-        <Cell info={this.state.dataList[i]} navigation={this.props.navigation} />
+        <Text style={{ color: 'white', textAlign: "center" }}>您还没有此类订单信息</Text>
       )
+    } else {
+      for (let i = 0; i < this.state.dataList.length; i++) {
+        arr.push(
+          <Cell info={this.state.dataList[i]} navigation={this.props.navigation} />
+        )
+      }
     }
     return arr
   };
@@ -73,7 +79,7 @@ export default class OrderItem extends Component {
     return (
       <View style={styles.container}>
         {this._renderCell()}
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }
@@ -86,10 +92,10 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   container: {
-    width:'100%',
-    borderColor:'#383838',
-    borderWidth:1,
-    paddingLeft:30,
-    paddingRight:30,
+    width: '100%',
+    borderColor: '#383838',
+    borderWidth: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
   }
 });
