@@ -30,26 +30,35 @@ class PasswordView extends Component {
     let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let url = api.base_uri_test + "pc/member/updatePassWord?tell="
       + userName + "&password=" + this.state.oldPassword + "&newPassword=" + this.state.newPassword + "&newPasswordConfirm=" + this.state.sureNewPassword + "&token=" + token
-    await fetch(url, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(resp => resp.json())
-      .then(result => {
-        this.Loading.show(result.msg);
-        this.timer = setTimeout(() => {
-          this.Loading.close()
-        }, 1000);
-        if (result.msg == "success") {
-          this.setState({
-            finish: true,
-          })
-          storage.remove("password");
-          let AESpassword = CryptoJS.AES.encrypt(this.state.newPassword, 'CB3EC842D7C69578').toString();
-          storage.save("password", "", AESpassword);
-        }
+    if (this.state.newPassword.length < 6) {
+      this.setState({
+        warn: '请输入6-12位密码'
       })
+      return;
+    } {
+      await fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(resp => resp.json())
+        .then(result => {
+          this.Loading.show(result.msg);
+          this.timer = setTimeout(() => {
+            this.Loading.close()
+          }, 1000);
+          if (result.msg == "success") {
+            this.setState({
+              finish: true,
+              warn: ' '
+            })
+            storage.remove("password");
+            let AESpassword = CryptoJS.AES.encrypt(this.state.newPassword, 'CB3EC842D7C69578').toString();
+            storage.save("password", "", AESpassword);
+          }
+        })
+    }
+
   }
 
   close() {
@@ -91,14 +100,14 @@ class PasswordView extends Component {
           <View style={[styles.row, { marginTop: 30 }]}>
             <Text>当前密码：&nbsp;&nbsp;&nbsp;&nbsp;</Text>
             <TextInput style={styles.input} placeholderTextColor="rgb(219,219,219)"
-              secureTextEntry={true}
+              maxLength={12} secureTextEntry={true}
               placeholder='请输入密码'
               onChangeText={(text) => this.setState({ oldPassword: text })} />
           </View>
           <View style={[styles.row, { marginTop: 30 }]}>
             <Text>新密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
             <TextInput style={styles.input} placeholderTextColor="rgb(219,219,219)"
-              secureTextEntry={true}
+              maxLength={12} secureTextEntry={true}
               placeholder='请输入新密码'
               onChangeText={(text) => this.setState({ newPassword: text })} />
           </View>
@@ -127,7 +136,7 @@ class PasswordView extends Component {
           </TouchableOpacity>
 
         </View>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }

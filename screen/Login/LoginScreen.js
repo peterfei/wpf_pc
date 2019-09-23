@@ -45,7 +45,8 @@ export default class LoginScreen extends Component {
         if (result.msg == 'success') {
           this.setState({
             token: result.token,
-            member: result.member
+            member: result.member,
+            warn: ''
           }, () => this.loding())
         } else {
           this.setState({
@@ -65,7 +66,6 @@ export default class LoginScreen extends Component {
       "LoginWinEmitter",
       ({ ...passedArgs }) => {
         let back = passedArgs.back;
-        let login = passedArgs.login;
         if (back) {
           this.refs.TextInput1.setNativeProps({
             placeholder: '用户名/手机号'
@@ -139,7 +139,7 @@ export default class LoginScreen extends Component {
             <TextInput
               ref='TextInput2'
               style={[styles.textInput, font.font20NoBoldGray]}
-              secureTextEntry={true} maxLength={16}
+              secureTextEntry={true}
               placeholder='密码' placeholderTextColor='rgb(78,78,78)'
               onChangeText={(text) => this.setState({ password: text })}
             />

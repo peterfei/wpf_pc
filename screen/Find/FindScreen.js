@@ -37,6 +37,11 @@ export default class FindScreen extends Component {
         warn: '密码不能为空!'
       })
       return;
+    } else if (this.state.password.length < 6) {
+      this.setState({
+        warn: '请输入6-12位密码'
+      })
+      return;
     } else {
       await fetch(url, {
         method: "post",
@@ -57,6 +62,9 @@ export default class FindScreen extends Component {
               this.Loading.close()
             }, 1000);
           }
+          this.setState({
+            warn: ''
+          })
         })
     }
   }
@@ -149,7 +157,7 @@ export default class FindScreen extends Component {
               <View style={[styles.input, color.borderBottom]}>
                 <TextInput
                   style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={16} secureTextEntry={true}
+                  maxLength={12} secureTextEntry={true}
                   placeholder='新密码' placeholderTextColor='rgb(78,78,78)'
                   onChangeText={(text) => this.setState({ password: text })}
                 />
@@ -157,7 +165,7 @@ export default class FindScreen extends Component {
               <View style={[styles.input, color.borderBottom]}>
                 <TextInput
                   style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={16} secureTextEntry={true}
+                  maxLength={12} secureTextEntry={true}
                   placeholder='确认新密码' placeholderTextColor='rgb(78,78,78)'
                   onChangeText={(text) => this.setState({ passwordConfirm: text })}
                 />
