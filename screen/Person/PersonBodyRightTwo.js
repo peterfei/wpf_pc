@@ -23,9 +23,9 @@ class PersonBodyRightTwo extends Component {
   }
   async componentDidMount() {
     let AESpassword = await storage.get("password", "")
-    let password = CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let AESuserName = await storage.get("userName", "")
-    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let member =  await storage.get("member", "")
     let mbHeadUrl = member.mbHeadUrl
     this.setState({

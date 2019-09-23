@@ -87,11 +87,11 @@ export default class HomeScreen extends Component {
   };
   async componentDidMount() {
     let AESuserName = await storage.get("userName", "")
-    let userName = CryptoJS.AES.decrypt(AESuserName, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let AESpassword = await storage.get("password", "")
-    let password = CryptoJS.AES.decrypt(AESpassword, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     
-    // let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    // let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
 
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
     let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
@@ -117,7 +117,7 @@ export default class HomeScreen extends Component {
     
     let member = await storage.get("member", "")
     let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'X2S1B5GS1F6G2X5D').toString(CryptoJS.enc.Utf8);
+    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     // alert(`tokens is ${JSON.stringify(tokens)}`)
     let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
     let _content={"type":"ClientInfo","data": data}

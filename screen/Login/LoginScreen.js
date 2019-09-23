@@ -228,9 +228,9 @@ export default class LoginScreen extends Component {
     })
   }
   loding() {
-    let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'X2S1B5GS1F6G2X5D').toString();
-    let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'X2S1B5GS1F6G2X5D').toString();
-    let AEStoken = CryptoJS.AES.encrypt(this.state.token, 'X2S1B5GS1F6G2X5D').toString();
+    let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'CB3EC842D7C69578').toString();
+    let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'CB3EC842D7C69578').toString();
+    let AEStoken = CryptoJS.AES.encrypt(this.state.token, 'CB3EC842D7C69578').toString();
     //console.log(this.state.token)
     storage.save("userName", "", AESuserName);
     storage.save("password", "", AESpassword);
