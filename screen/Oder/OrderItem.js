@@ -38,8 +38,7 @@ export default class OrderItem extends Component {
 
   async myOrder(nowBottomIndex) {
     this.Loading.show('加载中……');
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let url = api.base_uri_test + "/pc/order/myOrder?business=anatomy&limit=4&token=" + token + "&ordState=" + this.props.orderState + '&page=' + nowBottomIndex
     await fetch(url, {
       method: "get",

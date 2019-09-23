@@ -32,8 +32,7 @@ class PhoneNumberView extends Component {
   }
   async componentDidMount() {
     this.setUUID();
-    let AESuserName = await storage.get("userName", "")
-    let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let userName = await storage.get("userName", "")
     this.setState({
       oldPhoneNumber: userName
     })
@@ -144,8 +143,7 @@ class PhoneNumberView extends Component {
     }
   };
   async checkCode() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     // let body = {
     //   tell: this.state.oldPhoneNumber,
     //   code: this.state.oldCode,
@@ -180,8 +178,7 @@ class PhoneNumberView extends Component {
       })
   }
   async changeTellNumber() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     // let body = {
     //   token: token,
     //   newTell: this.state.newPhoneNumber,
@@ -204,8 +201,7 @@ class PhoneNumberView extends Component {
             finish: true,
           })
           storage.remove("userName");
-          let AESuserName = CryptoJS.AES.encrypt(this.state.newPhoneNumber, 'CB3EC842D7C69578').toString();
-          storage.save("userName", "", AESuserName);
+          storage.save("userName", "", this.state.newPhoneNumber);
           this.Loading.show("修改成功");
           this.timer = setTimeout(() => {
             this.Loading.close()

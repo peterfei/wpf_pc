@@ -25,8 +25,7 @@ class PersonBodyRightThree extends Component {
     };
   }
   async currMbAllDeviceIds() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/member/currMbAllDeviceIds?token=" + token
     await fetch(url, {
       method: "get",
@@ -49,8 +48,7 @@ class PersonBodyRightThree extends Component {
           }, 1000);
       return
     }
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/member/clearCurrMbDeviceIds?token=" + token
     await fetch(url, {
       method: "get",

@@ -21,10 +21,10 @@ class MallsBody extends Component {
     height: 768,
     token: '',
   }
-  async comboList() {
+  async comboList(token) {
     //接口发送参数
     //接口URL
-    let url = api.base_uri_test + "pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + this.state.token
+    let url = api.base_uri_test + "pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + token
 
     await fetch(url, {
       method: "get",
@@ -43,11 +43,7 @@ class MallsBody extends Component {
   }
   async componentDidMount() {
     this.Loading.show('加载中……');
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
-    this.setState({
-      token: token
-    })
+    let token = await storage.get("token", "")
     // this.time = await setInterval(
     //   () => {
     //     let width = Dimensions.get('window').width;
@@ -66,7 +62,7 @@ class MallsBody extends Component {
 
     //   }
     // );
-    await this.comboList()
+    await this.comboList(token)
   }
   componentWillUnmount() {
     this.time && clearTimeout(this.time);

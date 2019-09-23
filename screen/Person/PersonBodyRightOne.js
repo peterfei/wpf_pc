@@ -55,8 +55,7 @@ class PersonBodyRightOne extends Component {
   }
 
   async updateMemberInfo() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let member = await storage.get("member", "")
     let mbId = member.mbId
     //接口URL

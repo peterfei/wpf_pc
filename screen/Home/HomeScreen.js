@@ -11,7 +11,7 @@ import {
   Platform, StyleSheet, Text, View, Image,
   TouchableOpacity,
   DeviceEventEmitter,
-  AsyncStorage,NativeModules
+  AsyncStorage, NativeModules
 } from 'react-native';
 import _ from "lodash";
 
@@ -20,7 +20,7 @@ import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 
 export default class HomeScreen extends Component {
-  
+
   static navigationOptions = {
     title: 'Home',
   }
@@ -28,17 +28,12 @@ export default class HomeScreen extends Component {
     modalVisible: "flex",
     width: 0,
     height: 0,
-    userName: '',
-    password: '',
-    AESuserName: '',
-    AESpassword: '',
   };
   listeners = {
     update: [DeviceEventEmitter.addListener(
       "UnityWinEmitter",
       ({ ...passedArgs }) => {
         let _key = passedArgs.modalVisible;
-        //alert(_key)
         if (_key != "") {
           this.setState({
             modalVisible: _key
@@ -52,12 +47,12 @@ export default class HomeScreen extends Component {
         this.sendMsg()
         // this.setState({ modalVisible: "none" });
       }
-      else if(data=='OpenClientCenter'){
+      else if (data == 'OpenClientCenter') {
         // this.setState({ modalVisible: "none" });
         this.showPerson();
         // alert(1111)
       }
-      else if(data=='ShowMall') {
+      else if (data == 'ShowMall') {
         // this.setState({ modalVisible: "none" });
         this.showMalls();
       }
@@ -86,41 +81,20 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Malls');
   };
   async componentDidMount() {
-    let AESuserName = await storage.get("userName", "")
-    let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
-    let AESpassword = await storage.get("password", "")
-    let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
-    
-    // let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
-
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
     let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
-    let token = await storage.get("token", "")
     this.setState({
-      AESuserName: AESuserName,
-      userName: userName,
-      AESpassword: AESpassword,
-      password: password,
-      token: token,
       height: mainHeight - 5,
       width: mainWidth
     })
-    // let member = await storage.get("member", "")
-    // let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
-    // let _content={"type":"ClientInfo","data": data}
-    // // alert(`data111 is ${token}`)
-    // NativeModules.MyDialogModel.SendMessageToUnity(
-    //   JSON.stringify(_content)
-    // );
   }
-  async sendMsg(){
-    
+  async sendMsg() {
+
     let member = await storage.get("member", "")
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     // alert(`tokens is ${JSON.stringify(tokens)}`)
-    let data = { "mb_id": member.mbId, "token": token ,"height":this.state.height}
-    let _content={"type":"ClientInfo","data": data}
+    let data = { "mb_id": member.mbId, "token": token, "height": this.state.height }
+    let _content = { "type": "ClientInfo", "data": data }
     // alert(JSON.stringify(_content))
     NativeModules.MyDialogModel.SendMessageToUnity(
       JSON.stringify(_content)
@@ -145,7 +119,7 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-           <UnityView   
+        <UnityView   
             height={this.state.height}
             width={this.state.width}
             display={this.state.modalVisible}
@@ -159,7 +133,7 @@ export default class HomeScreen extends Component {
           right: 50,
           top: 50,
         }}>
-            <TouchableOpacity
+          <TouchableOpacity
             onPress={() => {
               this.sendMsg();
             }}
@@ -180,12 +154,6 @@ export default class HomeScreen extends Component {
           >
             <Text style={{ fontWeight: 'bold' }}>商城</Text>
           </TouchableOpacity>
-          <View style={{ width: 200, margin: 20 }}>
-            <Text style={{ fontWeight: 'bold', margin: 10 }}>AES用户名：{this.state.AESuserName}</Text>
-            <Text style={{ fontWeight: 'bold', margin: 10 }}>AES密&nbsp;&nbsp;码：{this.state.AESpassword}</Text>
-            <Text style={{ fontWeight: 'bold', margin: 10 }}>用户名：{this.state.userName}</Text>
-            <Text style={{ fontWeight: 'bold', margin: 10 }}>密&nbsp;&nbsp;码：{this.state.password}</Text>
-          </View>
         </View>
 
       </View>

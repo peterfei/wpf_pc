@@ -24,10 +24,8 @@ class PasswordView extends Component {
     };
   }
   async updatePassWord() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
-    let AESuserName = await storage.get("userName", "")
-    let userName = CryptoJS.AES.decrypt(AESuserName, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
+    let userName = await storage.get("userName", "")
     let url = api.base_uri_test + "pc/member/updatePassWord?tell="
       + userName + "&password=" + this.state.oldPassword + "&newPassword=" + this.state.newPassword + "&newPasswordConfirm=" + this.state.sureNewPassword + "&token=" + token
     if (this.state.newPassword.length < 6) {

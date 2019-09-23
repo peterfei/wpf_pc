@@ -78,8 +78,7 @@ class PayBody extends Component {
     }
   }
   async getOrderState(timer) {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let url = api.base_uri_test + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
     await fetch(url, {
       method: "get",
@@ -116,8 +115,7 @@ class PayBody extends Component {
   async comboDetail() {
     // 接口发送参数
     // 接口URL
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let comboId = this.props.comboId
     let url = api.base_uri_test + "pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
     await fetch(url, {
@@ -144,8 +142,7 @@ class PayBody extends Component {
     // 接口URL
     let comboId = this.props.comboId
     let priceId = this.state.data.priceId
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let body = {
       "priceId": priceId,
       "comboId": comboId,
@@ -191,8 +188,7 @@ class PayBody extends Component {
     }
   }
   async getNativeQRCode() {
-    let AEStoken = await storage.get("token", "")
-    let token = CryptoJS.AES.decrypt(AEStoken, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
+    let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
       ImgUrl: url

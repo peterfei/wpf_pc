@@ -20,8 +20,6 @@ export default class LoginScreen extends Component {
     password: '',
     MacAddress: '',
     weixinLogin: false,
-    token: '',
-    member: '',
   }
   async pcNormalLogin() {
     //接口发送参数
@@ -44,10 +42,8 @@ export default class LoginScreen extends Component {
         // alert(JSON.stringify(result))
         if (result.msg == 'success') {
           this.setState({
-            token: result.token,
-            member: result.member,
             warn: ''
-          }, () => this.loding())
+          }, () => this.loding(result.token,result.member))
         } else {
           this.setState({
             warn: result.msg
@@ -85,10 +81,10 @@ export default class LoginScreen extends Component {
     this.timer && clearInterval(this.timer);
   }
   async componentWillMount() {            //本地缓存账号自动登录
-    let AESuserName = await storage.get("userName", "")
+    let userName = await storage.get("userName", "")
     let AESpassword = await storage.get("password", "")
-    let AEStoken = await storage.get("token", "")
-    if (AESuserName != -1 && AESpassword != -1 && AEStoken != -1) {
+    let token = await storage.get("token", "")
+    if (userName != '' && AESpassword != -1 && token != '') {
       this.props.navigation.navigate('Home');
       this.refs.TextInput1.setNativeProps({
         placeholder: ''
@@ -227,15 +223,12 @@ export default class LoginScreen extends Component {
       weixinLogin: false
     })
   }
-  loding() {
-    let AESuserName = CryptoJS.AES.encrypt(this.state.userName, 'CB3EC842D7C69578').toString();
+  loding(token,member) {
     let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'CB3EC842D7C69578').toString();
-    let AEStoken = CryptoJS.AES.encrypt(this.state.token, 'CB3EC842D7C69578').toString();
-    //console.log(this.state.token)
-    storage.save("userName", "", AESuserName);
+    storage.save("userName", "", this.state.userName);
     storage.save("password", "", AESpassword);
-    storage.save("token", "", AEStoken);
-    storage.save("member", "", this.state.member);
+    storage.save("token", "", token);
+    storage.save("member", "", member);
     this.props.navigation.navigate('Home');
     this.setState({
       warn: '',
