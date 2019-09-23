@@ -49,7 +49,7 @@ export default class LoginScreen extends Component {
           }, () => this.loding())
         } else {
           this.setState({
-            warn: '账号/密码错误，请重试！',
+            warn: result.msg
           })
         }
       })
