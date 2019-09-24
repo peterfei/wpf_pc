@@ -116,7 +116,8 @@ export default class PersonScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    backgroundColor:"rgb(16,16,16)"
   },
   body: {
     flexDirection: 'row',

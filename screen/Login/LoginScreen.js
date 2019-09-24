@@ -253,7 +253,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    height: '100%'
+    height: '100%',
+    backgroundColor:"rgb(16,16,16)"
   },
   background: {
     flex: 1,
