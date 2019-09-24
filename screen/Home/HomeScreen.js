@@ -138,21 +138,21 @@ export default class HomeScreen extends Component {
               this.sendMsg();
             }}
           >
-            <Text style={{ fontWeight: 'bold' }}>sendMsg</Text>
+            <Text style={{ fontWeight: 'bold',color:'white' }}>sendMsg</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               this.showPerson();
             }}
           >
-            <Text style={{ fontWeight: 'bold' }}>个人中心</Text>
+            <Text style={{ fontWeight: 'bold',color:'white'  }}>个人中心</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               this.showMalls();
             }}
           >
-            <Text style={{ fontWeight: 'bold' }}>商城</Text>
+            <Text style={{ fontWeight: 'bold',color:'white'  }}>商城</Text>
           </TouchableOpacity>
         </View>
 
@@ -164,6 +164,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"rgb(16,16,16)"
   },
   component: {
     flex: 1,
