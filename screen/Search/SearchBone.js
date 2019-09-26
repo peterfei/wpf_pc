@@ -59,7 +59,7 @@ export default class SearchBone extends Component {
     clickKey(obj) {
 
         this.props.clickItem();
-        this.props.sendMsgToUnity("modelList", obj.smName, '');
+        this.props.sendMsgToUnity("modelList", obj.smName);
 
     }
 
@@ -77,7 +77,7 @@ export default class SearchBone extends Component {
         let str = arr.join(',');
         console.log(str);
 
-        this.props.sendMsgToUnity("modelList", str, '');
+        this.props.sendMsgToUnity("modelList", str);
 
     }
 

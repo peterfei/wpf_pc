@@ -18,8 +18,8 @@ export default class SearchScreen extends Component {
     clickItem() {
         this.closeSearch();
     }
-    sendMsgToUnity(name, info, type) {
-        let _content = { 'name': name, 'info': info, 'type': type }
+    sendMsgToUnity(name, info) {
+        let _content = { 'type': name, 'data': info }
         NativeModules.MyDialogModel.SendMessageToUnity(
             JSON.stringify(_content)
         );
@@ -29,7 +29,7 @@ export default class SearchScreen extends Component {
         return (
             <View style={{ width: '100%', height: '100%', }}>
                 <SearchBone
-                    sendMsgToUnity={(name, info, type) => this.sendMsgToUnity(name, info, type)}
+                    sendMsgToUnity={(name, info) => this.sendMsgToUnity(name, info)}
                     searchData={boneData[0].val}
                     closeSearch={() => this.closeSearch()}
                     clickItem={() => this.clickItem()}
