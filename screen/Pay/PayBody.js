@@ -78,6 +78,10 @@ class PayBody extends Component {
     }
   }
   async getOrderState(timer) {
+    let member = await storage.get("member", "")
+    // let token = await storage.get("token", "")
+    // alert(`tokens is ${JSON.stringify(tokens)}`)
+    // let data = { "mb_id": member.mbId
     let token = await storage.get("token", "")
     let url = api.base_uri_test + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
     await fetch(url, {
@@ -93,7 +97,7 @@ class PayBody extends Component {
           this.Loading.show('支付成功');
           this.timer = setTimeout(() => {
             this.Loading.close()
-            let data = { "comboId": this.props.comboId,"token": token }
+            let data = { "mb_id": member.mbId,"token": token }
             let _content = { "type": "BuyComplete", "data": data }
             NativeModules.MyDialogModel.SendMessageToUnity(
               JSON.stringify(_content)

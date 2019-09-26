@@ -110,7 +110,6 @@ namespace VesalPCVip
             //view.SetBorderWidth(ViewProps.BorderSpacingTypes[index], width);
 
 
-
         }
 
 
@@ -129,9 +128,7 @@ namespace VesalPCVip
         [ReactProp("borderColor", CustomType = "Color")]
         public void SetBorderColor(Border view, uint? color)
         {
-            view.BorderBrush = color.HasValue
-                ? new SolidColorBrush(ColorHelpers.Parse(color.Value))
-                : null;
+            view.BorderBrush = new SolidColorBrush(Colors.DarkSlateGray);
         }
 
         public Boolean unity_proc = false;
@@ -146,12 +143,13 @@ namespace VesalPCVip
 
             var border = new Border
             {
-                Background = new ImageBrush
-                {
-                    Stretch = Stretch.UniformToFill,
-                },
+                //Background = new ImageBrush
+                //{
+                //    Stretch = Stretch.UniformToFill,
+                //},
             };
-
+            border.BorderBrush = new SolidColorBrush(Colors.DarkSlateGray);
+            border.Background = new SolidColorBrush(Colors.DarkSlateGray);
             var dpi = MyDialogModel.GetDpi();
             //var _width = Math.Round(System.Windows.SystemParameters.WorkArea.Width / 96 * (dpi * 96));
             //var _height = Math.Round(System.Windows.SystemParameters.WorkArea.Height/ 96 * (dpi * 96));
