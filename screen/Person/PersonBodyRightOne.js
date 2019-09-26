@@ -12,7 +12,7 @@ import CryptoJS from "crypto-js";
 import RadioModal from 'react-native-radio-master';
 import api from "../api";
 import Loading from '../common/Loading'
-//个人中心主体右侧
+//个人中心主体右侧-个人中心
 
 class PersonBodyRightOne extends Component {
   constructor(props) {

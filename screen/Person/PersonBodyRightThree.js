@@ -10,7 +10,7 @@ import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import api from "../api";
 import Loading from '../common/Loading'
-//个人中心主体右侧
+//个人中心主体右侧-Mac设置
 
 class PersonBodyRightThree extends Component {
   state = {

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, DeviceEventEmitter
+  TouchableOpacity, DeviceEventEmitter, Alert
 } from "react-native";
-
+import { StackActions, NavigationActions } from 'react-navigation';
 import { PersonBodyLeft, PersonBodyRightOne, PersonBodyRightTwo, PersonBodyRightThree, PersonTop } from "./index";
 import PersonBodyRightFour from '../Oder/PersonBodyRightFour';
 import _ from "lodash";
 import PhoneNumberView from './PhoneNumberView';
-import PasswordView from './PasswordView'
+import PasswordView from './PasswordView';
+import { storage } from "../Public/storage";
 //个人中心
 export default class PersonScreen extends Component {
   static navigationOptions = {
@@ -74,11 +75,11 @@ export default class PersonScreen extends Component {
     // cleaning up listeners
     // I am using lodash
     _.each(this.listeners, listener => {
-      listener[0].remove();listener[1].remove();listener[2].remove();
+      listener[0].remove(); listener[1].remove(); listener[2].remove();
     });
     this.timer && clearInterval(this.timer);
   }
-  
+
   PersonBodyRight() {
     if (this.state.num == 0) {
       return (
@@ -92,10 +93,19 @@ export default class PersonScreen extends Component {
       return (
         <PersonBodyRightThree />
       )
-    } else {
+    } else if (this.state.num == 3) {
       return (
         <PersonBodyRightFour />
       )
+    } else {
+      storage.clearMapForKey("userName")
+      storage.clearMapForKey("password");
+      storage.clearMapForKey("token");
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: "Login" })]
+      });
+      this.props.navigation.dispatch(resetAction);
     }
   }
   render() {
@@ -117,7 +127,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    backgroundColor:"rgb(16,16,16)"
+    backgroundColor: "rgb(16,16,16)"
   },
   body: {
     flexDirection: 'row',

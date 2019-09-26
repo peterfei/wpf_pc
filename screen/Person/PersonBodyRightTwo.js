@@ -9,7 +9,7 @@ import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 
-//个人中心主体右侧
+//个人中心主体右侧-账户设置
 
 class PersonBodyRightTwo extends Component {
   state = {
