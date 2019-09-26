@@ -43,7 +43,7 @@ export default class LoginScreen extends Component {
         if (result.msg == 'success') {
           this.setState({
             warn: ''
-          }, () => this.loding(result.token,result.member))
+          }, () => this.loding(result.token, result.member))
         } else {
           this.setState({
             warn: result.msg
@@ -109,44 +109,53 @@ export default class LoginScreen extends Component {
     return (
       <View style={styles.body}>
 
-        <Text style={[font.font15NoBoldRed, { marginBottom: 15 }]}>
+        <Image style={styles.logo}
+          source={require('../img/loading/logo.png')} />
+
+        <Text style={{ marginBottom: 15, color: 'rgba(247, 57, 57, 1)' }}>
           {this.state.warn}
         </Text>
 
-        <View style={styles.content}>
+        <ImageBackground
+          source={require('../img/loading/textInput1.png')}
+          style={styles.content}
+          imageStyle={{ resizeMode: 'stretch' }}
+        >
           <Image
             style={styles.icon}
-            source={require('../img/userName.png')} />
-          <View style={styles.input}>
-            <TextInput
-              ref='TextInput1'
-              style={[styles.textInput, font.font20NoBoldGray]}
-              maxLength={11}
-              placeholder='用户名/手机号' placeholderTextColor='rgb(78,78,78)'
-              onChangeText={(text) => this.setState({ userName: text })}
-            />
-          </View>
-        </View>
-        <View style={styles.content}>
-          <Image
-            style={styles.icon}
-            source={require('../img/password.png')} />
-          <View style={styles.input}>
-            <TextInput
-              ref='TextInput2'
-              style={[styles.textInput, font.font20NoBoldGray]}
-              secureTextEntry={true}
-              placeholder='密码' placeholderTextColor='rgb(78,78,78)'
-              onChangeText={(text) => this.setState({ password: text })}
-            />
-          </View>
-        </View>
+            source={require('../img/loading/user.png')} />
+          <TextInput
+            ref='TextInput1'
+            style={[styles.textInput, font.font20NoBoldGray]}
+            maxLength={11}
+            placeholder='用户名/手机号' placeholderTextColor='rgb(78,78,78)'
+            onChangeText={(text) => this.setState({ userName: text })}
+          />
+        </ImageBackground>
 
-        <TouchableOpacity style={{ width: '25%' }}
+        <ImageBackground
+          source={require('../img/loading/textInput2.png')}
+          style={styles.content}
+          imageStyle={{ resizeMode: 'stretch' }}
+        >
+          <Image
+            style={styles.icon}
+            source={require('../img/loading/passWord.png')} />
+          <TextInput
+            ref='TextInput2'
+            style={[styles.textInput, font.font20NoBoldGray]}
+            secureTextEntry={true}
+            placeholder='密码' placeholderTextColor='rgb(78,78,78)'
+            onChangeText={(text) => this.setState({ password: text })}
+          />
+        </ImageBackground>
+
+        <TouchableOpacity style={{ width: '100%' }}
           onPress={() => { this.pcNormalLogin() }} >
-          <View style={styles.button}>
+          <ImageBackground style={styles.button}
+           source={require('../img/loading/button.png')} >
             <Text style={font.font20}>登陆</Text>
-          </View>
+          </ImageBackground>
         </TouchableOpacity>
 
         <View style={styles.index}>
@@ -156,7 +165,7 @@ export default class LoginScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.change2()}>
-            <Text style={font.font18NoBoldRed}>立即注册</Text>
+            <Text style={{ color: 'rgba(247, 57, 57, 1)' }}>立即注册</Text>
           </TouchableOpacity>
         </View>
         {/* <TouchableOpacity style={{ marginTop: 15 }}
@@ -223,7 +232,7 @@ export default class LoginScreen extends Component {
       weixinLogin: false
     })
   }
-  loding(token,member) {
+  loding(token, member) {
     let AESpassword = CryptoJS.AES.encrypt(this.state.password, 'CB3EC842D7C69578').toString();
     storage.save("userName", "", this.state.userName);
     storage.save("password", "", AESpassword);
@@ -239,10 +248,10 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
         <ImageBackground
           style={styles.background}
-          source={require('../img/background.png')}>
-
-          {this.Login()}
-
+          source={require('../img/loading/bg.png')}>
+          <View style={styles.main}>
+            {this.Login()}
+          </View>
         </ImageBackground>
       </View>
     );
@@ -254,61 +263,64 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    backgroundColor:"rgb(16,16,16)"
+    backgroundColor: "rgb(16,16,16)"
   },
   background: {
     flex: 1,
     width: '100%',
-    height: '100%'
-  },
-  body: {
-    flex: 1,
-    width: '100%',
     height: '100%',
-    justifyContent: 'flex-end',
-    marginBottom: "20%",
-    alignItems: 'center',
-  },
-  content: {
-    paddingBottom: 15,
-  },
-  icon: {
-    position: "absolute",
-    left: 5,
-    top: 5,
-    width: 25,
-    height: 25,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "rgb(78,78,78)",
-    borderRadius: 5,
-    width: '25%',
-    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  main: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    width: '33%',
+    borderWidth: 1,
+    borderColor: "rgba(255, 210, 74, 0.1)",
+    borderRadius: 5,
+    padding: 30,
+    paddingLeft: 80,
+    paddingRight: 80
+  },
+  body: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 70,
+    resizeMode: 'contain',
+    marginBottom: 25
+  },
+  content: {
+    width: '100%', 
+    height: 50, 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginBottom: 15 
+  },
+  icon: {
+    marginLeft: 25,
+    marginRight: 15,
+    width: 15,
+    height: 15,
+  },
   textInput: {
-    backgroundColor: 'rgba(78,78,78,0)',
+    flex: 0.9,
     borderWidth: 0,
     padding: 0,
-    marginTop: 5,
-    paddingLeft: 35,
-    width: '100%',
-    height: 35,
+    marginTop: 8,
+    height: 33,
   },
   button: {
     width: '100%',
     height: 40,
-    backgroundColor: 'rgb(13,192,217)',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
     marginBottom: 15,
   },
   index: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '25%',
+    width: '100%',
   },
 });

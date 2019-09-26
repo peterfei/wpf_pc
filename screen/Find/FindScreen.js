@@ -113,76 +113,95 @@ export default class FindScreen extends Component {
       <View style={styles.container}>
         <ImageBackground
           style={styles.background}
-          source={require('../img/background.png')}>
+          source={require('../img/loading/bg.png')}>
           <View style={styles.main}>
-            <View style={[styles.body, color.border]}>
-              <View style={{ position: "absolute", top: -20 }}>
-                <Text style={font.font15NoBoldRed}>{this.state.warn}</Text>
-              </View>
-              <View style={[styles.input, color.borderBottom]}>
-                <TextInput
-                  style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={11}
-                  placeholder='手机号' placeholderTextColor='rgb(78,78,78)'
-                  onChangeText={(text) => {
-                    this.warnPhone(text)
-                  }
-                  }
-                />
-              </View>
-              <View style={[styles.input, color.borderBottom]}>
-                <TextInput
-                  style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={6}
-                  placeholder='短信验证码' placeholderTextColor='rgb(78,78,78)'
-                  onChangeText={(text) => this.setState({ securityCode: text })}
-                />
-                <View style={{ position: "absolute", right: 0 }}>
-                  <CountDownButton
-                    enable={true}
-                    style={{ height: 30, width: 100, }}
-                    textStyle={{ color: '#0094e1' }}
-                    timerCount={60}
-                    timerTitle={'获取验证码'}
-                    timerActiveTitle={['请在（', 's）后重试']}
-                    onClick={(shouldStartCountting) => {
-                      // shouldStartCountting是一个回调函数，根据调用接口的情况在适当的时候调用它来决定是否开始倒计时
-                      //随机模拟发送验证码成功或失败
-                      // const requestSucc = Math.random() + 0.5 > 1;
-                      // shouldStartCounting(requestSucc)
-                      this.shouldStartCountdown(shouldStartCountting);
-                    }} />
-                </View>
-              </View>
-              <View style={[styles.input, color.borderBottom]}>
-                <TextInput
-                  style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={12} secureTextEntry={true}
-                  placeholder='新密码' placeholderTextColor='rgb(78,78,78)'
-                  onChangeText={(text) => this.setState({ password: text })}
-                />
-              </View>
-              <View style={[styles.input, color.borderBottom]}>
-                <TextInput
-                  style={[styles.textInput, font.font20NoBoldGray]}
-                  maxLength={12} secureTextEntry={true}
-                  placeholder='确认新密码' placeholderTextColor='rgb(78,78,78)'
-                  onChangeText={(text) => this.setState({ passwordConfirm: text })}
-                />
-              </View>
 
-              <TouchableOpacity style={{ width: '100%' }}
-                onPress={() => this.forgetPwd()}>
-                <View style={styles.button}>
-                  <Text style={font.font20}>找回</Text>
-                </View>
-              </TouchableOpacity>
+            <Image style={styles.logo}
+              source={require('../img/loading/logo.png')} />
 
-              <TouchableOpacity
-                onPress={() => this.change()}>
-                <Text style={font.font18NoBoldGray}>已有找回？登陆</Text>
-              </TouchableOpacity>
-            </View>
+            <Text style={{ marginBottom: 15, color: 'rgba(247, 57, 57, 1)' }}>
+              {this.state.warn}
+            </Text>
+
+            <ImageBackground
+              source={require('../img/loading/textInput2.png')}
+              style={styles.content}
+              imageStyle={{ resizeMode: 'stretch' }}
+            >
+              <TextInput
+                style={[styles.textInput, font.font20NoBoldGray]}
+                maxLength={11}
+                placeholder='手机号' placeholderTextColor='rgb(78,78,78)'
+                onChangeText={(text) => { this.warnPhone(text) }}
+              />
+            </ImageBackground>
+
+            <ImageBackground
+              source={require('../img/loading/textInput2.png')}
+              style={styles.content}
+              imageStyle={{ resizeMode: 'stretch' }}
+            >
+              <TextInput
+                style={[styles.textInput, font.font20NoBoldGray]}
+                maxLength={6}
+                placeholder='短信验证码' placeholderTextColor='rgb(78,78,78)'
+                onChangeText={(text) => this.setState({ securityCode: text })}
+              />
+              <View style={{ position: "absolute", right: 0 }}>
+                <CountDownButton
+                  enable={true}
+                  style={{ height: 30, width: 100, }}
+                  textStyle={{ color: '#0094e1' }}
+                  timerCount={60}
+                  timerTitle={'获取验证码'}
+                  timerActiveTitle={['请在（', 's）后重试']}
+                  onClick={(shouldStartCountting) => {
+                    // shouldStartCountting是一个回调函数，根据调用接口的情况在适当的时候调用它来决定是否开始倒计时
+                    //随机模拟发送验证码成功或失败
+                    // const requestSucc = Math.random() + 0.5 > 1;
+                    // shouldStartCounting(requestSucc)
+                    this.shouldStartCountdown(shouldStartCountting);
+                  }} />
+              </View>
+            </ImageBackground>
+
+            <ImageBackground
+              source={require('../img/loading/textInput2.png')}
+              style={styles.content}
+              imageStyle={{ resizeMode: 'stretch' }}
+            >
+              <TextInput
+                style={[styles.textInput, font.font20NoBoldGray]}
+                maxLength={12} secureTextEntry={true}
+                placeholder='新密码' placeholderTextColor='rgb(78,78,78)'
+                onChangeText={(text) => this.setState({ password: text })}
+              />
+            </ImageBackground>
+            <ImageBackground
+              source={require('../img/loading/textInput2.png')}
+              style={styles.content}
+              imageStyle={{ resizeMode: 'stretch' }}
+            >
+              <TextInput
+                style={[styles.textInput, font.font20NoBoldGray]}
+                maxLength={12} secureTextEntry={true}
+                placeholder='确认新密码' placeholderTextColor='rgb(78,78,78)'
+                onChangeText={(text) => this.setState({ passwordConfirm: text })}
+              />
+            </ImageBackground>
+
+            <TouchableOpacity style={{ width: '100%' }}
+              onPress={() => { this.forgetPwd() }} >
+              <ImageBackground style={styles.button}
+                source={require('../img/loading/button.png')} >
+                <Text style={font.font20}>登陆</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.change()}>
+              <Text style={{ color: 'rgba(247, 57, 57, 1)' }}>已有找回？登陆</Text>
+            </TouchableOpacity>
+
           </View>
         </ImageBackground>
 
@@ -217,40 +236,44 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: '100%',
-    height: '100%'
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 70,
+    resizeMode: 'contain',
+    marginBottom: 25
   },
   main: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'flex-end',
-    marginBottom: "10%",
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    width: '33%',
+    borderWidth: 1,
+    borderColor: "rgba(255, 210, 74, 0.1)",
+    borderRadius: 5,
+    padding: 30,
+    paddingLeft: 80,
+    paddingRight: 80,
     alignItems: 'center',
   },
   body: {
-    width: '30%',
-    height: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    padding: '3%',
-  },
-  input: {
     width: '100%',
-    height: 40,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+  },
+  content: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15
   },
   textInput: {
-    backgroundColor: 'rgba(78,78,78,0)',
+    flex: 0.9,
     borderWidth: 0,
-    paddingLeft: 0,
-    margin: 0,
-    marginTop: 5,
-    width: '100%',
-    height: 35,
+    padding: 0,
+    marginTop: 8,
+    height: 33,
+    marginLeft: 50
   },
   securityCode: {
     position: "absolute",
@@ -260,10 +283,8 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 40,
-    backgroundColor: 'rgb(13,192,217)',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
     marginBottom: 15,
   },
 
