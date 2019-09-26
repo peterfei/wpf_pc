@@ -45,16 +45,16 @@ export default class HomeScreen extends Component {
       // alert(data);
       if (data == "hide") {
         this.sendMsg()
-        // this.setState({ modalVisible: "none" });
       }
       else if (data == 'OpenClientCenter') {
-        // this.setState({ modalVisible: "none" });
         this.showPerson();
         // alert(1111)
       }
       else if (data == 'ShowMall') {
-        // this.setState({ modalVisible: "none" });
         this.showMalls();
+      }
+      else if (data == 'OpenSearching') {
+        this.showSearch();
       }
     })
     ]
@@ -80,6 +80,12 @@ export default class HomeScreen extends Component {
     });
     this.props.navigation.navigate('Malls');
   };
+  showSearch() {
+    this.setState({
+      modalVisible: "none"
+    });
+    this.props.navigation.navigate('Search');
+  }
   async componentDidMount() {
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
     let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
@@ -119,13 +125,13 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <UnityView   
-            height={this.state.height}
-            width={this.state.width}
-            display={this.state.modalVisible}
-            
-            >
-          </UnityView>   
+        <UnityView
+          height={this.state.height}
+          width={this.state.width}
+          display={this.state.modalVisible}
+
+        >
+        </UnityView>
 
         {/* 1.1.主界面按钮 */}
         <View style={{
@@ -138,21 +144,28 @@ export default class HomeScreen extends Component {
               this.sendMsg();
             }}
           >
-            <Text style={{ fontWeight: 'bold',color:'white' }}>sendMsg</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white' }}>sendMsg</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.showSearch();
+            }}
+          >
+            <Text style={{ fontWeight: 'bold', color: 'white' }}>搜索</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               this.showPerson();
             }}
           >
-            <Text style={{ fontWeight: 'bold',color:'white'  }}>个人中心</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white' }}>个人中心</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               this.showMalls();
             }}
           >
-            <Text style={{ fontWeight: 'bold',color:'white'  }}>商城</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white' }}>商城</Text>
           </TouchableOpacity>
         </View>
 
@@ -164,7 +177,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"rgb(16,16,16)"
+    backgroundColor: "rgb(16,16,16)"
   },
   component: {
     flex: 1,
