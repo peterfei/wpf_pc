@@ -25,6 +25,7 @@ class PersonBodyRightThree extends Component {
     };
   }
   async currMbAllDeviceIds() {
+    this.Loading.show('加载中……');
     let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/member/currMbAllDeviceIds?token=" + token
     await fetch(url, {
@@ -34,6 +35,7 @@ class PersonBodyRightThree extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
+        this.Loading.close();
         //alert(JSON.stringify(result) )
         this.setState({
           deviceIds: result.deviceIds
