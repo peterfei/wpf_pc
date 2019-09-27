@@ -22,6 +22,15 @@ export default class LoginScreen extends Component {
     weixinLogin: false,
   }
   async pcNormalLogin() {
+    if(this.state.userName==''||this.state.password==''){
+      this.setState({
+        warn: '账号或密码不能为空！'
+      })
+      return
+    }
+    this.setState({
+      warn: '登陆中……'
+    })
     //接口发送参数
     let body = {
       tellAndEmail: this.state.userName,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput, NativeModules
+  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput, NativeModules,Alert
 } from "react-native";
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -201,15 +201,26 @@ class PayBody extends Component {
   }
 
   changeID() {
-    storage.clearMapForKey("userName")
-    // storage.clearMapForKey("userName");
-    storage.clearMapForKey("password");
-    storage.clearMapForKey("token");
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: "Login" })]
-    });
-    this.props.navigation.dispatch(resetAction);
+    Alert.alert(
+      '提醒',
+      '确定是否退出账号',
+      [
+        { text: '取消' },
+        {
+          text: '确定', onPress: () => {
+            storage.clearMapForKey("userName")
+            storage.clearMapForKey("password");
+            storage.clearMapForKey("token");
+            const resetAction = StackActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Login" })]
+            });
+            this.props.navigation.dispatch(resetAction);
+          }, style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    )
   }
   render() {
     return (

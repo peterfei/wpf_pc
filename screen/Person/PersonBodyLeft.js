@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, DeviceEventEmitter
+  TouchableOpacity, DeviceEventEmitter,Alert
 } from "react-native";
 
+import { StackActions, NavigationActions } from 'react-navigation';
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public/index";
 import CryptoJS from "crypto-js";
@@ -12,8 +13,8 @@ import { storage } from "../Public/storage";
 class PersonBodyLeft extends Component {
   state = {
     currentIndex: 0,
-    title: ['个人中心', '账户设置', 'Mac地址','我的订单','退出登录'],
-    Image: [{ "Image": require('../img/tab1.png') }, { "Image": require('../img/tab2.png') }, { "Image": require('../img/tab3.png') }, { "Image": require('../img/tab4.png') }, { "Image": require('../img/tab4.png') }],
+    title: ['个人中心', '账户设置', 'Mac地址', '我的订单'],
+    Image: [{ "Image": require('../img/tab1.png') }, { "Image": require('../img/tab2.png') }, { "Image": require('../img/tab3.png') }, { "Image": require('../img/tab4.png') }],
     userName: '',
     mbHeadUrl: '',
   }
@@ -26,7 +27,7 @@ class PersonBodyLeft extends Component {
       mbHeadUrl: mbHeadUrl
     })
   }
-  
+
   renderLabel() {
     let indicator = [], isLabel;
     let title = this.state.title;
@@ -48,6 +49,18 @@ class PersonBodyLeft extends Component {
         </TouchableOpacity>
       )
     }
+    indicator.push(
+      <TouchableOpacity
+        onPress={() => this.backLoding()}
+      >
+        <View style={[styles.label, color.borderBottom]}>
+          <Image style={{ width: 25, height: 25, margin: 10 }}
+            source={require('../img/backLoding.png')}
+          />
+          <Text style={font.font20}>退出登录</Text>
+        </View>
+      </TouchableOpacity>
+    )
     return indicator;
   }
   change(i) {
@@ -58,7 +71,28 @@ class PersonBodyLeft extends Component {
       num: i
     });
   }
-  
+  backLoding() {
+    Alert.alert(
+      '提醒',
+      '确定是否退出账号',
+      [
+        { text: '取消' },
+        {
+          text: '确定', onPress: () => {
+            storage.clearMapForKey("userName")
+            storage.clearMapForKey("password");
+            storage.clearMapForKey("token");
+            const resetAction = StackActions.reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: "Login" })]
+            });
+            this.props.navigation.dispatch(resetAction);
+          }, style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    )
+  }
   render() {
     return (
       <View style={[color.rightBackground, styles.container]}>

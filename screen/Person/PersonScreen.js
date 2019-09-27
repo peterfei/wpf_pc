@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, DeviceEventEmitter, Alert
+  TouchableOpacity, DeviceEventEmitter
 } from "react-native";
-import { StackActions, NavigationActions } from 'react-navigation';
 import { PersonBodyLeft, PersonBodyRightOne, PersonBodyRightTwo, PersonBodyRightThree, PersonTop } from "./index";
 import PersonBodyRightFour from '../Oder/PersonBodyRightFour';
 import _ from "lodash";
@@ -93,19 +92,10 @@ export default class PersonScreen extends Component {
       return (
         <PersonBodyRightThree />
       )
-    } else if (this.state.num == 3) {
+    } else {
       return (
         <PersonBodyRightFour />
       )
-    } else {
-      storage.clearMapForKey("userName")
-      storage.clearMapForKey("password");
-      storage.clearMapForKey("token");
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Login" })]
-      });
-      this.props.navigation.dispatch(resetAction);
     }
   }
   render() {
@@ -115,7 +105,7 @@ export default class PersonScreen extends Component {
         <PersonTop navigation={this.props.navigation} />
         {/* Body */}
         <View style={styles.body}>
-          <PersonBodyLeft />
+          <PersonBodyLeft navigation={this.props.navigation} />
           {this.PersonBodyRight()}
         </View>
       </View>
