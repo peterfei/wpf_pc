@@ -72,13 +72,15 @@ class PersonBodyRightFour extends Component {
 
   _renderBottomButton() {
     let arr = []
+    let lastIndex = this.state.nowBottomIndex == 0 ? this.state.nowBottomIndex : this.state.nowBottomIndex - 1
+    let nextIndex = this.state.nowBottomIndex == this.state.num - 1 ? this.state.nowBottomIndex : this.state.nowBottomIndex + 1
     arr.push(
       <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => { this.changePage(0, 'bottom') }} >
         <Text style={{ fontSize: 18, color: 'white' }}>首页</Text>
       </TouchableOpacity>
     )
     arr.push(
-      <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => { this.changePage(0, 'bottom', this.state.nowBottomIndex - 1) }} >
+      <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => { this.changePage(0, 'bottom', lastIndex) }} >
         <Text style={{ fontSize: 18, color: 'white' }}>上一页</Text>
       </TouchableOpacity>
     )
@@ -87,8 +89,8 @@ class PersonBodyRightFour extends Component {
         <Text style={{ paddingRight: 30, fontSize: 18, color: 'white' }}>···</Text>
       )
     }
-    
-    if(this.state.num>5){
+
+    if (this.state.num > 5) {
       for (let i = 0; i < this.state.num; i++) {
         if (i < this.state.nowBottomIndex + 3 && i > this.state.nowBottomIndex - 3) {//只显示当前左右共五个页面
           arr.push(
@@ -108,18 +110,18 @@ class PersonBodyRightFour extends Component {
           this.setState({
             renderRightDot: true
           })
-        }else if (this.state.renderLeftDot && this.state.nowBottomIndex < 3) {
+        } else if (this.state.renderLeftDot && this.state.nowBottomIndex < 3) {
           this.setState({
             renderLeftDot: false
           })
-        }else if (this.state.renderRightDot && this.state.nowBottomIndex > this.state.num - 1 - 3) {
+        } else if (this.state.renderRightDot && this.state.nowBottomIndex > this.state.num - 1 - 3) {
           this.setState({
             renderRightDot: false
           })
         }
       }
-    }else{
-      if(this.state.renderRightDot||this.state.renderLeftDot){
+    } else {
+      if (this.state.renderRightDot || this.state.renderLeftDot) {
         this.setState({
           renderLeftDot: false,
           renderRightDot: false
@@ -137,14 +139,14 @@ class PersonBodyRightFour extends Component {
         )
       }
     }
-    
+
     if (this.state.renderRightDot) {
       arr.push(
         <Text style={{ paddingRight: 25, fontSize: 18, color: 'white' }}>···</Text>
       )
     }
     arr.push(
-      <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => { this.changePage(0, 'bottom', this.state.nowBottomIndex + 1) }} >
+      <TouchableOpacity style={{ paddingRight: 25 }} onPress={() => { this.changePage(0, 'bottom', nextIndex) }} >
         <Text style={{ fontSize: 18, color: 'white' }}>下一页</Text>
       </TouchableOpacity>
     )
@@ -172,7 +174,7 @@ class PersonBodyRightFour extends Component {
             orderState={this.state.buttonData[this.state.nowTopIndex].orderState}
             getOrderNumber={(num) => this.getOrderNumber(num)} />
 
-          <View style={[styles.button, { justifyContent: 'flex-end',marginTop:10 }]}>
+          <View style={[styles.button, { justifyContent: 'flex-end', marginTop: 10 }]}>
             {this._renderBottomButton()}
           </View>
 
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '83%',
     // justifyContent: 'center',
-    paddingTop:20,
+    paddingTop: 20,
     alignItems: 'center',
   },
   top: {
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     alignItems: 'center',
-    marginBottom:3,
+    marginBottom: 3,
   },
   buttonBody: {
     paddingRight: 50
