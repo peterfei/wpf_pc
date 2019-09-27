@@ -201,26 +201,7 @@ class PayBody extends Component {
   }
 
   changeID() {
-    Alert.alert(
-      '提醒',
-      '确定是否退出账号',
-      [
-        { text: '取消' },
-        {
-          text: '确定', onPress: () => {
-            storage.clearMapForKey("userName")
-            storage.clearMapForKey("password");
-            storage.clearMapForKey("token");
-            const resetAction = StackActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({ routeName: "Login" })]
-            });
-            this.props.navigation.dispatch(resetAction);
-          }, style: 'cancel'
-        }
-      ],
-      { cancelable: false }
-    )
+    this.Loading.backLoading();
   }
   render() {
     return (
@@ -266,7 +247,7 @@ class PayBody extends Component {
             <Text>使用微信扫码支付</Text>
           </View>
         </View>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <Loading ref={r=>{this.Loading = r}} hide = {true} navigation={this.props.navigation} /> 
       </View>
     );
   }

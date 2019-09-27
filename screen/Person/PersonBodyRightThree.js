@@ -43,9 +43,9 @@ class PersonBodyRightThree extends Component {
   async clearCurrMbDeviceIds() {
     if (this.state.deviceIds == '') {
       this.Loading.show('无Mac地址');
-          this.timer = setTimeout(() => {
-            this.Loading.close()
-          }, 1000);
+      this.timer = setTimeout(() => {
+        this.Loading.close()
+      }, 1000);
       return
     }
     let token = await storage.get("token", "")
@@ -71,7 +71,7 @@ class PersonBodyRightThree extends Component {
         }
       })
   }
-  
+
   renderMac() {
     let itemArr = [];
     let deviceIds = this.state.deviceIds;
@@ -84,16 +84,21 @@ class PersonBodyRightThree extends Component {
     }
     return itemArr
   }
-  
+
   render() {
     return (
       <View style={[styles.container, color.rightBackground]}>
-        {this.renderMac()}
-        <TouchableOpacity
-          onPress={() => this.clearCurrMbDeviceIds()}  >
-          <Text style={font.font20Blue}>清空Mac地址</Text>
-        </TouchableOpacity>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} /> 
+        <View style={[styles.top, color.borderBottom]}>
+          <Text style={font.font20}>|&nbsp;&nbsp;Mac地址</Text>
+        </View>
+        <View style={styles.main}>
+          {this.renderMac()}
+          <TouchableOpacity
+            onPress={() => this.clearCurrMbDeviceIds()}  >
+            <Text style={font.font20Blue}>清空Mac地址</Text>
+          </TouchableOpacity>
+          <Loading ref={r => { this.Loading = r }} hide={true} />
+        </View>
       </View>
     )
   }
@@ -106,7 +111,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  top: {
+    position: "absolute",
+    top: 0,
+    width: '100%',
+    height: 70,
+    justifyContent: 'center',
+    paddingLeft: 30
+  },
+  main: {
+    padding: 70,
+    width: '90%',
+    height: '60%',
+    alignItems: 'center',
+    marginBottom: 50,
+  },
 });
 
 module.exports = PersonBodyRightThree;

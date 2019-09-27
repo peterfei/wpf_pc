@@ -9,6 +9,7 @@ import _ from "lodash";
 import PhoneNumberView from './PhoneNumberView';
 import PasswordView from './PasswordView';
 import { storage } from "../Public/storage";
+import Loading from '../common/Loading'
 //个人中心
 export default class PersonScreen extends Component {
   static navigationOptions = {
@@ -79,6 +80,10 @@ export default class PersonScreen extends Component {
     this.timer && clearInterval(this.timer);
   }
 
+  backLoding(){
+    this.Loading.backLoading();
+  }
+
   PersonBodyRight() {
     if (this.state.num == 0) {
       return (
@@ -105,9 +110,10 @@ export default class PersonScreen extends Component {
         <PersonTop navigation={this.props.navigation} />
         {/* Body */}
         <View style={styles.body}>
-          <PersonBodyLeft navigation={this.props.navigation} />
+          <PersonBodyLeft navigation={this.props.navigation} backLoding={()=>this.backLoding()}/>
           {this.PersonBodyRight()}
         </View>
+        <Loading ref={r => { this.Loading = r }} hide={true} navigation={this.props.navigation} /> 
       </View>
     );
   }

@@ -51,7 +51,7 @@ class PersonBodyLeft extends Component {
     }
     indicator.push(
       <TouchableOpacity
-        onPress={() => this.backLoding()}
+        onPress={() => {this.props.backLoding()}}
       >
         <View style={[styles.label, color.borderBottom]}>
           <Image style={{ width: 25, height: 25, margin: 10 }}
@@ -70,28 +70,6 @@ class PersonBodyLeft extends Component {
     DeviceEventEmitter.emit("PersonBodyRightNum", {
       num: i
     });
-  }
-  backLoding() {
-    Alert.alert(
-      '提醒',
-      '确定是否退出账号',
-      [
-        { text: '取消' },
-        {
-          text: '确定', onPress: () => {
-            storage.clearMapForKey("userName")
-            storage.clearMapForKey("password");
-            storage.clearMapForKey("token");
-            const resetAction = StackActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({ routeName: "Login" })]
-            });
-            this.props.navigation.dispatch(resetAction);
-          }, style: 'cancel'
-        }
-      ],
-      { cancelable: false }
-    )
   }
   render() {
     return (
