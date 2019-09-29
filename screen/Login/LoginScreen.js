@@ -18,7 +18,6 @@ export default class LoginScreen extends Component {
     warn: '',
     userName: '',
     password: '',
-    MacAddress: '',
     weixinLogin: false,
   }
   async pcNormalLogin() {
@@ -31,12 +30,13 @@ export default class LoginScreen extends Component {
     this.setState({
       warn: '登陆中……'
     })
+    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
     //接口发送参数
     let body = {
       tellAndEmail: this.state.userName,
       password: this.state.password,
-      device_id: this.state.MacAddress,
-      business: 'anatomy',
+      device_id: MacAddress,
+      business: 'pc',
     }
     //接口URL
     let url = api.base_uri_test + "pc/member/pcNormalLogin"
@@ -59,12 +59,6 @@ export default class LoginScreen extends Component {
           })
         }
       })
-  }
-  async componentDidMount() {
-    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
-    this.setState({
-      MacAddress: MacAddress,
-    })
   }
   listeners = {
     update: DeviceEventEmitter.addListener(
