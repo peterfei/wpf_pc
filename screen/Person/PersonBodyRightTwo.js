@@ -13,7 +13,6 @@ import { storage } from "../Public/storage";
 
 class PersonBodyRightTwo extends Component {
   state = {
-    securityLevel: '中',
     warn: '您的账号存在安全风险，建议您更改密码，提高安全性。',
     changePassword: false,
     changephoneNumber: false,
@@ -25,7 +24,7 @@ class PersonBodyRightTwo extends Component {
     let AESpassword = await storage.get("password", "")
     let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let userName = await storage.get("userName", "")
-    let member =  await storage.get("member", "")
+    let member = await storage.get("member", "")
     let mbHeadUrl = member.mbHeadUrl
     this.setState({
       password: password,
@@ -38,25 +37,25 @@ class PersonBodyRightTwo extends Component {
       return;
     };
   }
-  safety(x) {
-    let str = this.state.password
-    let num = /\d+/
-    let letter = /[a-zA-Z]+/
-    if (str == "" || str == null) {
-      return null
-    } else if (num.test(str) && letter.test(str) && str.length > 6) {
-      //alert(1)
-      return (
-        <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../img/safety3.png')} />
-      )
-    } else if (num.test(str) || letter.test(str)) {
-      return (
-        <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../img/safety2.png')} />
-      )
-    }
-  }
+  // safety(x) {
+  //   let str = this.state.password
+  //   let num = /\d+/
+  //   let letter = /[a-zA-Z]+/
+  //   if (str == "" || str == null) {
+  //     return null
+  //   } else if (num.test(str) && letter.test(str) && str.length > 6) {
+  //     //alert(1)
+  //     return (
+  //       <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
+  //         source={require('../img/safety3.png')} />
+  //     )
+  //   } else if (num.test(str) || letter.test(str)) {
+  //     return (
+  //       <Image style={{ height: x, position: "absolute", left: 0 }} resizeMode='contain'
+  //         source={require('../img/safety2.png')} />
+  //     )
+  //   }
+  // }
   changephoneNumber() {
     this.setState({
       changephoneNumber: true
@@ -71,6 +70,9 @@ class PersonBodyRightTwo extends Component {
   }
 
   render() {
+    let str = this.state.password
+    let num = /\d+/
+    let letter = /[a-zA-Z]+/
     return (
       <View style={[styles.container, color.rightBackground]}>
         <View style={[styles.top, color.borderBottom]}>
@@ -105,9 +107,16 @@ class PersonBodyRightTwo extends Component {
               <View style={{ justifyContent: 'center' }}>
                 <Image style={{ height: 20 }} resizeMode='contain'
                   source={require('../img/safety.png')} />
-                {this.safety(20)}
+                {str == "" || str == null ? null :
+                  num.test(str) && letter.test(str) && str.length > 6 ? <Image style={{ height: 20, position: "absolute", left: 0 }} resizeMode='contain'
+                    source={require('../img/safety3.png')} /> :
+                    <Image style={{ height: 20, position: "absolute", left: 0 }} resizeMode='contain'
+                      source={require('../img/safety2.png')} />
+                }
               </View>
-              <Text style={[font.font25, { fontWeight: 'bold' }]}>{this.state.securityLevel}</Text>
+              <Text style={[font.font25, { fontWeight: 'bold' }]}>
+                {num.test(str) && letter.test(str) && str.length > 6 ? '高' : num.test(str) || letter.test(str) ? '中' : '低'}
+              </Text>
             </View>
             <Text style={[font.font15NoBold, { height: 20, marginBottom: 10 }]}>{this.state.warn}</Text>
 
@@ -144,9 +153,16 @@ class PersonBodyRightTwo extends Component {
                   <View style={{ justifyContent: 'center' }}>
                     <Image style={{ height: 10 }} resizeMode='contain'
                       source={require('../img/safety.png')} />
-                    {this.safety(10)}
+                    {str == "" || str == null ? null :
+                      num.test(str) && letter.test(str) && str.length > 6 ? <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+                        source={require('../img/safety3.png')} /> :
+                        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+                          source={require('../img/safety2.png')} />
+                    }
                   </View>
-                  <Text style={font.font18}>{this.state.securityLevel}</Text>
+                  <Text style={font.font18}>
+                    {num.test(str) && letter.test(str) && str.length > 6 ? '高' : num.test(str) || letter.test(str) ? '中' : '低'}
+                  </Text>
                 </View>
                 <Text style={font.font18NoBoldGray}>密码用于一般登录、找回密码、保证用户安全性</Text>
               </View>
