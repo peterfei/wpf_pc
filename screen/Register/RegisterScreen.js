@@ -82,7 +82,7 @@ export default class RegisterScreen extends Component {
       }).then(resp => resp.json())
         .then(result => {
           //alert(JSON.stringify(result))
-          this.Loading.show(JSON.stringify(result));
+          this.Loading.show(JSON.stringify(result.msg));
           this.timer = setTimeout(() => {
             this.Loading.close()
           }, 1000);
@@ -125,7 +125,7 @@ export default class RegisterScreen extends Component {
               }, 1000);
               shouldStartCountting(true)
             } else {
-              this.Loading.show(result.msg);
+              this.Loading.show(result.msg=='图形验证码错误'?result.msg+',可点击图形码更新':result.msg);
               this.timer = setTimeout(() => {
                 this.Loading.close()
               }, 1000);
@@ -176,7 +176,9 @@ export default class RegisterScreen extends Component {
                 placeholder='输入图形码' placeholderTextColor='rgb(78,78,78)'
                 onChangeText={text => this.setState({ code: text })}
               />
-              <Image source={{ uri: this.state.imgURL }} style={{ width: 100, height: 30, position: "absolute", right: 10 }} />
+              <TouchableOpacity style={{ width: 100, height: 30, position: "absolute", right: 10 }}  onPress={()=>this.setUUID()}>
+                <Image source={{ uri: this.state.imgURL }} style={{ width: 100, height: 30 }} />
+              </TouchableOpacity>
             </ImageBackground>
 
             <ImageBackground

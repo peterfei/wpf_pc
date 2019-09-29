@@ -51,7 +51,7 @@ export default class FindScreen extends Component {
         body: JSON.stringify(body)
       }).then(resp => resp.json())
         .then(result => {
-          if (reult.msg == 'success') {
+          if (result.msg == 'success') {
             this.Loading.show('密码修改成功');
             this.timer = setTimeout(() => {
               this.Loading.close()

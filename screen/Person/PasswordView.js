@@ -41,18 +41,22 @@ class PasswordView extends Component {
         },
       }).then(resp => resp.json())
         .then(result => {
-          this.Loading.show(result.msg);
-          this.timer = setTimeout(() => {
-            this.Loading.close()
-          }, 1000);
           if (result.msg == "success") {
+            this.Loading.show('密码修改成功');
+            this.timer = setTimeout(() => {
+              this.Loading.close()
+            }, 1000);
             this.setState({
-              finish: true,
               warn: ' '
             })
             storage.remove("password");
             let AESpassword = CryptoJS.AES.encrypt(this.state.newPassword, 'CB3EC842D7C69578').toString();
             storage.save("password", "", AESpassword);
+          } else {
+            this.Loading.show(result.msg);
+            this.timer = setTimeout(() => {
+              this.Loading.close()
+            }, 1000);
           }
         })
     }
@@ -62,27 +66,11 @@ class PasswordView extends Component {
   close() {
     DeviceEventEmitter.emit("changePasswordView", { changePasswordView: false });
   }
-  safety() {
+
+  render() {
     let str = this.state.newPassword
     let num = /\d+/
     let letter = /[a-zA-Z]+/
-    if (str == "" || str == null) {
-      return null
-    } else if (num.test(str) && letter.test(str) && str.length > 6) {
-      //alert(1)
-      return (
-        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../img/safety3.png')} />
-      )
-    } else if (num.test(str) || letter.test(str)) {
-      return (
-        <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
-          source={require('../img/safety2.png')} />
-      )
-    }
-  }
-
-  render() {
     return (
       <View style={styles.topView}>
         <View style={styles.bodyView}>
@@ -110,11 +98,16 @@ class PasswordView extends Component {
               onChangeText={(text) => this.setState({ newPassword: text })} />
           </View>
           <View style={{ flexDirection: 'row', marginTop: 15, marginLeft: 60 }}>
-            <Text>中</Text>
+            <Text>{num.test(str) && letter.test(str) && str.length > 6 ? '高' : num.test(str) || letter.test(str) ? '中' : '低'}</Text>
             <View style={{ justifyContent: 'center' }}>
               <Image style={{ height: 10 }} resizeMode='contain'
                 source={require('../img/safety.png')} />
-              {this.safety()}
+              {str == "" || str == null ? null :
+                num.test(str) && letter.test(str) && str.length > 6 ? <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+                  source={require('../img/safety3.png')} /> :
+                  <Image style={{ height: 10, position: "absolute", left: 0 }} resizeMode='contain'
+                    source={require('../img/safety2.png')} />
+              }
 
             </View>
           </View>
