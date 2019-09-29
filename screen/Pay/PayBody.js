@@ -43,7 +43,7 @@ class PayBody extends Component {
   async componentDidMount() {
     let member = await storage.get("member", "")
     let mbName = member.mbName
-    let mbHeadUrl = member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
     let mbIdentity = member.mbIdentity
     this.setState({
       userName: mbName,
@@ -210,7 +210,7 @@ class PayBody extends Component {
         <View style={styles.personInformation}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+            source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
           />
           <View style={styles.information}>
             <Text style={font.font18}>{this.state.userName}</Text>

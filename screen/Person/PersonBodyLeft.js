@@ -21,7 +21,7 @@ class PersonBodyLeft extends Component {
   async componentDidMount() {
     let member = await storage.get("member", "")
     let mbName = member.mbName
-    let mbHeadUrl = member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
     this.setState({
       userName: mbName,
       mbHeadUrl: mbHeadUrl
@@ -77,7 +77,7 @@ class PersonBodyLeft extends Component {
         <View style={[styles.personInformation, color.borderBottom]}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+            source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
           />
           <Text style={font.font20}>{this.state.userName}</Text>
         </View>

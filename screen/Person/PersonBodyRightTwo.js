@@ -25,7 +25,7 @@ class PersonBodyRightTwo extends Component {
     let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let userName = await storage.get("userName", "")
     let member = await storage.get("member", "")
-    let mbHeadUrl = member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
     this.setState({
       password: password,
       phoneNumber: userName,
@@ -90,7 +90,7 @@ class PersonBodyRightTwo extends Component {
                 width: 80,
                 borderRadius: 40,
               }}
-              source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
             />
             <View style={{
               justifyContent: 'space-around',

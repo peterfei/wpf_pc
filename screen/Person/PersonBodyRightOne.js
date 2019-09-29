@@ -36,7 +36,7 @@ class PersonBodyRightOne extends Component {
     let mbSex = member.mbSex
     let phoneNumber = member.mbTell
     let emil = member.mbEmail
-    let mbHeadUrl = member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
     let initId = mbSex == '男' ? '0' : '1';
     let initItem = mbSex == '男' ? '男' : '女';
     this.setState({
@@ -180,7 +180,6 @@ class PersonBodyRightOne extends Component {
     }
   }
   radioModal() {
-    // alert("initId:"+this.state.initId)
     return (
       <RadioModal
         selectedValue={this.state.initId}
@@ -208,7 +207,7 @@ class PersonBodyRightOne extends Component {
           <View style={styles.mainTop}>
             <Image
               style={styles.headPortrait}
-              source={this.state.mbHeadUrl ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
             />
             <View style={styles.mainTopRight}>
               <Text style={font.font20Blue}>点击修改头像</Text>
