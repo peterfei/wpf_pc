@@ -2,9 +2,13 @@
 /**
  * 调用说明：
  * <Loading ref={r=>{this.Loading = r}} hide = {true} /> //放在布局的最后即可
- * 需要返回登录界面<Loading ref={r=>{this.Loading = r}} hide = {true} navigation={this.props.navigation} /> 调用this.Loading.backLoading();
- * 在需要显示的地方调用this.Loading.show();
- * 在需要隐藏的地方调用this.Loading.close();
+ * 
+ * 需要alertChoose(可选择方法) 添加<Loading ref={r=>{this.Loading = r}} hide = {true} yes={()=>{方法}} navigation={this.props.navigation} />
+ * 在需要alertChoose地方this.Loading.alertChoose('提示内容');
+ * 返回登录页面方法this.Loading.logout();
+ * 
+ * 在需要显示提示的地方调用this.Loading.show();
+ * 在需要隐藏提示的地方调用this.Loading.close();
  */
 
 import React, { Component } from 'react';
@@ -26,7 +30,7 @@ export default class Loading extends Component {
         this.state = {
             modalVisible: false,
             title: "请求中",
-            backLoading: false,
+            alertChoose: false,
         }
     }
 
@@ -38,10 +42,10 @@ export default class Loading extends Component {
         this.setState({ modalVisible: true, title: title });
     }
 
-    backLoading() {
-        this.setState({ backLoading: true });
+    alertChoose(title) {
+        this.setState({ alertChoose: true, title: title });
     }
-    yes() {
+    logout() {
         storage.clearMapForKey("userName")
         storage.clearMapForKey("password");
         storage.clearMapForKey("token");
@@ -52,10 +56,10 @@ export default class Loading extends Component {
         this.props.navigation.dispatch(resetAction);
     }
     no() {
-        this.setState({ backLoading: false });
+        this.setState({ alertChoose: false });
     }
     render() {
-        if (this.state.backLoading) {
+        if (this.state.alertChoose) {
             return (
                 <View style={{ position: 'absolute' ,backgroundColor:'rgba(0,0,0,0.3)', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <View style={{ borderRadius: 5, borderWidth: 1, borderColor: 'rgba(0,0,0,0.8)', backgroundColor: 'rgb(255,255,255)', width: 300, height: 160 }}>
@@ -66,10 +70,10 @@ export default class Loading extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '100%', flex: 3, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: "back" }}>确定退出账号</Text>
+                            <Text style={{ color: "back" }}>{this.state.title}</Text>
                         </View>
                         <View style={{ width: '100%', flex: 2, borderBottomLeftRadius:5,borderBottomRightRadius:5,backgroundColor: 'rgb(96,96,96)', justifyContent: 'space-around', flexDirection: 'row',alignItems:'center' }}>
-                            <TouchableOpacity style={{ padding: 5, paddingLeft: 20, paddingRight: 20,backgroundColor:'white',borderRadius:3 }} onPress={() => { this.yes() }}>
+                            <TouchableOpacity style={{ padding: 5, paddingLeft: 20, paddingRight: 20,backgroundColor:'white',borderRadius:3 }} onPress={() => { this.props.yes() }}>
                                 <Text style={{ color: "back" }}>确定</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ padding: 5, paddingLeft: 20, paddingRight: 20,backgroundColor:'white',borderRadius:3 }} onPress={() => { this.no() }}>

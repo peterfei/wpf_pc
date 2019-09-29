@@ -81,7 +81,7 @@ export default class PersonScreen extends Component {
   }
 
   backLoding(){
-    this.Loading.backLoading();
+    this.Loading.alertChoose('确定退出账号');
   }
 
   PersonBodyRight() {
@@ -95,7 +95,7 @@ export default class PersonScreen extends Component {
       )
     } else if (this.state.num == 2) {
       return (
-        <PersonBodyRightThree />
+        <PersonBodyRightThree navigation={this.props.navigation} />
       )
     } else {
       return (
@@ -113,7 +113,7 @@ export default class PersonScreen extends Component {
           <PersonBodyLeft navigation={this.props.navigation} backLoding={()=>this.backLoding()}/>
           {this.PersonBodyRight()}
         </View>
-        <Loading ref={r => { this.Loading = r }} hide={true} navigation={this.props.navigation} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} yes={()=>{this.Loading.logout()}} navigation={this.props.navigation} /> 
       </View>
     );
   }

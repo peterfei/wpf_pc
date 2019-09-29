@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, TextInput,NativeModules
+  TouchableOpacity, TextInput, NativeModules
 } from "react-native";
 
+import { StackActions, NavigationActions } from 'react-navigation';
 import { color, screen } from "./index";
 import { font, getScreen } from "../Public";
 import CryptoJS from "crypto-js";
@@ -15,13 +16,13 @@ import Loading from '../common/Loading'
 class PersonBodyRightThree extends Component {
   state = {
     deviceIds: '',
-    MacAddress:'',
+    MacAddress: '',
   }
   async componentDidMount() {
     this.currMbAllDeviceIds();
-    let MacAddress=await NativeModules.DeviceInfoG.GetFirstMacAddress();
+    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
     this.setState({
-      MacAddress:MacAddress
+      MacAddress: MacAddress
     })
   }
   componentWillUnmount() {
@@ -29,8 +30,8 @@ class PersonBodyRightThree extends Component {
       return;
     };
   }
-  async currMbAllDeviceIds() {
-    this.Loading.show('加载中……');
+  async currMbAllDeviceIds(state) {
+    state?null:this.Loading2.show('加载中……');
     let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/member/currMbAllDeviceIds?token=" + token + "&business=pc"
     await fetch(url, {
@@ -40,7 +41,7 @@ class PersonBodyRightThree extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        this.Loading.close();
+        state?null:this.Loading2.close();
         //alert(JSON.stringify(result) )
         this.setState({
           deviceIds: result.deviceIds
@@ -48,13 +49,6 @@ class PersonBodyRightThree extends Component {
       })
   }
   async clearCurrMbDeviceIds() {
-    if (this.state.deviceIds == '') {
-      this.Loading.show('无Mac地址');
-      this.timer = setTimeout(() => {
-        this.Loading.close()
-      }, 1000);
-      return
-    }
     let token = await storage.get("token", "")
     let url = api.base_uri_test + "pc/member/clearCurrMbDeviceIds?token=" + token + "&business=pc"
     await fetch(url, {
@@ -65,15 +59,16 @@ class PersonBodyRightThree extends Component {
     }).then(resp => resp.json())
       .then(result => {
         if (result.msg == "success") {
-          this.Loading.show('清除成功');
+          this.Loading2.show('解除成功,正在退出登录……');
           this.timer = setTimeout(() => {
-            this.Loading.close()
+            this.Loading2.close()
+            this.Loading.logout()
           }, 1000);
-          this.currMbAllDeviceIds();
+          this.currMbAllDeviceIds('will go out');
         } else {
-          this.Loading.show('清除失败');
+          this.Loading2.show('解除失败,'+JSON.stringify(result.msg));
           this.timer = setTimeout(() => {
-            this.Loading.close()
+            this.Loading2.close()
           }, 1000);
         }
       })
@@ -88,7 +83,7 @@ class PersonBodyRightThree extends Component {
         <View style={styles.row} key={i}>
           <Image style={{ width: 23, resizeMode: 'contain' }} source={require('../img/person/computer.png')} />
           <Text style={font.font20}>&nbsp;&nbsp;&nbsp;您的设备({i + 1})&nbsp;&nbsp;:&nbsp;&nbsp;{deviceIds[i].deviceId}</Text>
-          {MacAddress==deviceIds[i].deviceId?<Text style={[font.font18NoBoldBlue,{position:'absolute',right:-80}]}>(当前设备)</Text>:null}
+          {MacAddress == deviceIds[i].deviceId ? <Text style={[font.font18NoBoldBlue, { position: 'absolute', right: -80 }]}>(当前设备)</Text> : null}
         </View>
       )
     }
@@ -104,10 +99,11 @@ class PersonBodyRightThree extends Component {
         <View style={styles.main}>
           {this._renderMac()}
           <TouchableOpacity style={styles.button}
-            onPress={() => this.clearCurrMbDeviceIds()}  >
-            <Text style={[font.font18NoBoldBlue,{fontSize:18}]}>清空Mac地址</Text>
+            onPress={() => this.Loading.alertChoose('确定解绑所有设备')}  >
+            <Text style={[font.font18NoBoldBlue, { fontSize: 18 }]}>解绑所有设备</Text>
           </TouchableOpacity>
-          <Loading ref={r => { this.Loading = r }} hide={true} />
+          <Loading ref={r => { this.Loading = r }} hide={true} yes={()=>{this.Loading.no();this.clearCurrMbDeviceIds()}} navigation={this.props.navigation} />
+          <Loading ref={r => { this.Loading2 = r }} hide={true} />
         </View>
       </View>
     )
@@ -143,13 +139,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20
   },
-  button:{
-    backgroundColor:'rgba(48, 48, 48, 1)',
-    borderRadius:15,
-    height:30,
-    width:250,
-    justifyContent:'center',
-    alignItems:'center',
+  button: {
+    backgroundColor: 'rgba(48, 48, 48, 1)',
+    borderRadius: 15,
+    height: 30,
+    width: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

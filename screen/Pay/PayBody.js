@@ -201,7 +201,7 @@ class PayBody extends Component {
   }
 
   changeID() {
-    this.Loading.backLoading();
+    this.Loading.alertChoose('确定切换账号');
   }
   render() {
     return (
@@ -247,7 +247,7 @@ class PayBody extends Component {
             <Text>使用微信扫码支付</Text>
           </View>
         </View>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} navigation={this.props.navigation} /> 
+        <Loading ref={r=>{this.Loading = r}} hide = {true} yes={()=>{this.Loading.logout()}} navigation={this.props.navigation} /> 
       </View>
     );
   }
