@@ -141,7 +141,7 @@ export default class HomeScreen extends Component {
         }}>
           <TouchableOpacity
             onPress={() => {
-              this.sendMsg();
+              {NativeModules.Speech.btnSayHello_Click('大家好，我是语音播放，hello，I’m speech');}
             }}
           >
             <Text style={{ fontWeight: 'bold', color: 'white' }}>sendMsg</Text>

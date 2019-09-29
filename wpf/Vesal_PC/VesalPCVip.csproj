@@ -87,6 +87,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,6 +117,8 @@
   <ItemGroup>
     <Compile Include="DeviceInfoModel\DeviceInfoG.cs" />
     <Compile Include="DeviceInfoPackage.cs" />
+    <Compile Include="SpeechModel\Speech.cs" />
+    <Compile Include="SpeechModelPackage.cs" />
     <Compile Include="GameHost.cs" />
     <Compile Include="MyModel\MainReactNativeHost.cs" />
     <Compile Include="MyModel\MyBridge.cs" />

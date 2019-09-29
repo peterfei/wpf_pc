@@ -24,7 +24,8 @@ namespace VesalPCVip
         {
             new MainReactPackage(),
             new MyReactPage(),
-            new DeviceInfoPackage()
+            new DeviceInfoPackage(),
+            new SpeechModelPackage(),
             //new RNSqlite2Package(),
         };
 

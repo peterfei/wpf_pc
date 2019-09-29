@@ -19,7 +19,6 @@ import PayScreen from './screen/Pay/PayScreen';
 import LoginScreen from './screen/Login/LoginScreen';
 import RegisterScreen from './screen/Register/RegisterScreen';
 import FindScreen from './screen/Find/FindScreen';
-import InitializeScreen from './screen/Initialize/InitializeScreen';
 import SearchScreen from './screen/Search/SearchScreen';
 
 const RootStack = createStackNavigator( //跟路由
@@ -31,7 +30,6 @@ const RootStack = createStackNavigator( //跟路由
     Login: {screen: LoginScreen},
     Register: {screen: RegisterScreen},
     Find: {screen: FindScreen},
-    Initialize: {screen: InitializeScreen},
     Search:{screen:SearchScreen},
   },
   {
