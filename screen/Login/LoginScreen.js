@@ -65,12 +65,21 @@ export default class LoginScreen extends Component {
       "LoginWinEmitter",
       ({ ...passedArgs }) => {
         let back = passedArgs.back;
+        let phoneNumber =passedArgs.phoneNumber;
         if (back) {
           this.refs.TextInput1.setNativeProps({
             placeholder: '用户名/手机号'
           });
           this.refs.TextInput2.setNativeProps({
             placeholder: '密码'
+          });
+        }
+        if(phoneNumber){
+          this.setState({
+            userName:phoneNumber
+          })
+          this.refs.TextInput1.setNativeProps({
+            text:phoneNumber
           });
         }
       }

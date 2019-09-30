@@ -25,7 +25,7 @@ class PersonBodyRightTwo extends Component {
     let password = CryptoJS.AES.decrypt(AESpassword, 'CB3EC842D7C69578').toString(CryptoJS.enc.Utf8);
     let userName = await storage.get("userName", "")
     let member = await storage.get("member", "")
-    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'||member.mbHeadUrl== null?'':member.mbHeadUrl
     this.setState({
       password: password,
       phoneNumber: userName,
