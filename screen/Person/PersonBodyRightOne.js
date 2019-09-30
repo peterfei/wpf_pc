@@ -36,7 +36,7 @@ class PersonBodyRightOne extends Component {
     let mbSex = member.mbSex
     let phoneNumber = member.mbTell
     let emil = member.mbEmail
-    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'||member.mbHeadUrl== null?'':member.mbHeadUrl
     let initId = mbSex == '男' ? '0' : '1';
     let initItem = mbSex == '男' ? '男' : '女';
     this.setState({

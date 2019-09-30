@@ -21,7 +21,7 @@ class PersonBodyLeft extends Component {
   async componentDidMount() {
     let member = await storage.get("member", "")
     let mbName = member.mbName
-    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'?'':member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'||member.mbHeadUrl== null?'':member.mbHeadUrl
     this.setState({
       userName: mbName,
       mbHeadUrl: mbHeadUrl
