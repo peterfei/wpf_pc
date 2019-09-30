@@ -64,7 +64,7 @@ class PersonBodyRightOne extends Component {
       mbId: mbId,
       mbSex: this.state.initItem
     }
-    let url = api.base_uri_test + "pc/member/updateMemberInfo?token=" + token
+    let url = api.base_uri + "pc/member/updateMemberInfo?token=" + token
     await fetch(url, {
       method: "post",
       headers: {

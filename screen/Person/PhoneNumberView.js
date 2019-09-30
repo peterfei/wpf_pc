@@ -46,7 +46,7 @@ class PhoneNumberView extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = api.base_uri_test + "appCaptcha?uuid=" + guid;
+    let url = api.base_uri + "appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
@@ -62,7 +62,7 @@ class PhoneNumberView extends Component {
       return;
     } else {
       const url =
-        api.base_uri_test + "v1/app/member/getCodeCheck?tellAndEmail=" +
+        api.base_uri + "v1/app/member/getCodeCheck?tellAndEmail=" +
         userName;
       try {
         await fetch(url, {
@@ -111,7 +111,7 @@ class PhoneNumberView extends Component {
       return;
     } else {
       const url =
-        api.base_uri_test + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+        api.base_uri + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         userName + "&uuid=" + uuid + "&captchaCode=" + code + "&option=register";
       try {
         await fetch(url, {
@@ -150,7 +150,7 @@ class PhoneNumberView extends Component {
     //   token: token,
     // }
     //接口URL
-    let url = api.base_uri_test + "pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
+    let url = api.base_uri + "pc/member/checkCode?tell=" + this.state.oldPhoneNumber + "&code=" + this.state.oldCode + "&token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -186,7 +186,7 @@ class PhoneNumberView extends Component {
     //   code: this.state.newCode,
     // }
     //接口URL
-    let url = api.base_uri_test + "pc/member/changeTellNumber?code="
+    let url = api.base_uri + "pc/member/changeTellNumber?code="
       + this.state.newCode + "&newTell=" + this.state.newPhoneNumber + "&oldTell=" + this.state.oldPhoneNumber + "&token=" + token
     await fetch(url, {
       method: "post",

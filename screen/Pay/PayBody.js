@@ -83,7 +83,7 @@ class PayBody extends Component {
     // alert(`tokens is ${JSON.stringify(tokens)}`)
     // let data = { "mb_id": member.mbId
     let token = await storage.get("token", "")
-    let url = api.base_uri_test + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
+    let url = api.base_uri + "/pc/order//getOrderState?ordNo=" + this.state.ordNo + "&token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -121,7 +121,7 @@ class PayBody extends Component {
     // 接口URL
     let token = await storage.get("token", "")
     let comboId = this.props.comboId
-    let url = api.base_uri_test + "pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
+    let url = api.base_uri + "pc/combo/comboDetail?comboId=" + comboId + "&comboSource=struct&token=" + token
     await fetch(url, {
       method: "get",
       headers: {
@@ -154,7 +154,7 @@ class PayBody extends Component {
       "remark": "测试",
       "business": "anatomy"
     }
-    let url = api.base_uri_test + "pc/order/insertOrder?token=" + token
+    let url = api.base_uri + "pc/order/insertOrder?token=" + token
     await fetch(url, {
       method: "post",
       headers: {
@@ -193,7 +193,7 @@ class PayBody extends Component {
   }
   async getNativeQRCode() {
     let token = await storage.get("token", "")
-    let url = api.base_uri_test + "pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
+    let url = api.base_uri + "pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
       ImgUrl: url
     })
