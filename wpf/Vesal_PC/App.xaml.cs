@@ -64,7 +64,7 @@ namespace VesalPCVip
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
                     //ShowActivated = true,
                     //ShowInTaskbar = true,
-                    Title = "DRVS解剖教学",
+                    Title = "维萨里解剖教学",
                     Left = 0,
                     Top = 0,
                     Height = System.Windows.SystemParameters.WorkArea.Height,
