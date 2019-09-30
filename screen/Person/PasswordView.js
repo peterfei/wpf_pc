@@ -26,7 +26,7 @@ class PasswordView extends Component {
   async updatePassWord() {
     let token = await storage.get("token", "")
     let userName = await storage.get("userName", "")
-    let url = api.base_uri_test + "pc/member/updatePassWord?tell="
+    let url = api.base_uri + "pc/member/updatePassWord?tell="
       + userName + "&password=" + this.state.oldPassword + "&newPassword=" + this.state.newPassword + "&newPasswordConfirm=" + this.state.sureNewPassword + "&token=" + token
     if (this.state.newPassword.length < 6) {
       this.setState({

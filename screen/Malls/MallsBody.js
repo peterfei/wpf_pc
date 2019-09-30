@@ -24,7 +24,7 @@ class MallsBody extends Component {
   async comboList(token) {
     //接口发送参数
     //接口URL
-    let url = api.base_uri_test + "pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + token
+    let url = api.base_uri + "pc/combo/comboList?plat=pc&business=anatomy&app_version=3.4.0&page=1&limit=10&token=" + token
 
     await fetch(url, {
       method: "get",

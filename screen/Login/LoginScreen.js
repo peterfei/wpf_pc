@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
       business: 'pc',
     }
     //接口URL
-    let url = api.base_uri_test + "pc/member/pcNormalLogin"
+    let url = api.base_uri + "pc/member/pcNormalLogin"
     await fetch(url, {
       method: "post",
       headers: {

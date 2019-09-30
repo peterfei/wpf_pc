@@ -31,7 +31,7 @@ export default class FindScreen extends Component {
       code: this.state.securityCode,
     }
     //接口URL
-    let url = api.base_uri_test + "pc/member/forgetPwd"
+    let url = api.base_uri + "pc/member/forgetPwd"
     if (this.state.password == '') {
       this.setState({
         warn: '密码不能为空!'
@@ -77,7 +77,7 @@ export default class FindScreen extends Component {
       return;
     } else {
       const url =
-        api.base_uri_test + "v1/app/member/getCodeCheck?tellAndEmail=" +
+        api.base_uri + "v1/app/member/getCodeCheck?tellAndEmail=" +
         this.state.userName;
       try {
         await fetch(url, {

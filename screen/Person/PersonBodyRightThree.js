@@ -33,7 +33,7 @@ class PersonBodyRightThree extends Component {
   async currMbAllDeviceIds(state) {
     state?null:this.Loading2.show('加载中……');
     let token = await storage.get("token", "")
-    let url = api.base_uri_test + "pc/member/currMbAllDeviceIds?token=" + token + "&business=pc"
+    let url = api.base_uri + "pc/member/currMbAllDeviceIds?token=" + token + "&business=pc"
     await fetch(url, {
       method: "get",
       headers: {
@@ -50,7 +50,7 @@ class PersonBodyRightThree extends Component {
   }
   async clearCurrMbDeviceIds() {
     let token = await storage.get("token", "")
-    let url = api.base_uri_test + "pc/member/clearCurrMbDeviceIds?token=" + token + "&business=pc"
+    let url = api.base_uri + "pc/member/clearCurrMbDeviceIds?token=" + token + "&business=pc"
     await fetch(url, {
       method: "get",
       headers: {

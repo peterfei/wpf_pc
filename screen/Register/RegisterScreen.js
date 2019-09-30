@@ -41,7 +41,7 @@ export default class RegisterScreen extends Component {
       var n = Math.floor(Math.random() * 16.0).toString(16);
       guid += n;
     }
-    let url = api.base_uri_test + "appCaptcha?uuid=" + guid;
+    let url = api.base_uri + "appCaptcha?uuid=" + guid;
     this.setState({
       imgURL: url,
       uuid: guid
@@ -61,7 +61,7 @@ export default class RegisterScreen extends Component {
       business: 'anatomy',
     }
     //接口URL
-    let url = api.base_uri_test + "pc/member/register"
+    let url = api.base_uri + "pc/member/register"
     if (this.state.password == '') {
       this.setState({
         warn: '密码不能为空!'
@@ -107,7 +107,7 @@ export default class RegisterScreen extends Component {
       return;
     } else {
       const url =
-        api.base_uri_test + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
+        api.base_uri + "v1/app/member/getCodeAndCheckCapt?tellAndEmail=" +
         this.state.phoneNumber + "&uuid=" + this.state.uuid + "&captchaCode=" + this.state.code + "&option=register";
       try {
         await fetch(url, {
