@@ -33,10 +33,13 @@ export default class HomeScreen extends Component {
     update: [DeviceEventEmitter.addListener(
       "UnityWinEmitter",
       ({ ...passedArgs }) => {
-        let _key = passedArgs.modalVisible;
+        let _key = passedArgs;
         if (_key != "") {
+          // alert(`passedArgs is ${JSON.stringify(passedArgs)}`)
           this.setState({
-            modalVisible: _key
+            // modalVisible: _key
+            height:passedArgs.height,
+            width: passedArgs.width
           });
         }
       }
@@ -70,19 +73,25 @@ export default class HomeScreen extends Component {
   }
   showPerson() {
     this.setState({
-      modalVisible: "none"
+      // modalVisible: "none"
+      width:0,
+      height:0
     });
     this.props.navigation.navigate('Person');
   };
   showMalls() {
     this.setState({
-      modalVisible: "none"
+      // modalVisible: "none"
+      width:0,
+      height:0
     });
     this.props.navigation.navigate('Malls');
   };
   showSearch() {
     this.setState({
-      modalVisible: "none"
+     // modalVisible: "none"
+     width:0,
+     height:0
     });
     this.props.navigation.navigate('Search');
   }
@@ -99,7 +108,7 @@ export default class HomeScreen extends Component {
     let member = await storage.get("member", "")
     let token = await storage.get("token", "")
     // alert(`tokens is ${JSON.stringify(tokens)}`)
-    let data = { "mb_id": member.mbId, "token": token, "height": this.state.height }
+    let data = { "mb_id": member.mbId, "token": token, "height": this.state.height,"width":this.state.width }
     let _content = { "type": "ClientInfo", "data": data }
     // alert(JSON.stringify(_content))
     NativeModules.MyDialogModel.SendMessageToUnity(
@@ -128,8 +137,8 @@ export default class HomeScreen extends Component {
         <UnityView
           height={this.state.height}
           width={this.state.width}
-          display={this.state.modalVisible}
-
+          // display={this.state.modalVisible}
+          backgroundColor="red"
         >
         </UnityView>
 

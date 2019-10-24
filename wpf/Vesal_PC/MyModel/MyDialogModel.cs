@@ -91,8 +91,8 @@ namespace VesalPCVip.MyModel
             }
 
             //var width = (int)MainWindow.mw.ActualWidth / 96 * (dpi * 96);
-            Console.WriteLine("++++++++++++++++++++" + width);
-            promise.Resolve(width);
+            Console.WriteLine("++++++++++++++++++++" + width/dpi);
+            promise.Resolve(width/dpi);
         }
         
         [ReactMethod]
@@ -121,8 +121,8 @@ namespace VesalPCVip.MyModel
             // WindowsApi.ShowWindow(unityHWND, 5);
 
 
-            Console.WriteLine("++++++++++++++++++++" + height);
-            promise.Resolve(height);
+            Console.WriteLine("++++++++++++++++++++" + height/dpi);
+            promise.Resolve(height/dpi);
         }
         [ReactMethod]
         public void showLog(string log)

@@ -1,7 +1,8 @@
 import React,{ Component } from "react";
 import { Platform, StyleSheet, Text, View,Image,
   TouchableOpacity,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  NativeModules
 } from "react-native";
 
 import {color, screen } from "./index";
@@ -16,11 +17,15 @@ class PersonTop extends Component {
         <View style={styles.top}>
           <Text style={font.font30}>个人中心</Text>
           <TouchableOpacity style={styles.buttonImage}
-          onPress={() => { 
+          onPress={async() => { 
             this.props.navigation.dispatch(NavigationActions.back())
-            setTimeout(()=>{
+            let _w =  await NativeModules.MyDialogModel.getMainWidth();
+            let _h =  await NativeModules.MyDialogModel.getMainHeight();
+            setTimeout(async()=>{
               DeviceEventEmitter.emit("UnityWinEmitter", {
-                modalVisible: "flex"
+                // modalVisible: "flex"
+                width:_w,
+                height:(_h-5),
               });
             },100)
           }}>

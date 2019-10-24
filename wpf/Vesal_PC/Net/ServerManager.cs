@@ -288,6 +288,8 @@ namespace VesalPCVip.Net
                                     }
                                     else if (str == "ShowMall") {
                                         ServerManager.sendToJs("ShowMall");
+                                    }else if(str=="GetClientInfo"){
+                                        ServerManager.sendToJs("GetClientInfo");
                                     }
                                    
                                     vesal_log.vesal_write_log("change model.");
