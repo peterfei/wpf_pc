@@ -742,5 +742,18 @@ namespace VesalPCVip.MyModel
             SetWindowPos(unityHWND, HWND_TOP, 0, 0, 0, 0, 2 | 1 | 32);
         }
 
+        //显示窗口标题栏
+        [ReactMethod]
+        public void showCaption()
+        {
+            SetWindowLong(unityHWND, GWL_STYLE, GetWindowLong(unityHWND, GWL_STYLE) | WS_CAPTION);
+        }
+
+        //隐藏窗口标题栏
+        [ReactMethod]
+        public void hideCaption()
+        {
+            SetWindowLong(unityHWND, GWL_STYLE, GetWindowLong(unityHWND, GWL_STYLE) & ~WS_CAPTION);
+        }
     }
 }
