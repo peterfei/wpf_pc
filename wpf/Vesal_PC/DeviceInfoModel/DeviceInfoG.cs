@@ -24,6 +24,7 @@ using VesalPCVip.Net;
 using System.Net.NetworkInformation;
 using System.Net;
 using System.IO;
+using System.Text;
 
 namespace VesalPCVip.DeviceInfoModel
 {
@@ -95,6 +96,62 @@ namespace VesalPCVip.DeviceInfoModel
             fs.Close();
             promise.Resolve("录入成功");
 
+        }
+
+        [ReactMethod]
+        public void ReadFile(string path, IPromise promise)
+        {
+            StreamReader sr = new StreamReader(path, Encoding.Default);
+            String line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                Console.WriteLine(line.ToString());
+                promise.Resolve(line.ToString());
+            }
+            sr.Close();
+        }
+
+        [ReactMethod]
+        public void WriteFile(string fileInfo)
+        {
+            // 获取当前进程的完整路径，包含文件名(进程名)。
+            string str = System.AppDomain.CurrentDomain.BaseDirectory;
+            // 使用FileStream类创建文件，然后将数据写入到文件里。
+            FileStream fs = new FileStream(str + "patch.json", FileMode.Create);
+            // 获得字节数组
+            byte[] data = System.Text.Encoding.Default.GetBytes(fileInfo);
+            // 开始写入
+            fs.Write(data, 0, data.Length);
+            // 清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
+        }
+
+        [ReactMethod]
+        public void CreateFile(string upObj, IPromise promise)
+        {
+            string str = System.AppDomain.CurrentDomain.BaseDirectory;
+            string path =  str + "patch.json";
+            if (!File.Exists(path))
+            {
+                FileStream fs = new FileStream(path, FileMode.Create);
+                // 获得字节数组
+                byte[] data = System.Text.Encoding.Default.GetBytes(upObj);
+                // 开始写入
+                fs.Write(data, 0, data.Length);
+                // 清空缓冲区、关闭流
+                fs.Flush();
+                fs.Close();
+            }
+            promise.Resolve(path);
+        }
+
+        [ReactMethod]
+        public void GetVersion(IPromise promise)
+        {
+            //System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+            //Application.ProductVersion.ToString()
+            promise.Resolve(System.Windows.Forms.Application.ProductVersion.ToString());
         }
     }
 }

@@ -12,8 +12,10 @@ using ReactNative.Modules.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
@@ -94,7 +96,7 @@ namespace VesalPCVip.MyModel
             Console.WriteLine("++++++++++++++++++++" + width/dpi);
             promise.Resolve(width/dpi);
         }
-        
+
         [ReactMethod]
         public void getMainHeight(IPromise promise)
         {
@@ -560,8 +562,8 @@ namespace VesalPCVip.MyModel
         [DllImport("user32.dll")]
         static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
-        //    /*原生模块可以在没有被调用的情况下往JavaScript发送事件通知。 
-        //最简单的办法就是通过RCTDeviceEventEmitter， 
+        //    /*原生模块可以在没有被调用的情况下往JavaScript发送事件通知。
+        //最简单的办法就是通过RCTDeviceEventEmitter，
         //这可以通过ReactContext来获得对应的引用，像这样：*/
         //    public static void sendEvent(ReactContext reactContext, String eventName)
         //    {
@@ -755,5 +757,150 @@ namespace VesalPCVip.MyModel
         {
             SetWindowLong(unityHWND, GWL_STYLE, GetWindowLong(unityHWND, GWL_STYLE) & ~WS_CAPTION);
         }
+
+        //下载补丁
+        [ReactMethod]
+        public void DownLoadPatch(string configPath)
+        {
+            patch _patch = new patch();
+            using (System.IO.StreamReader file = System.IO.File.OpenText(configPath))
+            {
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject jObject = (JObject)JToken.ReadFrom(reader);
+                    _patch = JsonConvert.DeserializeObject<patch>(jObject.ToString());
+                }
+            }
+
+            string downLoadPath = AppDomain.CurrentDomain.BaseDirectory+"download/";
+            _patch.filePath = downLoadPath + Vesal_DirFiles.get_file_name_from_full_path(_patch.url);
+
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.FileName = AppDomain.CurrentDomain.BaseDirectory+"wget/wget.exe";
+            processInfo.Arguments= "-b -c -P " + downLoadPath + " " + _patch.url;// -b 后台下载   wget -P 指定目录  -c 断点
+            vesal_log.vesal_write_log("cmd: "+processInfo.FileName+" " + processInfo.Arguments);
+            try
+            {
+                using (Process exeProcess=Process.Start(processInfo))
+                {
+                    exeProcess.WaitForExit();
+                    exeProcess.Close();
+                }
+            }
+            catch(Exception e) {
+                vesal_log.vesal_write_log(e.Message+"\n"+e.StackTrace);
+            }
+
+            //wget初次下载完成回调异常,开启下载进程会直接进行是否下载完成判断
+
+            //检测是否下载完成,
+            bool ifDownComplete = false;
+
+            ifDownComplete = GetFileSize(_patch.filePath).ToString() == _patch.fileSize;
+
+            if (ifDownComplete)
+            {
+                //下载完成置位
+                _patch.stage = "1";
+            }
+            else
+            {
+                _patch.stage = "0";
+            }
+            File.Delete(configPath);
+            using (FileStream fileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                byte[] buffer = Encoding.Default.GetBytes(JsonConvert.SerializeObject(_patch));
+                fileStream.Write(buffer, 0, buffer.Length);
+            }
+            Console.WriteLine("更新配置文件完成");
+        }
+
+        //安装补丁
+        [ReactMethod]
+        public void SetUpPatch(string configPath)
+        {
+            patch _patch = new patch();
+            using (System.IO.StreamReader file = System.IO.File.OpenText(configPath))
+            {
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject jObject = (JObject)JToken.ReadFrom(reader);
+                    _patch = JsonConvert.DeserializeObject<patch>(jObject.ToString());
+                }
+            }
+            try
+            {
+                try
+                {
+                    Process exeProcess = Process.Start(_patch.filePath);//开始进程
+                    //关闭主进程
+                    Environment.Exit(0);
+                    exeProcess.WaitForExit();
+                }
+                finally
+                {
+                    if (process != null)
+                        process.Close();
+                }
+
+            }
+            catch (Exception e)
+            {
+                vesal_log.vesal_write_log(e.Message + "\n" + e.StackTrace);
+            }
+
+        }
+
+        public void CanclulateMD5(string configPath)
+        {
+            patch _patch = new patch();
+            using (System.IO.StreamReader file = System.IO.File.OpenText(configPath))
+            {
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject jObject = (JObject)JToken.ReadFrom(reader);
+                    _patch = JsonConvert.DeserializeObject<patch>(jObject.ToString());
+                }
+            }
+
+            FileStream file0 = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] hash_byte = md5.ComputeHash(file0);
+            string str = System.BitConverter.ToString(hash_byte);
+            str = str.Replace("-", "");
+            file0.Close();
+
+            _patch.fileMD5 = str;
+            _patch.stage = "0";
+            _patch.fileSize = GetFileSize(_patch.filePath).ToString();
+
+            File.Delete(configPath);
+            using (FileStream fileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                byte[] buffer = Encoding.Default.GetBytes(JsonConvert.SerializeObject(_patch));
+                fileStream.Write(buffer, 0, buffer.Length);
+            }
+
+            Console.WriteLine("文件写入完成");
+        }
+
+        public static long GetFileSize(string sFullName)
+        {
+            long lSize = 0;
+            if (File.Exists(sFullName))
+                lSize = new FileInfo(sFullName).Length;
+            return lSize;
+        }
     }
+}
+public class patch
+{
+    public string version { get; set; }
+    public string url { get; set; }
+    //是否下载完成默认为0，由Windows原生置位为1，react 判断为1后，启动更新包
+    public string stage { get; set; }
+    public string filePath { get; set; }
+    public string fileSize { get; set; }
+    public string fileMD5 { get; set; }
 }

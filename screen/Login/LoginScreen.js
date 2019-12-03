@@ -9,6 +9,7 @@ import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import _ from "lodash";
+import UpgradePC from "../common/UpgradePC";
 //登陆页面
 export default class LoginScreen extends Component {
   static navigationOptions = {
@@ -265,6 +266,7 @@ export default class LoginScreen extends Component {
             {this.Login()}
           </View>
         </ImageBackground>
+        <UpgradePC />
       </View>
     );
   }
@@ -304,11 +306,11 @@ const styles = StyleSheet.create({
     marginBottom: 25
   },
   content: {
-    width: '100%', 
-    height: 50, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    marginBottom: 15 
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15
   },
   icon: {
     marginLeft: 25,
