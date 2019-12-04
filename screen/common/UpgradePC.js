@@ -89,7 +89,7 @@ export default class UpgradePC extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View>
                 <Loading ref={r=>{this.Loading = r}} hide = {true} yes={() => {this.startUpdatePC()}} />
             </View>
         )
