@@ -112,6 +112,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppReactPage.cs" />
+    <Compile Include="MyModel\vesal_DirFiles.cs" />
+    <Compile Include="MyModel\WgetDownLoad.cs" />
     <Compile Include="ReactUnityManager.cs" />
   </ItemGroup>
   <ItemGroup>
