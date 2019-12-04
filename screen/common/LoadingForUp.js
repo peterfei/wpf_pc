@@ -70,7 +70,7 @@ export default class Loading extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '100%', flex: 3, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(96,96,96)' }}>
-                            <Text style={{ color: "write" }}>{this.state.title}</Text>
+                            <Text style={{ color: "rgb(255,255,255)" }}>{this.state.title}</Text>
                         </View>
                         <View style={{ width: '100%', flex: 2, borderBottomLeftRadius:5,borderBottomRightRadius:5,backgroundColor: 'rgb(96,96,96)', justifyContent: 'space-around', flexDirection: 'row',alignItems:'center' }}>
                             <TouchableOpacity style={{ padding: 5, paddingLeft: 20, paddingRight: 20,backgroundColor:'white',borderRadius:3 }} onPress={() => { this.props.yes() }}>
