@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { NativeModules } from "react-native"
-import Loading from "./Loading";
+import Loading from "./LoadingForUp";
 import api from "../api"
 
 export default class UpgradePC extends Component {
@@ -89,9 +89,7 @@ export default class UpgradePC extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <Loading ref={r=>{this.Loading = r}} hide = {true} yes={() => {this.startUpdatePC()}} />
-            </View>
+            <Loading ref={r=>{this.Loading = r}} hide = {true} yes={() => {this.startUpdatePC()}} />
         )
     }
 }
