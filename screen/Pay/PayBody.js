@@ -103,19 +103,23 @@ class PayBody extends Component {
               JSON.stringify(_content)
             );
             this.props.navigation.goBack(this.props.Malls_key, { payState: true });//返回商城前一个界面
-            let _w =  NativeModules.MyDialogModel.getMainWidth();
-            let _h =  NativeModules.MyDialogModel.getMainHeight();
-            setTimeout(async () => {
-              DeviceEventEmitter.emit("UnityWinEmitter", {
-                // modalVisible: "flex"
-                width: _w,
-                height: (_h - 5),
-              });
-            }, 200)
+            this.turnTo()
           }, 500);
 
         }
       })
+  }
+  async turnTo() {
+    let _w = await NativeModules.MyDialogModel.getMainWidth();
+    let _h = await NativeModules.MyDialogModel.getMainHeight();
+    
+    setTimeout(async () => {
+      DeviceEventEmitter.emit("UnityWinEmitter", {
+        // modalVisible: "flex"
+        width: _w,
+        height: (_h - 5),
+      });
+    }, 100)
   }
 
   componentWillUnmount() {
