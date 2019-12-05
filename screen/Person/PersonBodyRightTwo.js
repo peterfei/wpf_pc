@@ -80,7 +80,7 @@ class PersonBodyRightTwo extends Component {
         </View>
         <View style={styles.main}>
           {/* 修改头像 */}
-          <View style={{
+          {/* <View style={{
             flexDirection: 'row', marginTop: 40,
             marginBottom: 30,
           }}>
@@ -90,7 +90,7 @@ class PersonBodyRightTwo extends Component {
                 width: 80,
                 borderRadius: 40,
               }}
-              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
             />
             <View style={{
               justifyContent: 'space-around',
@@ -99,7 +99,7 @@ class PersonBodyRightTwo extends Component {
               <Text style={font.font20Blue}>点击修改头像</Text>
               <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
             </View>
-          </View>
+          </View> */}
           {/* 修改绑定 */}
           <View style={styles.mainBody}>
             <View style={[styles.row1, { marginBottom: 10, alignItems: 'center' }]}>

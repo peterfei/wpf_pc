@@ -204,16 +204,16 @@ class PersonBodyRightOne extends Component {
           <Text style={font.font20}>|&nbsp;&nbsp;个人中心</Text>
         </View>
         <View style={styles.main}>
-          <View style={styles.mainTop}>
+          {/* <View style={styles.mainTop}>
             <Image
               style={styles.headPortrait}
-              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
             />
             <View style={styles.mainTopRight}>
               <Text style={font.font20Blue}>点击修改头像</Text>
               <Text style={font.font15NoBold}>支持jpg、jpeg、png类型文件</Text>
             </View>
-          </View>
+          </View> */}
 
           {this.main()}
         </View>

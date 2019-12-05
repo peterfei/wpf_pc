@@ -220,7 +220,7 @@ class PayBody extends Component {
         <View style={styles.personInformation}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl !== '' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+            source={this.state.mbHeadUrl !== '' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
           />
           <View style={styles.information}>
             <Text style={font.font18}>{this.state.userName}</Text>

@@ -39,7 +39,7 @@ export default class HomeScreen extends Component {
 
         <TouchableOpacity onPress={()=>this.change()} >
           <Image style={{ width: 200, height: 200 }}
-            source={require("../img/text.jpg")}
+            source={require("../img/text.jpeg")}
           />
         </TouchableOpacity>
 
