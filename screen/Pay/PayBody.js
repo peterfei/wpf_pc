@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Platform, StyleSheet, Text, View, Image,
-  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput, NativeModules,Alert
+  TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput, NativeModules, Alert
 } from "react-native";
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -43,7 +43,7 @@ class PayBody extends Component {
   async componentDidMount() {
     let member = await storage.get("member", "")
     let mbName = member.mbName
-    let mbHeadUrl = member.mbHeadUrl=='RYKJ/'||member.mbHeadUrl== null?'':member.mbHeadUrl
+    let mbHeadUrl = member.mbHeadUrl == 'RYKJ/' || member.mbHeadUrl == null ? '' : member.mbHeadUrl
     let mbIdentity = member.mbIdentity
     this.setState({
       userName: mbName,
@@ -97,17 +97,23 @@ class PayBody extends Component {
           this.Loading.show('支付成功');
           this.timer = setTimeout(() => {
             this.Loading.close()
-            let data = { "mb_id": member.mbId,"token": token }
+            let data = { "mb_id": member.mbId, "token": token }
             let _content = { "type": "BuyComplete", "data": data }
             NativeModules.MyDialogModel.SendMessageToUnity(
               JSON.stringify(_content)
             );
-            DeviceEventEmitter.emit("UnityWinEmitter", {
-              modalVisible: "flex"
-            });
             this.props.navigation.goBack(this.props.Malls_key, { payState: true });//返回商城前一个界面
+            let _w = await NativeModules.MyDialogModel.getMainWidth();
+            let _h = await NativeModules.MyDialogModel.getMainHeight();
+            setTimeout(async () => {
+              DeviceEventEmitter.emit("UnityWinEmitter", {
+                // modalVisible: "flex"
+                width: _w,
+                height: (_h - 5),
+              });
+            }, 200)
           }, 500);
-         
+
         }
       })
   }
@@ -210,7 +216,7 @@ class PayBody extends Component {
         <View style={styles.personInformation}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
+            source={this.state.mbHeadUrl !== '' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
           />
           <View style={styles.information}>
             <Text style={font.font18}>{this.state.userName}</Text>
@@ -247,7 +253,7 @@ class PayBody extends Component {
             <Text>使用微信扫码支付</Text>
           </View>
         </View>
-        <Loading ref={r=>{this.Loading = r}} hide = {true} yes={()=>{this.Loading.logout()}} navigation={this.props.navigation} /> 
+        <Loading ref={r => { this.Loading = r }} hide={true} yes={() => { this.Loading.logout() }} navigation={this.props.navigation} />
       </View>
     );
   }
