@@ -103,13 +103,13 @@ class PayBody extends Component {
               JSON.stringify(_content)
             );
             this.props.navigation.goBack(this.props.Malls_key, { payState: true });//返回商城前一个界面
-            this.turnTo()
+            this.openUnity()
           }, 500);
 
         }
       })
   }
-  async turnTo() {
+  async openUnity() {
     let _w = await NativeModules.MyDialogModel.getMainWidth();
     let _h = await NativeModules.MyDialogModel.getMainHeight();
     
