@@ -77,7 +77,7 @@ class PersonBodyLeft extends Component {
         <View style={[styles.personInformation, color.borderBottom]}>
           <Image
             style={styles.headPortrait}
-            source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
+            source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
           />
           <Text style={font.font20}>{this.state.userName}</Text>
         </View>

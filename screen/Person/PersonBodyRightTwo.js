@@ -90,7 +90,7 @@ class PersonBodyRightTwo extends Component {
                 width: 80,
                 borderRadius: 40,
               }}
-              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
             />
             <View style={{
               justifyContent: 'space-around',
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   mainBody: {
     width: '100%',
     marginBottom: 30,
-    borderTopWidth: 1,
+    // borderTopWidth: 1,
     borderColor: "rgb(110,110,110)",
     alignItems: 'center',
   },

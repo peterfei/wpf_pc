@@ -207,7 +207,7 @@ class PersonBodyRightOne extends Component {
           {/* <View style={styles.mainTop}>
             <Image
               style={styles.headPortrait}
-              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpeg')}
+              source={this.state.mbHeadUrl!=='' ? { uri: this.state.mbHeadUrl } : require('../img/text.jpg')}
             />
             <View style={styles.mainTopRight}>
               <Text style={font.font20Blue}>点击修改头像</Text>
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   mainBody: {
     marginBottom: 30,
-    borderTopWidth: 1,
+    // borderTopWidth: 1,
     borderColor: "rgb(110,110,110)"
   },
   row: {
