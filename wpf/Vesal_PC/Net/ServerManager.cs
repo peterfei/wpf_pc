@@ -286,14 +286,21 @@ namespace VesalPCVip.Net
                                     {
                                         ServerManager.sendToJs("OpenClientCenter");
                                     }
-                                    else if (str == "ShowMall") {
+                                    else if (str == "ShowMall")
+                                    {
                                         ServerManager.sendToJs("ShowMall");
-                                    }else if(str=="GetClientInfo"){
+                                    }
+                                    else if (str == "GetClientInfo")
+                                    {
                                         ServerManager.sendToJs("GetClientInfo");
                                     }
                                     else if (str == "exit")
                                     {
                                         System.Environment.Exit(0);
+                                    }
+                                    else if (str == "updatePatch")
+                                    {
+                                        MyDialogModel.instance.StartPatch();
                                     }
 
                                     vesal_log.vesal_write_log("change model.");

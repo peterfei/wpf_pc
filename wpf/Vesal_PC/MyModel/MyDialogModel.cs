@@ -816,12 +816,27 @@ namespace VesalPCVip.MyModel
             Console.WriteLine("更新配置文件完成");
         }
 
+        string _configPath = "";
+
         //安装补丁
         [ReactMethod]
         public void SetUpPatch(string configPath)
         {
+            JObject data_obj = new JObject();
+            data_obj["type"] = "updatePatch";
+            data_obj["data"] = "";
+
+            //启动unity确认弹窗
+            ServerManager.send_cmd((byte)VESAL_CMD_CODE.MSG_CMD, JsonConvert.SerializeObject(data_obj));
+
+            _configPath = configPath;
+
+        }
+
+        public void StartPatch()
+        {
             patch _patch = new patch();
-            using (System.IO.StreamReader file = System.IO.File.OpenText(configPath))
+            using (System.IO.StreamReader file = System.IO.File.OpenText(_configPath))
             {
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
@@ -849,7 +864,6 @@ namespace VesalPCVip.MyModel
             {
                 vesal_log.vesal_write_log(e.Message + "\n" + e.StackTrace);
             }
-
         }
 
         public void CanclulateMD5(string configPath)
