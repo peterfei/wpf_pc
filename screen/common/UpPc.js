@@ -4,7 +4,7 @@ import api from "../api"
 const pc_upData_file = ''
 const pc_version = ''
 
-let createFile = async () => {
+export const createFile = async () => {
     let upObj = {"url": "", "stage": 0, "filePath": "", "fileSize": "", "fileMD5": ""}
     let deviceInfo = await NativeModules.DeviceInfoG;
     let filePath = await deviceInfo.CreateFile(JSON.stringify(upObj))
@@ -60,3 +60,5 @@ let writeFile = async () => {
 let downloadPC = async () => {
     await NativeModules.MyDialogModel.DownLoadPatch(pc_upData_file);
 }
+
+export { createFile }
