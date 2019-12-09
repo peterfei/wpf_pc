@@ -61,7 +61,7 @@ export default class Loading extends Component {
     render() {
         if (this.state.alertChoose) {
             return (
-                <View style={{ position: 'absolute' ,backgroundColor:'rgba(0,0,0,0.3)', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', zIndex: 9999999 }}>
+                <View style={{ position: 'absolute' ,backgroundColor:'rgba(0,0,0,0.3)', width: '100%', height: '100%', alignItems: 'flex-end', justifyContent: 'flex-end',flexDirection: 'column', zIndex: 9999999 }}>
                     <View style={{ borderRadius: 5, borderWidth: 1, borderColor: 'rgba(0,0,0,0.8)', backgroundColor: 'rgb(255,255,255)', width: 300, height: 160 }}>
                         <View style={{ margin: 5,flex: 1, justifyContent: 'space-between', flexDirection: 'row' }}>
                             <Text style={{margin: 5,fontSize:13}}>提醒</Text>

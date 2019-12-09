@@ -18,6 +18,7 @@ import _ from "lodash";
 import UnityView from "../../UnityView";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
+import UpgradePC from "../common/UpgradePC";
 
 export default class HomeScreen extends Component {
 
@@ -141,6 +142,7 @@ export default class HomeScreen extends Component {
           backgroundColor="red"
         >
         </UnityView>
+        <UpgradePC />
 
         {/* 1.1.主界面按钮 */}
         {/* <View style={{

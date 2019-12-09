@@ -96,7 +96,7 @@ class PersonBodyRightOne extends Component {
           await storage.save("member", "", newmember);
         } else {
           //alert(JSON.stringify(result))
-          this.Loading.show(JSON.stringify(result));
+          this.Loading.show(JSON.stringify(result.msg));
           this.timer = setTimeout(() => {
             this.Loading.close();
           }, 1000);
@@ -160,7 +160,7 @@ class PersonBodyRightOne extends Component {
         {/* 第三行 */}
         {/* <View style={styles.row}>
               <View style={[styles.mainBodyContent,{width:'50%'}]}>
-                
+
               </View>
             </View>  */}
       </View>

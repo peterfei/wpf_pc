@@ -46,7 +46,7 @@ export default class UpgradePC extends Component {
             // 下载状态没有完成，调用下载程序继续下载
             this.upPc()
         } else if (obj.stage == 1 && obj.url.length !== 0) {
-            this.Loading.alertChoose('新版本已下载好，是否进行更新？');
+            this.startUpdatePC()
         }
     }
 
@@ -89,7 +89,7 @@ export default class UpgradePC extends Component {
 
     render() {
         return (
-            <Loading ref={r=>{this.Loading = r}} hide = {true} yes={() => {this.startUpdatePC()}} />
+            <View />
         )
     }
 }
