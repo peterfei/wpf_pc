@@ -291,7 +291,11 @@ namespace VesalPCVip.Net
                                     }else if(str=="GetClientInfo"){
                                         ServerManager.sendToJs("GetClientInfo");
                                     }
-                                   
+                                    else if (str == "exit")
+                                    {
+                                        System.Environment.Exit(0);
+                                    }
+
                                     vesal_log.vesal_write_log("change model.");
                                 }
 

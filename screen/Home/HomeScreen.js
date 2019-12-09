@@ -135,7 +135,7 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <UnityView
-          height={this.state.height}
+          height={this.state.height+100}
           width={this.state.width}
           // display={this.state.modalVisible}
           backgroundColor="red"
