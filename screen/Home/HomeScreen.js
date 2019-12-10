@@ -6,61 +6,62 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-  Platform, StyleSheet, Text, View, Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Image,
   TouchableOpacity,
   DeviceEventEmitter,
-  AsyncStorage, NativeModules
-} from 'react-native';
+  AsyncStorage,
+  NativeModules
+} from "react-native";
 import _ from "lodash";
 
 import UnityView from "../../UnityView";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
 import UpgradePC from "../common/UpgradePC";
+import UpPc from "../common/UpPcT";
 
 export default class HomeScreen extends Component {
-
   static navigationOptions = {
-    title: 'Home',
-  }
+    title: "Home"
+  };
   state = {
     modalVisible: "flex",
     width: 0,
-    height: 0,
+    height: 0
   };
   listeners = {
-    update: [DeviceEventEmitter.addListener(
-      "UnityWinEmitter",
-      ({ ...passedArgs }) => {
+    update: [
+      DeviceEventEmitter.addListener("UnityWinEmitter", ({ ...passedArgs }) => {
         let _key = passedArgs;
         if (_key != "") {
           // alert(`passedArgs is ${JSON.stringify(passedArgs)}`)
           this.setState({
             // modalVisible: _key
-            height:passedArgs.height,
+            height: passedArgs.height,
             width: passedArgs.width
           });
         }
-      }
-    ),
-    DeviceEventEmitter.addListener("testBind", data => {
-      // alert(data);
-      if (data == "hide") {
-        this.sendMsg()
-      }
-      else if (data == 'OpenClientCenter') {
-        this.showPerson();
-        // alert(1111)
-      }
-      else if (data == 'ShowMall') {
-        this.showMalls();
-      }
-      else if (data == 'OpenSearching') {
-        this.showSearch();
-      }
-    })
+      }),
+      DeviceEventEmitter.addListener("testBind", data => {
+        // alert(data);
+        if (data == "hide") {
+          this.sendMsg();
+          UpPc.createFile();
+        } else if (data == "OpenClientCenter") {
+          this.showPerson();
+          // alert(1111)
+        } else if (data == "ShowMall") {
+          this.showMalls();
+        } else if (data == "OpenSearching") {
+          this.showSearch();
+        }
+      })
     ]
   };
   componentWillUnmount() {
@@ -75,26 +76,26 @@ export default class HomeScreen extends Component {
   showPerson() {
     this.setState({
       // modalVisible: "none"
-      width:0,
-      height:0
+      width: 0,
+      height: 0
     });
-    this.props.navigation.navigate('Person');
-  };
+    this.props.navigation.navigate("Person");
+  }
   showMalls() {
     this.setState({
       // modalVisible: "none"
-      width:0,
-      height:0
+      width: 0,
+      height: 0
     });
-    this.props.navigation.navigate('Malls');
-  };
+    this.props.navigation.navigate("Malls");
+  }
   showSearch() {
     this.setState({
-     // modalVisible: "none"
-     width:0,
-     height:0
+      // modalVisible: "none"
+      width: 0,
+      height: 0
     });
-    this.props.navigation.navigate('Search');
+    this.props.navigation.navigate("Search");
   }
   async componentDidMount() {
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
@@ -102,19 +103,21 @@ export default class HomeScreen extends Component {
     this.setState({
       height: mainHeight - 5,
       width: mainWidth
-    })
+    });
   }
   async sendMsg() {
-
-    let member = await storage.get("member", "")
-    let token = await storage.get("token", "")
+    let member = await storage.get("member", "");
+    let token = await storage.get("token", "");
     // alert(`tokens is ${JSON.stringify(tokens)}`)
-    let data = { "mb_id": member.mbId, "token": token, "height": this.state.height,"width":this.state.width }
-    let _content = { "type": "ClientInfo", "data": data }
+    let data = {
+      mb_id: member.mbId,
+      token: token,
+      height: this.state.height,
+      width: this.state.width
+    };
+    let _content = { type: "ClientInfo", data: data };
     // alert(JSON.stringify(_content))
-    NativeModules.MyDialogModel.SendMessageToUnity(
-      JSON.stringify(_content)
-    );
+    NativeModules.MyDialogModel.SendMessageToUnity(JSON.stringify(_content));
   }
   onUnityMessage(handler) {
     // alert(JSON.stringify(handler))
@@ -122,7 +125,7 @@ export default class HomeScreen extends Component {
       this.setState({
         height: 0,
         width: 0
-      })
+      });
     }
     if (handler.name == "OpenClientCenter") {
       this.showPerson();
@@ -136,13 +139,10 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <UnityView
-          height={this.state.height+100}
+          height={this.state.height + 100}
           width={this.state.width}
           // display={this.state.modalVisible}
-          backgroundColor="red"
-        >
-        </UnityView>
-        <UpgradePC />
+          backgroundColor="red"></UnityView>
 
         {/* 1.1.主界面按钮 */}
         {/* <View style={{
@@ -179,7 +179,6 @@ export default class HomeScreen extends Component {
             <Text style={{ fontWeight: 'bold', color: 'white' }}>商城</Text>
           </TouchableOpacity>
         </View> */}
-
       </View>
     );
   }
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   }
 });

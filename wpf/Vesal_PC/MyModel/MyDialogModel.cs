@@ -824,10 +824,10 @@ namespace VesalPCVip.MyModel
         {
             JObject data_obj = new JObject();
             data_obj["type"] = "updatePatch";
-            data_obj["data"] = "";
+            data_obj["data"] = "{}";
 
             //启动unity确认弹窗
-            ServerManager.send_cmd((byte)VESAL_CMD_CODE.MSG_CMD, JsonConvert.SerializeObject(data_obj));
+            MyDialogModel.instance.SendMessageToUnity(data_obj.ToString ());
 
             _configPath = configPath;
 
