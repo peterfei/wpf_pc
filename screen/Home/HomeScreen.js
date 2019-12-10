@@ -23,7 +23,6 @@ import _ from "lodash";
 import UnityView from "../../UnityView";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
-import UpgradePC from "../common/UpgradePC";
 import UpPc from "../common/UpPcT";
 
 export default class HomeScreen extends Component {
@@ -49,7 +48,6 @@ export default class HomeScreen extends Component {
         }
       }),
       DeviceEventEmitter.addListener("testBind", data => {
-        // alert(data);
         if (data == "hide") {
           this.sendMsg();
           UpPc.createFile();
