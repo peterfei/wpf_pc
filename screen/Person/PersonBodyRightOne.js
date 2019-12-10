@@ -82,7 +82,6 @@ class PersonBodyRightOne extends Component {
     })
       .then(resp => resp.json())
       .then(async result => {
-        alert("借口返回数据：" + JSON.stringify(result));
         if (result.msg == "success") {
           this.Loading.show("修改成功");
           this.timer = setTimeout(() => {
@@ -95,7 +94,6 @@ class PersonBodyRightOne extends Component {
           newmember.mbSex = this.state.initItem;
           await storage.save("member", "", newmember);
         } else {
-          //alert(JSON.stringify(result))
           this.Loading.show(JSON.stringify(result.msg));
           this.timer = setTimeout(() => {
             this.Loading.close();
