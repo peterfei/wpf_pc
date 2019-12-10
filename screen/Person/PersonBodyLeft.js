@@ -55,7 +55,7 @@ class PersonBodyLeft extends Component {
           })
         : (isLabel = {});
       indicator.push(
-        <TouchableOpacity key={i} onPress={() => this.change(i)}>
+        <TouchableOpacity style={{backgroundColor: 'rgb(16,16,16)'}} key={i} onPress={() => this.change(i)}>
           <View style={[styles.label, color.borderBottom, isLabel]}>
             <Image
               style={{ width: 25, height: 25, margin: 10 }}
@@ -68,6 +68,7 @@ class PersonBodyLeft extends Component {
     }
     indicator.push(
       <TouchableOpacity
+          style={{backgroundColor: 'rgb(16,16,16)'}}
         onPress={() => {
           this.props.backLoding();
         }}>
