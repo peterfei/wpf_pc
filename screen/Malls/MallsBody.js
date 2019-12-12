@@ -20,6 +20,7 @@ class MallsBody extends Component {
     width: 1024,
     height: 768,
     token: '',
+    showArrow: false
   }
   async comboList(token) {
     //接口发送参数
@@ -33,12 +34,22 @@ class MallsBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        //alert(JSON.stringify(result.page.list))
+        // alert(JSON.stringify(result.page.list))
         this.Loading.close();
         this.setState({
           data: result.page.list,
           pageNum:result.page.list.length
         })
+
+        if (result.page.list.length === 1) {
+          this.setState({
+            showArrow: false
+          })
+        } else {
+          this.setState({
+            showArrow: true
+          })
+        }
       })
   }
   async componentDidMount() {
@@ -106,7 +117,7 @@ class MallsBody extends Component {
   //   let currentPage =Math.floor(e.nativeEvent.contentOffset.x/ 除以一页的width);
   //   this.setState({
   //     activePage=currentPage
-  //   }) 
+  //   })
   // }
   moveCommodityLeft() {
     this.refs.ScrollView.scrollTo({ x: this.state.scrollPosition == 0 ? 0 : this.state.scrollPosition - this.state.width * 0.66, y: 0, animated: true })
@@ -134,14 +145,15 @@ class MallsBody extends Component {
         />
         <View style={styles.content}>
           <View style={{ width: "6%", height: 200 }}></View>
-          <View style={styles.leftRight}>
+          {this.state.showArrow ? <View style={styles.leftRight}>
             <TouchableOpacity onPress={() => this.moveCommodityLeft()}>
               <Image
-                style={styles.leftRightImg}
-                source={require('../img/leftImg.png')}
+                  style={styles.leftRightImg}
+                  source={require('../img/leftImg.png')}
               />
             </TouchableOpacity>
-          </View>
+          </View> : null }
+
 
           <ScrollView horizontal={true}
             ref='ScrollView'
@@ -151,14 +163,15 @@ class MallsBody extends Component {
             style={[styles.commodity, { width: this.state.width * 0.66 }]}>
             {this.renderCommodity()}
           </ScrollView>
-          <View style={styles.leftRight}>
+          {this.state.showArrow ? <View style={styles.leftRight}>
             <TouchableOpacity onPress={() => this.moveCommodityRight()}>
               <Image
-                style={styles.leftRightImg}
-                source={require('../img/rightImg.png')}
+                  style={styles.leftRightImg}
+                  source={require('../img/rightImg.png')}
               />
             </TouchableOpacity>
-          </View>
+          </View> : null}
+
           <View style={{ width: "6%", height: 200 }}></View>
         </View>
         {/* <View style={styles.bottom}>
@@ -198,7 +211,7 @@ const styles = StyleSheet.create({
   commodity: {
     marginLeft: '3%',
     marginRight: '3%',
-    //justifyContent: 'space-between', 
+    //justifyContent: 'space-between',
     //alignItems: 'center',
     //flexDirection:'row',
     margin: 0,

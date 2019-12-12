@@ -20,7 +20,7 @@ class MallsTop extends Component {
     return (
       <View style={color.topBackground}>
         <View style={styles.top}>
-          <Text style={font.font30}>商城中心</Text>
+          <Text style={font.font30}>维萨里商城</Text>
           <TouchableOpacity
             style={styles.buttonImage}
             onPress={async () => {

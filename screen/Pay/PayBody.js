@@ -112,7 +112,7 @@ class PayBody extends Component {
   async openUnity() {
     let _w = await NativeModules.MyDialogModel.getMainWidth();
     let _h = await NativeModules.MyDialogModel.getMainHeight();
-    
+
     setTimeout(async () => {
       DeviceEventEmitter.emit("UnityWinEmitter", {
         // modalVisible: "flex"
@@ -139,7 +139,6 @@ class PayBody extends Component {
       },
     }).then(resp => resp.json())
       .then(result => {
-        //alert(JSON.stringify(result))
         if (result.msg == 'success') {
           if (result.comboPrices[0] !== '') {
             this.setState({
