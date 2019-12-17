@@ -1,6 +1,6 @@
 //prod 产品 test 测试
 
-let active = "test";
+let active = "prod";
 
 if (active=='prod'){
   base_uri="http://api.vesal.cn:8000/vesal-jiepao-prod/";

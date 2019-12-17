@@ -25,7 +25,7 @@ class PersonTop extends Component {
               DeviceEventEmitter.emit("UnityWinEmitter", {
                 // modalVisible: "flex"
                 width:_w,
-                height:(_h-5),
+                height:(_h),
               });
             },100)
           }}>

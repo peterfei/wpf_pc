@@ -99,7 +99,7 @@ export default class HomeScreen extends Component {
     let mainHeight = await NativeModules.MyDialogModel.getMainHeight();
     let mainWidth = await NativeModules.MyDialogModel.getMainWidth();
     this.setState({
-      height: mainHeight - 5,
+      height: mainHeight,
       width: mainWidth
     });
   }
