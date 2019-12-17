@@ -218,7 +218,7 @@ export default class FindScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.change()}>
               <Text style={{ color: "rgba(247, 57, 57, 1)" }}>
-                已有找回？登陆
+                已有找回？登录
               </Text>
             </TouchableOpacity>
           </View>
