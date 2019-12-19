@@ -98,7 +98,7 @@ export default class FindScreen extends Component {
           .then(resp => resp.json())
           .then(result => {
             //alert(JSON.stringify(result))
-            if (result.code && result.code == 0) {
+            if (result.code == 0) {
               this.Loading.show("验证码发送成功!");
               this.timer = setTimeout(() => {
                 this.Loading.close();
