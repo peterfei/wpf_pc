@@ -146,6 +146,7 @@ export default class RegisterScreen extends Component {
               }, 1000);
               shouldStartCountting(true);
             } else {
+              this.setUUID()
               this.Loading.show(
                 result.msg == "图形验证码错误"
                   ? result.msg + ",可点击图形码更新"
@@ -158,6 +159,7 @@ export default class RegisterScreen extends Component {
             }
           });
       } catch (error) {
+        this.setUUID()
         shouldStartCountting(false);
       }
     }

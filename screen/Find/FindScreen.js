@@ -97,12 +97,13 @@ export default class FindScreen extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            //alert(JSON.stringify(result))
+            // alert('返回结果：' + JSON.stringify(result))
             if (result.code == 0) {
+              console.log('返回正确结果')
               this.Loading.show("验证码发送成功!");
               this.timer = setTimeout(() => {
                 this.Loading.close();
-              }, 1000);
+              }, 600);
               shouldStartCountting(true);
             } else {
               this.Loading.show(result.msg);

@@ -31,7 +31,6 @@ export default class CountDownButton extends React.Component {
   };
 
   _countDownAction(){
-    // alert(111);
     const codeTime = this.state.timerCount;
     const now = Date.now()
     const overTimeStamp = now + codeTime * 1000 + 100/*过期时间戳（毫秒） +100 毫秒容错*/
