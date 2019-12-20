@@ -121,7 +121,10 @@ namespace VesalPCVip
             //p.Children = gameHost;
             // Ensure the current window is active
             shellWindow.Activate();
-            
+
+            System.Threading.Thread.CurrentThread.Name = "mainThread";
+
+            SetMutex();
         }
 
         /// <summary>
@@ -137,5 +140,20 @@ namespace VesalPCVip
         //private void icon() {
         //    new System.Windows.Forms.NotifyIcon();
         //}
+
+        bool createdNew; //返回是否赋予了使用线程的互斥体初始所属权
+        public void SetMutex()
+        {
+            System.Threading.Mutex instance = new System.Threading.Mutex(true, "mainThread", out createdNew); //同步基元变量
+            if (createdNew) //赋予了线程初始所属权，也就是首次使用互斥体
+            {
+                instance.ReleaseMutex();
+            }
+            else
+            {
+                MessageBox.Show("已经启动了一个程序，请先退出！", "系统提示");
+                Environment.Exit(0);
+            }
+        }
     }
 }
