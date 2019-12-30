@@ -240,7 +240,7 @@ class PayBody extends Component {
             <Text style={font.font20NoBoldRed}>原价￥{this.state.data.oldPrice}</Text>
           </View>
           <View style={styles.bodyBottom}>
-            <Text style={[styles.hint, font.font20]}>选择支付方式付款</Text>
+            <Text style={[styles.hint, font.font20]}>微信扫码付款</Text>
             <Text style={font.font20NoBold}>应付金额：<Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text>
             {/* <Image
               style={styles.payImg}
