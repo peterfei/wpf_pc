@@ -25,6 +25,7 @@ using System.Net.NetworkInformation;
 using System.Net;
 using System.IO;
 using System.Text;
+using System.Management;
 
 namespace VesalPCVip.DeviceInfoModel
 {
@@ -65,6 +66,71 @@ namespace VesalPCVip.DeviceInfoModel
             }
             promise.Resolve(macAddresses);
             // return macAddresses;
+        }
+
+        [ReactMethod]
+        //获取cpu ID
+        public string GetCpuID()
+        {
+            try
+            {
+                string cpuInfo = "";
+                ManagementClass mc = new ManagementClass("Win32_Processor");
+                ManagementObjectCollection moc = mc.GetInstances();
+                foreach (ManagementObject mo in moc)
+                {
+                    return mo.Properties["ProcessorId"].Value.ToString();
+                }
+                return "";
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        [ReactMethod]
+        //获取主板ID
+        public string GetBaseBoardID()
+        {
+            try
+            {
+                ManagementClass mc = new ManagementClass("Win32_BaseBoard");
+                ManagementObjectCollection moc = mc.GetInstances();
+                string strID = null;
+                foreach (ManagementObject mo in moc)
+                {
+                    strID = mo.Properties["SerialNumber"].Value.ToString();
+                    return strID;
+                }
+
+                return "";
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        [ReactMethod]
+        //获取硬盘ID
+        public string GetDiskID()
+        {
+            try
+            {
+                String HDid = "";
+                ManagementClass mc = new ManagementClass("Win32_DiskDrive");
+                ManagementObjectCollection moc = mc.GetInstances();
+                foreach (ManagementObject mo in moc)
+                {
+                    return (string)mo.Properties["Model"].Value;
+                }
+                return "";
+            }
+            catch
+            {
+                return "";
+            }
         }
 
         [ReactMethod]
