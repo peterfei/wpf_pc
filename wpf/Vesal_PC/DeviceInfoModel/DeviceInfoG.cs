@@ -70,6 +70,25 @@ namespace VesalPCVip.DeviceInfoModel
 
         [ReactMethod]
         //获取cpu ID
+        public void GetCpuID(IPromise promise)
+        {
+            try
+            {
+                string cpuInfo = "";
+                ManagementClass mc = new ManagementClass("Win32_Processor");
+                ManagementObjectCollection moc = mc.GetInstances();
+                foreach (ManagementObject mo in moc)
+                {
+                    promise.Resolve(mo.Properties["ProcessorId"].Value.ToString());
+                }
+                promise.Resolve("");
+            }
+            catch
+            {
+                promise.Resolve("");
+            }
+        }
+
         public string GetCpuID()
         {
             try
@@ -79,7 +98,7 @@ namespace VesalPCVip.DeviceInfoModel
                 ManagementObjectCollection moc = mc.GetInstances();
                 foreach (ManagementObject mo in moc)
                 {
-                    return mo.Properties["ProcessorId"].Value.ToString();
+                    return (mo.Properties["ProcessorId"].Value.ToString());
                 }
                 return "";
             }
@@ -91,7 +110,7 @@ namespace VesalPCVip.DeviceInfoModel
 
         [ReactMethod]
         //获取主板ID
-        public string GetBaseBoardID()
+        public void GetBaseBoardID(IPromise promise)
         {
             try
             {
@@ -101,35 +120,13 @@ namespace VesalPCVip.DeviceInfoModel
                 foreach (ManagementObject mo in moc)
                 {
                     strID = mo.Properties["SerialNumber"].Value.ToString();
-                    return strID;
+                    promise.Resolve(strID);
                 }
-
-                return "";
+                promise.Resolve("");
             }
             catch
             {
-                return "";
-            }
-        }
-
-        [ReactMethod]
-        //获取硬盘ID
-        public string GetDiskID()
-        {
-            try
-            {
-                String HDid = "";
-                ManagementClass mc = new ManagementClass("Win32_DiskDrive");
-                ManagementObjectCollection moc = mc.GetInstances();
-                foreach (ManagementObject mo in moc)
-                {
-                    return (string)mo.Properties["Model"].Value;
-                }
-                return "";
-            }
-            catch
-            {
-                return "";
+                promise.Resolve("");
             }
         }
 
