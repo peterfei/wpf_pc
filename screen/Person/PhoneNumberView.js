@@ -78,7 +78,6 @@ class PhoneNumberView extends Component {
         })
           .then(resp => resp.json())
           .then(result => {
-            console.log(JSON.stringify(result));
             if (result.code == 0) {
               this.Loading.show("验证码发送成功!");
               this.timer = setTimeout(() => {
@@ -86,6 +85,7 @@ class PhoneNumberView extends Component {
               }, 1000);
               shouldStartCountting(true);
             } else {
+              this.setUUID();
               this.Loading.show(result.msg);
               this.timer = setTimeout(() => {
                 this.Loading.close();
@@ -95,6 +95,7 @@ class PhoneNumberView extends Component {
           });
       } catch (error) {
         shouldStartCountting(false);
+        this.setUUID();
       }
     }
   };
@@ -141,6 +142,7 @@ class PhoneNumberView extends Component {
               }, 1000);
               shouldStartCountting(true);
             } else {
+              this.setUUID()
               this.Loading.show(result.msg);
               this.timer = setTimeout(() => {
                 this.Loading.close();
@@ -149,6 +151,7 @@ class PhoneNumberView extends Component {
             }
           });
       } catch (error) {
+        this.setUUID()
         shouldStartCountting(false);
       }
     }
@@ -180,7 +183,7 @@ class PhoneNumberView extends Component {
       .then(result => {
         //alert('短信验证' + JSON.stringify(result))
         if (result.result == "true") {
-          this.Loading.show("验证码正确");
+          // this.Loading.show("验证码正确");
           this.timer = setTimeout(() => {
             this.Loading.close();
           }, 1000);
@@ -189,6 +192,7 @@ class PhoneNumberView extends Component {
             bindingPhone: true
           });
         } else {
+          this.setUUID()
           this.Loading.show("验证码错误");
           this.timer = setTimeout(() => {
             this.Loading.close();
@@ -431,8 +435,8 @@ class PhoneNumberView extends Component {
               onChangeText={text => this.setState({ imgCode: text })}
             />
             <Image
-              source={{ uri: this.state.imgURL }}
-              style={{ width: 80, height: 25, marginLeft: 10 }}
+                source={{ uri: this.state.imgURL }}
+                style={{ width: 80, height: 25, marginLeft: 10 }}
             />
           </View>
           <View style={[styles.row, { marginTop: 16 }]}>
@@ -529,7 +533,8 @@ class PhoneNumberView extends Component {
     );
   }
   stepNext(PhoneNumber, Code) {
-    if (PhoneNumber == "" || Code == "") {
+    console.log(PhoneNumber+Code)
+    if (!(PhoneNumber != "" && Code != "")) {
       this.Loading.show("手机号/验证码不能为空");
       this.timer = setTimeout(() => {
         this.Loading.close();
