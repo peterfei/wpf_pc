@@ -183,7 +183,7 @@ class PhoneNumberView extends Component {
       .then(result => {
         //alert('短信验证' + JSON.stringify(result))
         if (result.result == "true") {
-          this.Loading.show("验证码正确");
+          // this.Loading.show("验证码正确");
           this.timer = setTimeout(() => {
             this.Loading.close();
           }, 1000);
@@ -533,7 +533,8 @@ class PhoneNumberView extends Component {
     );
   }
   stepNext(PhoneNumber, Code) {
-    if (PhoneNumber == "" || Code == "") {
+    console.log(PhoneNumber+Code)
+    if (!(PhoneNumber != "" && Code != "")) {
       this.Loading.show("手机号/验证码不能为空");
       this.timer = setTimeout(() => {
         this.Loading.close();
