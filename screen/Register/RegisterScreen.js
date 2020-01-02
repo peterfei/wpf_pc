@@ -33,7 +33,7 @@ export default class RegisterScreen extends Component {
     MacAddress: ""
   };
   async componentDidMount() {
-    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
+    let MacAddress = await NativeModules.DeviceInfoG.GetCpuID();
     this.setState({
       MacAddress: MacAddress
     });

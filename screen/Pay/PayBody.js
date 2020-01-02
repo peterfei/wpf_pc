@@ -235,13 +235,15 @@ class PayBody extends Component {
         <View style={[styles.main, color.borderBackground, color.lightBorder]}>
           <View style={[styles.bodyTop, color.lightBorderBottom]}>
             <Text style={font.font25}>{this.state.data.labelA}</Text>
-            <Text style={font.font20}>{this.state.data.labelB}</Text>
-            <Text style={font.font18NoBold}>{this.state.data.content}</Text>
-            <Text style={font.font20NoBoldRed}>原价￥{this.state.data.oldPrice}</Text>
+            <Text style={font.font20}>为了回馈新老用户一直以来对“维萨里3D解剖”产品的大力支持，满足用户在不同场景的使用。</Text>
+            <Text style={[font.font20,{fontWeight: 700}]}>新推出PC用户版，对新老用户满减500元！</Text>
+            {/*<Text style={font.font20}>{this.state.data.labelB}</Text>*/}
+            {/*<Text style={font.font18NoBold}>{this.state.data.content}</Text>*/}
+            {/*<Text style={font.font20NoBoldRed}>原价￥{this.state.data.oldPrice}</Text>*/}
           </View>
           <View style={styles.bodyBottom}>
-            <Text style={[styles.hint, font.font20]}>微信扫码付款</Text>
-            <Text style={font.font20NoBold}>应付金额：<Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text>
+            {/*<Text style={[styles.hint, font.font20]}>微信扫码付款</Text>*/}
+            <Text style={font.font20NoBold}><Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text>
             {/* <Image
               style={styles.payImg}
               source={{ uri: this.state.Img }}

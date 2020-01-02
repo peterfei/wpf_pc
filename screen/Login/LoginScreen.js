@@ -58,7 +58,6 @@ export default class LoginScreen extends Component {
     })
       .then(resp => resp.json())
       .then(result => {
-        // alert(JSON.stringify(result))
         if (result.msg == "success") {
           this.setState(
             {
@@ -71,7 +70,10 @@ export default class LoginScreen extends Component {
             warn: result.msg
           });
         }
-      });
+      })
+        .catch(err => {
+          console.log('请检查网络环境问题！')
+        })
   }
   listeners = {
     update: DeviceEventEmitter.addListener(

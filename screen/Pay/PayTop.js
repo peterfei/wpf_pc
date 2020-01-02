@@ -12,9 +12,9 @@ class PayTop extends Component {
     return (
       <View style={color.topBackground}>
         <View style={styles.top}>
-          <Text style={font.font30}>支付界面</Text>
+          <Text style={font.font30}>即刻拥有</Text>
           <TouchableOpacity style={styles.buttonImage}
-          onPress={() => { 
+          onPress={() => {
             this.props.navigation.dispatch(NavigationActions.back())
             // setTimeout(()=>{
             //   DeviceEventEmitter.emit("UnityWinEmitter", {
@@ -32,7 +32,7 @@ class PayTop extends Component {
     );
   }
 }
-  
+
 const styles = StyleSheet.create({
   container: {
     //flex: 1,
@@ -56,6 +56,5 @@ const styles = StyleSheet.create({
     height:70/2,
   }
 });
-  
+
   module.exports = PayTop;
-  

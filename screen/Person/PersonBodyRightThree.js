@@ -98,10 +98,10 @@ class PersonBodyRightThree extends Component {
         </View>
         <View style={styles.main}>
           {this._renderMac()}
-          <TouchableOpacity style={styles.button}
-            onPress={() => this.Loading.alertChoose('确定解绑所有设备')}  >
-            <Text style={[font.font18NoBoldBlue, { fontSize: 18 }]}>解绑所有设备</Text>
-          </TouchableOpacity>
+          {/*<TouchableOpacity style={styles.button}*/}
+          {/*  onPress={() => this.Loading.alertChoose('确定解绑所有设备')}  >*/}
+          {/*  <Text style={[font.font18NoBoldBlue, { fontSize: 18 }]}>解绑所有设备</Text>*/}
+          {/*</TouchableOpacity>*/}
           <Loading ref={r => { this.Loading = r }} hide={true} yes={()=>{this.Loading.no();this.clearCurrMbDeviceIds()}} navigation={this.props.navigation} />
           <Loading ref={r => { this.Loading2 = r }} hide={true} />
         </View>

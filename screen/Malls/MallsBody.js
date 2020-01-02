@@ -86,11 +86,11 @@ class MallsBody extends Component {
       itemArr.push(
         <View key={i} style={{ flex: 1, margin: 0, marginLeft: 10, marginRight: 10 }}>
           <View style={[styles.commodityInformation, color.borderBackground, { width: this.state.width * 0.3 }]}>
-            <Text style={font.font25}>{data[i].comboName}</Text>
-            <Text style={font.font20NoBold}>{data[i].labelA}</Text>
-            <Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>
+            <Text style={font.font25}>系统解剖全集</Text>
+            {/*<Text style={font.font20NoBold}>{data[i].labelA}</Text>*/}
+            {/*<Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>*/}
             <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
-              <Text style={font.font18NoBold}>立即购买</Text>
+              <Text style={font.font18NoBold}>立即使用</Text>
             </TouchableOpacity>
           </View>
         </View>
