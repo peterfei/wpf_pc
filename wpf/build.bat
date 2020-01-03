@@ -20,7 +20,7 @@ rem 删除版本文件 delete ReleaseBundle
 rd /Q /S %mainAssetsPath%
 
 rem 1. 创建window原生应用程序 re-build-x86-releasebundle bin file
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Tools\VsDevCmd.bat"
+call "D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
 msbuild /p:Configuration=ReleaseBundle;Platform=x86 /target:Clean;Rebuild
 
 rem 2. 导出react bundle文件 export react-native bundle! copy ReactAssets to releasebundle 
