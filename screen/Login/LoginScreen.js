@@ -39,12 +39,12 @@ export default class LoginScreen extends Component {
     this.setState({
       warn: "登录中……"
     });
-    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
+    let addressId = await NativeModules.DeviceInfoG.GetCpuID();
     //接口发送参数
     let body = {
       tellAndEmail: this.state.userName,
       password: this.state.password,
-      device_id: MacAddress,
+      device_id: addressId,
       business: "pc"
     };
     //接口URL
@@ -72,7 +72,9 @@ export default class LoginScreen extends Component {
         }
       })
         .catch(err => {
-          console.log('请检查网络环境问题！')
+          this.setState({
+            warn: '请检查您的网络环境'
+          });
         })
   }
   listeners = {

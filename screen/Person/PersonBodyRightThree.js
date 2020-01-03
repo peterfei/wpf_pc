@@ -20,7 +20,7 @@ class PersonBodyRightThree extends Component {
   }
   async componentDidMount() {
     this.currMbAllDeviceIds();
-    let MacAddress = await NativeModules.DeviceInfoG.GetFirstMacAddress();
+    let MacAddress = await NativeModules.DeviceInfoG.GetCpuID();
     this.setState({
       MacAddress: MacAddress
     })
