@@ -4,6 +4,7 @@ import {
   TouchableOpacity, ScrollView, AsyncStorage, DeviceEventEmitter, TextInput, NativeModules, Alert
 } from "react-native";
 import { StackActions, NavigationActions } from 'react-navigation';
+import CouponCell from "../common/CouponCell";
 
 import { color } from "./index";
 import { font } from "../Public";
@@ -36,6 +37,12 @@ class PayBody extends Component {
       userName: '',
       mbHeadUrl: '',
       mbIdentity: '',
+      loadingQRCode: false,
+      showSpecialPrices: false,
+      coupon: null,
+      isOldUser: false,
+      couponId: null,
+      subtractPrice: 0
     }
     that = this;
   }
@@ -51,6 +58,7 @@ class PayBody extends Component {
       mbIdentity: mbIdentity == 1 ? '学生' : mbIdentity == 2 ? '教师' : mbIdentity == 3 ? '医生' : mbIdentity == 4 ? '游客' : '普通用户'
     })
     this.comboDetail()
+    this.checkIsOldUser()
   }
 
   initInterval() {
@@ -126,6 +134,30 @@ class PayBody extends Component {
     this.timer && clearTimeout(this.timer);
   }
 
+  async checkIsOldUser(){
+    let token = await storage.get("token", "")
+    let url = api.base_uri + 'pc/order/isOldUser?token=' + token
+    await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(resp => resp.json())
+        .then(res => {
+          if (res.code == 0 && res.isOldUser.toString() === 'true') {
+            // alert('查询出来的数据：' + JSON.stringify(res))
+            let obj = res.coupon
+            let coupon = {isSelect: false, couponPrice: obj.subtract_price, getTime: '', expirTime: obj.over_time, couponId: obj.coupon_id}
+            this.setState({
+              isOldUser: res.isOldUser,
+              coupon: coupon,
+              couponId: obj.coupon_id,
+              subtractPrice: obj.subtract_price
+            })
+          }
+        })
+  }
+
   async comboDetail() {
     // 接口发送参数
     // 接口URL
@@ -142,7 +174,8 @@ class PayBody extends Component {
         if (result.msg == 'success') {
           if (result.comboPrices[0] !== '') {
             this.setState({
-              data: result.comboPrices[0]
+              data: result.comboPrices[0],
+              loadingQRCode: true
             }, () => {
               that.insertOrder()
             })
@@ -150,6 +183,42 @@ class PayBody extends Component {
         }
       })
   }
+
+  async newInsertOrder() {
+    // 接口发送参数
+    // 接口URL
+    let comboId = this.props.comboId
+    let priceId = this.state.data.priceId
+    let couponId = this.state.couponId
+    let token = await storage.get("token", "")
+    let body = {
+      "priceId": priceId,
+      "comboId": comboId,
+      "couponIds": couponId,
+      "ordRes": "pc",
+      "remark": "订单创建",
+      "business": "anatomy"
+    }
+
+    let url = api.base_uri + '/v1/app/order/newAddOrder?token=' + token
+    await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    })
+        .then(resp => resp.json())
+        .then(result => {
+          this.setState({
+            ordNo: result.order.ordNo
+          }, () => {
+            that.getNativeQRCode();
+            that.initInterval()
+          })
+        })
+  }
+
   async insertOrder() {
     // 接口发送参数
     // 接口URL
@@ -160,7 +229,7 @@ class PayBody extends Component {
       "priceId": priceId,
       "comboId": comboId,
       "ordRes": "pc",
-      "remark": "测试",
+      "remark": "PC订单",
       "business": "anatomy"
     }
     let url = api.base_uri + "pc/order/insertOrder?token=" + token
@@ -204,6 +273,7 @@ class PayBody extends Component {
     let token = await storage.get("token", "")
     let url = api.base_uri + "pc/pay/getNativeQRCode?token=" + token + "&ordNo=" + this.state.ordNo + "&business=anatomy"
     this.setState({
+      loadingQRCode: false,
       ImgUrl: url
     })
     //alert(this.state.ImgUrl)
@@ -211,6 +281,18 @@ class PayBody extends Component {
 
   changeID() {
     this.Loading.alertChoose('确定切换账号');
+  }
+  resetSelectStatus(coupon) {
+    this.setState({
+      showSpecialPrices: !this.state.showSpecialPrices,
+      loadingQRCode: true,
+      coupon: coupon
+    })
+    if (coupon.isSelect.toString() === 'true') {
+      this.newInsertOrder()
+    } else {
+      this.insertOrder()
+    }
   }
   render() {
     return (
@@ -243,13 +325,25 @@ class PayBody extends Component {
           </View>
           <View style={styles.bodyBottom}>
             {/*<Text style={[styles.hint, font.font20]}>微信扫码付款</Text>*/}
-            <Text style={font.font20NoBold}><Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text>
+            {this.state.showSpecialPrices ? <Text style={[font.font20NoBold, {textDecorationLine: 'line-through'}]}><Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text> : null}
+            <Text style={font.font20NoBold}><Text style={font.font20NoBoldRed}>￥{this.state.showSpecialPrices ? parseFloat(this.state.data.sellPrice) - parseFloat(this.state.subtractPrice) : this.state.data.sellPrice}</Text></Text>
             {/* <Image
               style={styles.payImg}
               source={{ uri: this.state.Img }}
             /> */}
+
             {
-              this.state.ImgUrl.length > 0 ?
+              this.state.isOldUser ? <CouponCell
+                  type='action'
+                  coupon={this.state.coupon}
+                  selectAction={(coupon) => {
+                    this.resetSelectStatus(coupon)
+                  }}
+              /> : null
+            }
+
+            {
+              !this.state.loadingQRCode ?
                 <View style={{ height: 150, width: 150 }}>
                   <Image style={styles.payImg} source={{ uri: this.state.ImgUrl }} />
                 </View>
