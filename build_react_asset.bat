@@ -1,0 +1,1 @@
+react-native bundle --platform windows --entry-file index.js --dev false --bundle-output wpf/Vesal_PC/ReactAssets\/index.wpf.bundle  --assets-dest wpf/Vesal_PC/ReactAssets/
