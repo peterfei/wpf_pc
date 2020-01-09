@@ -42,6 +42,9 @@ class PayBody extends Component {
       coupon: null,
       isOldUser: false,
       couponId: null,
+      couponExpires: false, // 优惠券是否过期
+      couponExpirTime: '', // 套餐到期时间
+      isUseCoupon: false,
       subtractPrice: 0
     }
     that = this;
@@ -148,12 +151,28 @@ class PayBody extends Component {
             // alert('查询出来的数据：' + JSON.stringify(res))
             let obj = res.coupon
             let coupon = {isSelect: false, couponPrice: obj.subtract_price, getTime: '', expirTime: obj.over_time, couponId: obj.coupon_id}
-            this.setState({
-              isOldUser: res.isOldUser,
-              coupon: coupon,
-              couponId: obj.coupon_id,
-              subtractPrice: obj.subtract_price
-            })
+            let url = api.base_uri + 'pc/order/isUseCoupon?token=' + token + '&couponId='+obj.coupon_id
+            fetch(url, {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }).then(resp => resp.json())
+                .then(result => {
+                  if (result.code === 0) {
+                    let currTime = new Date(obj.over_time)
+                    let expirTime = new Date()
+                    this.setState({
+                      isOldUser: res.isOldUser,
+                      coupon: coupon,
+                      couponExpires: currTime.getTime() < expirTime.getTime(),
+                      couponId: obj.coupon_id,
+                      subtractPrice: obj.subtract_price,
+                      isUseCoupon: result.isUseCoupon
+                    })
+                  }
+                })
+
           }
         })
   }
@@ -196,7 +215,7 @@ class PayBody extends Component {
       "comboId": comboId,
       "couponIds": couponId,
       "ordRes": "pc",
-      "remark": "订单创建",
+      "remark": couponId,
       "business": "anatomy"
     }
 
@@ -333,7 +352,7 @@ class PayBody extends Component {
             /> */}
 
             {
-              this.state.isOldUser ? <CouponCell
+              (this.state.isOldUser.toString() === 'true' && this.state.couponExpires.toString() === 'false' && this.state.isUseCoupon.toString() === 'true') ? <CouponCell
                   type='action'
                   coupon={this.state.coupon}
                   selectAction={(coupon) => {
