@@ -76,6 +76,7 @@ class PersonBodyRightThree extends Component {
         }
       })
         .catch(err => {
+          this.Loading.close()
           this.Loading.autoClose("请检查您的网络环境！")
         })
   }

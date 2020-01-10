@@ -53,7 +53,7 @@ export default class Loading extends Component {
                     modalVisible: false
                 })
                 // alert(11111)
-            }, 1000)
+            }, 3000)
         })
 
     }
