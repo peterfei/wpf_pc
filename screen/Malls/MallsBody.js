@@ -35,7 +35,6 @@ class MallsBody extends Component {
     }).then(resp => resp.json())
       .then(result => {
         // alert(JSON.stringify(result.page.list))
-        this.Loading.close();
         this.setState({
           data: result.page.list,
           pageNum:result.page.list.length
@@ -52,12 +51,10 @@ class MallsBody extends Component {
         }
       })
         .catch(err => {
-          this.Loading.close()
           this.Loading.autoClose('请检查您的网络环境！')
         })
   }
   async componentDidMount() {
-    this.Loading.show('加载中……');
     let token = await storage.get("token", "")
     // this.time = await setInterval(
     //   () => {

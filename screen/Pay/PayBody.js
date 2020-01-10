@@ -45,7 +45,8 @@ class PayBody extends Component {
       couponExpires: false, // 优惠券是否过期
       couponExpirTime: '', // 套餐到期时间
       isUseCoupon: false,
-      subtractPrice: 0
+      subtractPrice: 0,
+      isConn: true, // 网络是否连接
     }
     that = this;
   }
@@ -240,6 +241,9 @@ class PayBody extends Component {
           })
         })
         .catch(err => {
+           this.setState({
+             isConn: false
+           })
             this.Loading.autoClose("请检查您的网络环境！")
         })
   }
@@ -332,25 +336,28 @@ class PayBody extends Component {
             <Text style={font.font18}>{this.state.userName}</Text>
             <Text style={font.font18}>{this.state.mbIdentity}</Text>
           </View>
-          <View>
-            <TouchableOpacity onPress={() => this.changeID()}>
-              <Text style={[font.font18, styles.changeID]}>切换账号</Text>
-            </TouchableOpacity>
-          </View>
+          {/*<View>*/}
+          {/*  <TouchableOpacity onPress={() => this.changeID()}>*/}
+          {/*    <Text style={[font.font18, styles.changeID]}>切换账号</Text>*/}
+          {/*  </TouchableOpacity>*/}
+          {/*</View>*/}
         </View>
 
         <View style={[styles.main, color.borderBackground, color.lightBorder]}>
           <View style={[styles.bodyTop, color.lightBorderBottom]}>
             <Text style={font.font25}>{this.state.data.labelA}</Text>
-            <Text style={font.font20}>为了回馈新老用户一直以来对“维萨里3D解剖”产品的大力支持，满足用户在不同场景的使用。</Text>
-            <Text style={[font.font20,{fontWeight: 700}]}>新推出PC用户版，对新老用户满减500元！</Text>
+            {this.state.isConn ? <Text style={font.font20}>为了回馈新老用户一直以来对“维萨里3D解剖”产品的大力支持，满足用户在不同场景的使用。</Text> : ''}
+            {this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>新推出PC用户版，对新老用户满减500元！</Text> : ''}
+            {!this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>暂无数据！</Text> : ''}
+
+
             {/*<Text style={font.font20}>{this.state.data.labelB}</Text>*/}
             {/*<Text style={font.font18NoBold}>{this.state.data.content}</Text>*/}
             {/*<Text style={font.font20NoBoldRed}>原价￥{this.state.data.oldPrice}</Text>*/}
           </View>
           <View style={styles.bodyBottom}>
             {/*<Text style={[styles.hint, font.font20]}>微信扫码付款</Text>*/}
-            {this.state.showSpecialPrices ? <Text style={[font.font20NoBold, {textDecorationLine: 'line-through'}]}><Text style={font.font20NoBoldRed}>￥{this.state.data.sellPrice}</Text></Text> : null}
+            {this.state.showSpecialPrices ? <Text style={[font.font20NoBold, {textDecorationLine: 'line-through'}]}><Text style={font.font20NoBoldRed}>￥{this.state.isConn ? this.state.data.sellPrice : '暂无数据'}</Text></Text> : null}
             <Text style={font.font20NoBold}><Text style={font.font20NoBoldRed}>￥{this.state.showSpecialPrices ? parseFloat(this.state.data.sellPrice) - parseFloat(this.state.subtractPrice) : this.state.data.sellPrice}</Text></Text>
             {/* <Image
               style={styles.payImg}
