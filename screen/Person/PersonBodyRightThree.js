@@ -17,6 +17,7 @@ class PersonBodyRightThree extends Component {
   state = {
     deviceIds: '',
     MacAddress: '',
+    isConn: true
   }
   async componentDidMount() {
     this.currMbAllDeviceIds();
@@ -78,6 +79,9 @@ class PersonBodyRightThree extends Component {
       })
         .catch(err => {
           this.Loading.close()
+          this.setState({
+              isConn: false
+          })
           this.Loading.autoClose("请检查您的网络环境！")
         })
   }
@@ -105,7 +109,7 @@ class PersonBodyRightThree extends Component {
           <Text style={font.font20}>|&nbsp;&nbsp;Mac地址</Text>
         </View>
         <View style={styles.main}>
-          {this._renderMac()}
+          {this.state.isConn ? this._renderMac() : null}
           {/*<TouchableOpacity style={styles.button}*/}
           {/*  onPress={() => this.Loading.alertChoose('确定解绑所有设备')}  >*/}
           {/*  <Text style={[font.font18NoBoldBlue, { fontSize: 18 }]}>解绑所有设备</Text>*/}

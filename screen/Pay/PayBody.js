@@ -365,7 +365,7 @@ class PayBody extends Component {
             /> */}
 
             {
-              (this.state.isOldUser.toString() === 'true' && this.state.couponExpires.toString() === 'false' && this.state.isUseCoupon.toString() === 'true') ? <CouponCell
+              (this.state.isOldUser.toString() === 'true' && this.state.couponExpires.toString() === 'false' && this.state.isUseCoupon.toString() === 'false') ? <CouponCell
                   type='action'
                   coupon={this.state.coupon}
                   selectAction={(coupon) => {

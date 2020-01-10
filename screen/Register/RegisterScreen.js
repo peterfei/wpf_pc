@@ -9,6 +9,7 @@ import {
   ImageBackground,
   TextInput,
   DeviceEventEmitter,
+  NetInfo,
   NativeModules
 } from "react-native";
 import color from "../Person/color";
@@ -30,7 +31,8 @@ export default class RegisterScreen extends Component {
     imgURL: "", //接收接口返回的图形码
     uuid: "", //随机生成的数字,
     code: "", // 图形验证码
-    MacAddress: ""
+    MacAddress: "",
+    isConn: true
   };
   async componentDidMount() {
     let MacAddress = await NativeModules.DeviceInfoG.GetCpuID();
@@ -50,10 +52,26 @@ export default class RegisterScreen extends Component {
       guid += n;
     }
     let url = api.base_uri + "appCaptcha?uuid=" + guid;
+    if (!this.checkImgExists(url)) {
+      this.setState({
+        isConn: false
+      })
+    }
     this.setState({
       imgURL: url,
       uuid: guid
     });
+  }
+
+  checkImgExists(imgUrl) {
+    let imgObj = new Image()
+    imgUrl.src = imgUrl
+    //存在图片
+    if (imgObj.fileSize > 0 || (imgObj.width > 0 && imgObj.height > 0)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async register() {
@@ -168,6 +186,13 @@ export default class RegisterScreen extends Component {
       }
     }
   };
+  netInfo() {
+    NetInfo.fetch().done((connectionInfo) => {
+      if (connectionInfo === 'None') {
+        this.Loading.autoClose('请检查您的网络环境！')
+      }
+    });
+  }
 
   warnPhone(text) {
     this.setState({ phoneNumber: text });
@@ -211,6 +236,7 @@ export default class RegisterScreen extends Component {
               <TextInput
                 style={[styles.textInput, font.font20NoBoldGray]}
                 maxLength={11}
+                onBlur={() => this.netInfo()}
                 placeholder="手机号"
                 placeholderTextColor="rgb(78,78,78)"
                 onChangeText={text => {
@@ -226,6 +252,7 @@ export default class RegisterScreen extends Component {
               <TextInput
                 style={[styles.textInput, font.font20NoBoldGray]}
                 maxLength={6}
+                onBlur={() => this.netInfo()}
                 placeholder="输入图形码"
                 placeholderTextColor="rgb(78,78,78)"
                 onChangeText={text => this.setState({ code: text })}

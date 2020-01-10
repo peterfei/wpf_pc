@@ -127,7 +127,7 @@ class PersonBodyRightOne extends Component {
               onPress={() => {
                 this.change(this.refs.userName);
               }}>
-              绑定
+              修改
             </Text>
           </View>
           <View style={[styles.mainBodyContent, { width: "50%" }]}>
