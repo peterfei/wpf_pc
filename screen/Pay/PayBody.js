@@ -346,9 +346,9 @@ class PayBody extends Component {
         <View style={[styles.main, color.borderBackground, color.lightBorder]}>
           <View style={[styles.bodyTop, color.lightBorderBottom]}>
             <Text style={font.font25}>{this.state.data.labelA}</Text>
-            {this.state.isConn ? <Text style={font.font20}>为了回馈新老用户一直以来对“维萨里3D解剖”产品的大力支持，满足用户在不同场景的使用。</Text> : ''}
-            {this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>新推出PC用户版，对新老用户满减500元！</Text> : ''}
-            {!this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>暂无数据！</Text> : ''}
+            {this.state.isConn ? <Text style={font.font20}>为了回馈新老用户一直以来对“维萨里3D解剖”产品的大力支持，满足用户在不同场景的使用。</Text> : <Text />}
+            {this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>新推出PC用户版，对新老用户满减500元！</Text> : <Text />}
+            {!this.state.isConn ? <Text style={[font.font20,{fontWeight: 700}]}>暂无数据！</Text> : <Text />}
 
 
             {/*<Text style={font.font20}>{this.state.data.labelB}</Text>*/}
