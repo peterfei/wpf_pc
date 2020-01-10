@@ -59,6 +59,9 @@ class PasswordView extends Component {
             }, 1000);
           }
         })
+          .catch(err => {
+            this.Loading.autoClose("请检查您的网络环境！")
+          })
     }
 
   }

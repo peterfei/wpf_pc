@@ -100,7 +100,10 @@ class PersonBodyRightOne extends Component {
           }, 1000);
           this.setState({});
         }
-      });
+      })
+        .catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
 
   main() {

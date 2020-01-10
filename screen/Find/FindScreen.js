@@ -214,7 +214,7 @@ export default class FindScreen extends Component {
               <ImageBackground
                 style={styles.button}
                 source={require("../img/loading/button.png")}>
-                <Text style={font.font20}>登录</Text>
+                <Text style={font.font20}>确认修改</Text>
               </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.change()}>

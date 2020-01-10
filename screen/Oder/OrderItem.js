@@ -39,7 +39,7 @@ export default class OrderItem extends Component {
   async myOrder(nowBottomIndex) {
     this.Loading.show('加载中……');
     let token = await storage.get("token", "")
-    let url = api.base_uri + "/pc/order/myOrder?business=anatomy&limit=4&token=" + token + "&ordState=" + this.props.orderState + '&page=' + nowBottomIndex
+    let url = api.base_uri + "/pc/order/myOrder?business=anatomy&limit=6&token=" + token + "&ordState=" + this.props.orderState + '&page=' + nowBottomIndex
     await fetch(url, {
       method: "get",
       headers: {
@@ -56,6 +56,9 @@ export default class OrderItem extends Component {
           this.props.getOrderNumber(result.page.totalPage)
         }
       })
+        .catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
 
   _renderCell() {

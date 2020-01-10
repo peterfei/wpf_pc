@@ -201,6 +201,9 @@ class PayBody extends Component {
           }
         }
       })
+        .catch(err=>{
+            this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
 
   async newInsertOrder() {
@@ -235,6 +238,9 @@ class PayBody extends Component {
             that.getNativeQRCode();
             that.initInterval()
           })
+        })
+        .catch(err => {
+            this.Loading.autoClose("请检查您的网络环境！")
         })
   }
 

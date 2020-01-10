@@ -104,7 +104,10 @@ export default class RegisterScreen extends Component {
               this.Loading.close();
             }, 1000);
           }
-        });
+        })
+          .catch(err => {
+            this.Loading.autoClose("请检查您的网络环境")
+          })
     }
   }
   shouldStartCountdown = async shouldStartCountting => {
@@ -310,6 +313,7 @@ export default class RegisterScreen extends Component {
           }}
           hide={true}
         />
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }

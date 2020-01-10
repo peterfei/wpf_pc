@@ -47,6 +47,9 @@ class PersonBodyRightThree extends Component {
           deviceIds: result.deviceIds
         })
       })
+        .catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
   async clearCurrMbDeviceIds() {
     let token = await storage.get("token", "")
@@ -72,6 +75,9 @@ class PersonBodyRightThree extends Component {
           }, 1000);
         }
       })
+        .catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
 
   _renderMac() {

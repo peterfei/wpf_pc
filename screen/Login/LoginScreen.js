@@ -17,6 +17,7 @@ import color from "../Person/color";
 import { font } from "../Public";
 import CryptoJS from "crypto-js";
 import { storage } from "../Public/storage";
+import Loading from '../common/Loading'
 import _ from "lodash";
 //登陆页面
 export default class LoginScreen extends Component {
@@ -72,6 +73,8 @@ export default class LoginScreen extends Component {
         }
       })
         .catch(err => {
+          // alert('请检查网络环境')
+          this.Loading.autoClose('请检查您的网络环境!')
           this.setState({
             warn: '请检查您的网络环境'
           });
@@ -284,6 +287,7 @@ export default class LoginScreen extends Component {
           source={require("../img/loading/bg.png")}>
           <View style={styles.main}>{this.Login()}</View>
         </ImageBackground>
+        <Loading ref={r => { this.Loading = r }} hide={true} />
       </View>
     );
   }

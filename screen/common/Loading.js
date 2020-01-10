@@ -42,6 +42,22 @@ export default class Loading extends Component {
         this.setState({ modalVisible: true, title: title });
     }
 
+    autoClose(title) {
+        let that = this
+        this.setState({
+            modalVisible: true, title: title
+        }, () => {
+            // alert(this.state.modalVisible);
+            setTimeout(function () {
+                that.setState({
+                    modalVisible: false
+                })
+                // alert(11111)
+            }, 1000)
+        })
+
+    }
+
     alertChoose(title) {
         this.setState({ alertChoose: true, title: title });
     }

@@ -94,6 +94,7 @@ class PhoneNumberView extends Component {
             }
           });
       } catch (error) {
+        this.Loading.autoClose("请检查您的网络环境！")
         shouldStartCountting(false);
         this.setUUID();
       }
@@ -151,6 +152,7 @@ class PhoneNumberView extends Component {
             }
           });
       } catch (error) {
+        this.Loading.autoClose("请检查您的网络环境！")
         this.setUUID()
         shouldStartCountting(false);
       }
@@ -198,7 +200,10 @@ class PhoneNumberView extends Component {
             this.Loading.close();
           }, 1000);
         }
-      });
+      })
+        .catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
   async changeTellNumber() {
     let token = await storage.get("token", "");
@@ -244,7 +249,9 @@ class PhoneNumberView extends Component {
             this.Loading.close();
           }, 1000);
         }
-      });
+      }).catch(err => {
+          this.Loading.autoClose("请检查您的网络环境！")
+        })
   }
   render() {
     return (
