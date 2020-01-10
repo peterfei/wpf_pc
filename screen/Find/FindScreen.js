@@ -73,7 +73,10 @@ export default class FindScreen extends Component {
           this.setState({
             warn: ""
           });
-        });
+        })
+          .catch(err => {
+            this.Loading.close()
+          })
     }
   }
   shouldStartCountdown = async shouldStartCountting => {
@@ -114,6 +117,7 @@ export default class FindScreen extends Component {
             }
           });
       } catch (error) {
+        this.Loading.autoClose('请检查您的网络环境！')
         shouldStartCountting(false);
       }
     }

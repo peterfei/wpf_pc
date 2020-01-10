@@ -162,6 +162,7 @@ export default class RegisterScreen extends Component {
             }
           });
       } catch (error) {
+        this.Loading.autoClose('请检查您的网络环境！')
         this.setUUID()
         shouldStartCountting(false);
       }
