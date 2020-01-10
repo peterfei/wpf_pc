@@ -91,7 +91,7 @@ class MallsBody extends Component {
             {/*<Text style={font.font20NoBold}>{data[i].labelA}</Text>*/}
             {/*<Text style={font.font20NoBoldRed}>￥{data[i].sellPrice}/年</Text>*/}
             <TouchableOpacity onPress={() => this.change(data[i].comboId)} style={styles.button}>
-              <Text style={font.font18NoBold}>立即使用</Text>
+              <Text style={font.font18NoBold}>立即购买</Text>
             </TouchableOpacity>
           </View>
         </View>
