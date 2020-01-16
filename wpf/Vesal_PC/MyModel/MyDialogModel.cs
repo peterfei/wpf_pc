@@ -810,7 +810,7 @@ namespace VesalPCVip.MyModel
             File.Delete(configPath);
             using (FileStream fileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                byte[] buffer = Encoding.Default.GetBytes(JsonConvert.SerializeObject(_patch));
+                byte[] buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_patch));
                 fileStream.Write(buffer, 0, buffer.Length);
             }
             Console.WriteLine("更新配置文件完成");
@@ -892,7 +892,7 @@ namespace VesalPCVip.MyModel
             File.Delete(configPath);
             using (FileStream fileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                byte[] buffer = Encoding.Default.GetBytes(JsonConvert.SerializeObject(_patch));
+                byte[] buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_patch));
                 fileStream.Write(buffer, 0, buffer.Length);
             }
 
